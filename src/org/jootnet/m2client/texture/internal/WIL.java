@@ -19,7 +19,7 @@ final class WIL implements ImageLibrary {
 	/**
 	 * 是否只用WIL中的数据解析图片，而不看WIX的内容
 	 */
-	public static boolean GLOBAL_ONLYWIL_MODE = true;
+	public static boolean GLOBAL_ONLYWIL_MODE = false;
 	
 	private int imageCount;
 	/**

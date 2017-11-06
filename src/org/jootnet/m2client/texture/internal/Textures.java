@@ -3,6 +3,7 @@ package org.jootnet.m2client.texture.internal;
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -13,7 +14,6 @@ import org.jootnet.m2client.util.SDK;
 public final class Textures {
 
 	private static Map<String, ImageLibrary> libraries = new HashMap<String, ImageLibrary>();
-	private static Object lib_locker = new Object();
 	
 	/**
 	 * 从指定路径中解析出一个图片库并存入内存缓存
@@ -23,37 +23,35 @@ public final class Textures {
 	 * @return 图片库对象
 	 */
 	static final ImageLibrary get(String libName) {
-		synchronized (lib_locker) {
-			if(libraries.containsKey(libName))
-				return libraries.get(libName);
-			try{
-				String libPath = System.getProperty("org.jootnet.m2client.data.dir", System.getProperty("user.dir"));
-				if(!libPath.endsWith(File.separator))
-					libPath += File.separator;
-				libPath += libName;
-				String wzlPath = SDK.changeFileExtension(libPath, "wzl");
-				WZL wzl = new WZL(wzlPath);
-				if(wzl.isLoaded()) {
-					libraries.put(libName, wzl);
-					return wzl;
-				}
-				String wisPath = SDK.changeFileExtension(libPath, "wis");
-				WIS wis = new WIS(wisPath);
-				if(wis.isLoaded()) {
-					libraries.put(libName, wis);
-					return wis;
-				}
-				String wilPath = SDK.changeFileExtension(libPath, "wil");
-				WIL wil = new WIL(wilPath);
-				if(wil.isLoaded()) {
-					libraries.put(libName, wil);
-					return wil;
-				}
-				return null;
-			}catch(RuntimeException ex) {
-				ex.printStackTrace();
-				return null;
+		if(libraries.containsKey(libName))
+			return libraries.get(libName);
+		try{
+			String libPath = System.getProperty("org.jootnet.m2client.data.dir", System.getProperty("user.dir"));
+			if(!libPath.endsWith(File.separator))
+				libPath += File.separator;
+			libPath += libName;
+			String wzlPath = SDK.changeFileExtension(libPath, "wzl");
+			WZL wzl = new WZL(wzlPath);
+			if(wzl.isLoaded()) {
+				libraries.put(libName, wzl);
+				return wzl;
 			}
+			String wisPath = SDK.changeFileExtension(libPath, "wis");
+			WIS wis = new WIS(wisPath);
+			if(wis.isLoaded()) {
+				libraries.put(libName, wis);
+				return wis;
+			}
+			String wilPath = SDK.changeFileExtension(libPath, "wil");
+			WIL wil = new WIL(wilPath);
+			if(wil.isLoaded()) {
+				libraries.put(libName, wil);
+				return wil;
+			}
+			return null;
+		}catch(RuntimeException ex) {
+			ex.printStackTrace();
+			return null;
 		}
 	}
 
@@ -70,20 +68,23 @@ public final class Textures {
 		@Override
 		public void run() {
 			while(true) {
-				boolean allDone = true;
-				for(TextureLoader l : texLoaders) {
-					if(!l.update())
-						allDone = false;
-				}
-				if(allDone) break;
-				try {
-					Thread.sleep(15);
-				} catch (InterruptedException e) {
+				synchronized (tex_locker) {
+					boolean allDone = true;
+					for(TextureLoader l : texLoaders) {
+						if(!l.update())
+							allDone = false;
+					}
+					if(allDone) break;
+					updateThread = null;
+					try {
+						Thread.sleep(15);
+					} catch (InterruptedException e) {
+					}
 				}
 			}
 		}
 	}
-	private static UpdateThread updateThread = new UpdateThread();
+	private static UpdateThread updateThread = null;
 	private static String buildKey(String dataFileName, int index) {
 		return ((char)(dataFileName.length() + '0')) + dataFileName + index;
 	}
@@ -124,8 +125,78 @@ public final class Textures {
 				texLoaders.add(loader);
 			}
 			loader.load(index);
-			if(!updateThread.isAlive())
-				updateThread.start();
+			if(updateThread == null)
+				(updateThread = new UpdateThread()).start();
+		}
+	}
+	/**
+	 * 异步读取多张张纹理到缓存
+	 * <br>
+	 * 需要获取这张纹理的话请使用{@link #getTextureFromCache(String, int) getTextureFromCache}函数
+	 * 
+	 * @param dataFileName
+	 * 		纹理所在图片库名称
+	 * @param index数组
+	 * 		纹理索引
+	 * @see #isTextureInLoad(String, int)
+	 * @see #isTextureInCache(String, int)
+	 */
+	public static void loadTextureAsync(String dataFileName, int[] index) {
+		if(index == null || index.length < 1) return;
+		synchronized (tex_locker) {
+			TextureLoader loader = null;
+			boolean containFlag = false;
+			for(TextureLoader l : texLoaders) {
+				if(l.getDataFileName().equals(dataFileName)) {
+					containFlag = true;
+					loader = l;
+					break;
+				}
+			}
+			if(!containFlag) {
+				loader = new TextureLoader(dataFileName);
+				texLoaders.add(loader);
+			}
+			for(int idx : index) {
+				loader.load(idx);
+			}
+			if(updateThread == null)
+				(updateThread = new UpdateThread()).start();
+		}
+	}
+	/**
+	 * 异步读取多张张纹理到缓存
+	 * <br>
+	 * 需要获取这张纹理的话请使用{@link #getTextureFromCache(String, int) getTextureFromCache}函数
+	 * 
+	 * @param dataFileName
+	 * 		纹理所在图片库名称
+	 * @param index数组
+	 * 		纹理索引
+	 * @see #isTextureInLoad(String, int)
+	 * @see #isTextureInCache(String, int)
+	 */
+	public static void loadTextureAsync(String dataFileName, List<Integer> index) {
+		if(index == null || index.isEmpty()) return;
+		synchronized (tex_locker) {
+			TextureLoader loader = null;
+			boolean containFlag = false;
+			for(TextureLoader l : texLoaders) {
+				if(l.getDataFileName().equals(dataFileName)) {
+					containFlag = true;
+					loader = l;
+					break;
+				}
+			}
+			if(!containFlag) {
+				loader = new TextureLoader(dataFileName);
+				texLoaders.add(loader);
+			}
+			for(int idx : index) {
+				loader.load(idx);
+			}
+			if(updateThread == null)
+				(updateThread = new UpdateThread()).start();
 		}
 	}
 	
