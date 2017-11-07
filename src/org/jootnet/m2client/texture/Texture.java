@@ -580,7 +580,7 @@ public final class Texture implements Cloneable {
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
 					pixels[_idx_this] = (byte) (tar.pixels[_idx_that] * alpha);
 					pixels[_idx_this + 1] = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					pixels[_idx_this + 2] = (byte) (tar.pixels[_idx_that + 2] * alpha);
@@ -637,7 +637,7 @@ public final class Texture implements Cloneable {
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
 					byte _r = tar.pixels[_idx_that];
 					byte _g = tar.pixels[_idx_that + 1];
 					byte _b = tar.pixels[_idx_that + 2];
@@ -693,7 +693,7 @@ public final class Texture implements Cloneable {
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
 					byte r = (byte) (tar.pixels[_idx_that] * alpha);
 					byte g = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					byte b = (byte) (tar.pixels[_idx_that + 2] * alpha);
@@ -753,7 +753,7 @@ public final class Texture implements Cloneable {
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
 					byte _r = (byte) (tar.pixels[_idx_that] * alpha);
 					byte _g = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					byte _b = (byte) (tar.pixels[_idx_that + 2] * alpha);
