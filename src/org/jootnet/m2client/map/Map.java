@@ -1,7 +1,6 @@
 package org.jootnet.m2client.map;
 
 import java.awt.Point;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +121,23 @@ public abstract class Map implements Drawable {
 	}
 	
 	private Texture mapTex = null;
+	private List<Integer> tileIdx = new ArrayList<Integer>();
+	private List<Integer> smTileIdx = new ArrayList<Integer>();
+	private List<Integer> obj0Idx = new ArrayList<Integer>();
+	private List<Integer> obj2Idx = new ArrayList<Integer>();
+	private List<Integer> obj3Idx = new ArrayList<Integer>();
+	private List<Integer> obj4Idx = new ArrayList<Integer>();
+	private List<Integer> obj5Idx = new ArrayList<Integer>();
+	private List<Integer> obj6Idx = new ArrayList<Integer>();
+	private List<Integer> obj7Idx = new ArrayList<Integer>();
+	private List<Integer> obj8Idx = new ArrayList<Integer>();
+	private List<Integer> obj9Idx = new ArrayList<Integer>();
+	private List<Integer> obj10Idx = new ArrayList<Integer>();
+	private List<Integer> obj11Idx = new ArrayList<Integer>();
+	private List<Integer> obj12Idx = new ArrayList<Integer>();
+	private List<Integer> obj13Idx = new ArrayList<Integer>();
+	private List<Integer> obj14Idx = new ArrayList<Integer>();
+	private List<Integer> obj15Idx = new ArrayList<Integer>();
 	@Override
 	public boolean adjust(GraphicsContext ctx) {
 		if(moved) {
@@ -181,23 +197,23 @@ public abstract class Map implements Drawable {
 			mapTex = new Texture(new byte[ctx.getWidth() * ctx.getHeight() * 3], (short)ctx.getWidth(), (short)ctx.getHeight());
 		
 		// 绘制，并加入缓存
-		List<Integer> tileIdx = new ArrayList<Integer>();
-		List<Integer> smTileIdx = new ArrayList<Integer>();
-		List<Integer> obj0Idx = new ArrayList<Integer>();
-		List<Integer> obj2Idx = new ArrayList<Integer>();
-		List<Integer> obj3Idx = new ArrayList<Integer>();
-		List<Integer> obj4Idx = new ArrayList<Integer>();
-		List<Integer> obj5Idx = new ArrayList<Integer>();
-		List<Integer> obj6Idx = new ArrayList<Integer>();
-		List<Integer> obj7Idx = new ArrayList<Integer>();
-		List<Integer> obj8Idx = new ArrayList<Integer>();
-		List<Integer> obj9Idx = new ArrayList<Integer>();
-		List<Integer> obj10Idx = new ArrayList<Integer>();
-		List<Integer> obj11Idx = new ArrayList<Integer>();
-		List<Integer> obj12Idx = new ArrayList<Integer>();
-		List<Integer> obj13Idx = new ArrayList<Integer>();
-		List<Integer> obj14Idx = new ArrayList<Integer>();
-		List<Integer> obj15Idx = new ArrayList<Integer>();
+		tileIdx.clear();
+		smTileIdx.clear();
+		obj0Idx.clear();
+		obj2Idx.clear();
+		obj3Idx.clear();
+		obj4Idx.clear();
+		obj5Idx.clear();
+		obj6Idx.clear();
+		obj7Idx.clear();
+		obj8Idx.clear();
+		obj9Idx.clear();
+		obj10Idx.clear();
+		obj11Idx.clear();
+		obj12Idx.clear();
+		obj13Idx.clear();
+		obj14Idx.clear();
+		obj15Idx.clear();
 		// 对于地图数据，如果绘制的第一列为奇数，则大地砖不会显示，此处将绘制区域向左移，保证大地砖和动态地图/光线等正确绘制
 		int left = tws - EXTEND_LEFT;
 		if(left < 0)
@@ -373,19 +389,8 @@ public abstract class Map implements Drawable {
 		Textures.loadTextureAsync("Objects14", obj14Idx);
 		Textures.loadTextureAsync("Objects15", obj15Idx);
 		
-		/*try {
-			if(tileIdx.isEmpty() &&
-					smTileIdx.isEmpty() &&
-					obj0Idx.isEmpty() &&
-					obj2Idx.isEmpty() &&
-					obj3Idx.isEmpty())
-			javax.imageio.ImageIO.write(mapTex.toBufferedImage(false), "jpg", new java.io.File("C:\\Users\\云\\Desktop\\1.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		//return true;
-		return tileIdx.isEmpty() &&
+		return true;
+		/*return tileIdx.isEmpty() &&
 				smTileIdx.isEmpty() &&
 				obj0Idx.isEmpty() &&
 				obj2Idx.isEmpty() &&
@@ -401,7 +406,7 @@ public abstract class Map implements Drawable {
 				obj12Idx.isEmpty() &&
 				obj13Idx.isEmpty() &&
 				obj14Idx.isEmpty() &&
-				obj15Idx.isEmpty();
+				obj15Idx.isEmpty();*/
 	}
 
 	@Override

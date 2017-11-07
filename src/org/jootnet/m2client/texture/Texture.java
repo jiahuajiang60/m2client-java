@@ -564,17 +564,23 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x < 0 || x > width || y < 0 || y < height) return;
-			int rx = x + tar.width;
+			if(x > width || y > height) return;
+			// 允许部分在屏幕外
+			int left = x < 0 ? 0 : x;
+			int top = y < 0 ? 0 : y;
+			int tarleft = x < 0 ? (tar.width - -x) : 0;
+			int tartop = y < 0 ? (tar.height - -y) : 0;
+			if(tarleft < 0 || tartop < 0) return;
+			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
-			int by = y + tar.height;
+			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
-			for(int i = y; i < by; ++i) {
-				for(int j = x; j < rx; ++j) {
+			for(int i = top; i < by; ++i) {
+				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - x + (i - y) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
 					pixels[_idx_this] = (byte) (tar.pixels[_idx_that] * alpha);
 					pixels[_idx_this + 1] = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					pixels[_idx_this + 2] = (byte) (tar.pixels[_idx_that + 2] * alpha);
@@ -615,17 +621,23 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x < 0 || x > width || y < 0 || y < height) return;
-			int rx = x + tar.width;
+			if(x > width || y > height) return;
+			// 允许部分在屏幕外
+			int left = x < 0 ? 0 : x;
+			int top = y < 0 ? 0 : y;
+			int tarleft = x < 0 ? (tar.width - -x) : 0;
+			int tartop = y < 0 ? (tar.height - -y) : 0;
+			if(tarleft < 0 || tartop < 0) return;
+			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
-			int by = y + tar.height;
+			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
-			for(int i = y; i < by; ++i) {
-				for(int j = x; j < rx; ++j) {
+			for(int i = top; i < by; ++i) {
+				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - x + (i - y) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
 					byte _r = tar.pixels[_idx_that];
 					byte _g = tar.pixels[_idx_that + 1];
 					byte _b = tar.pixels[_idx_that + 2];
@@ -665,17 +677,23 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x < 0 || x > width || y < 0 || y < height) return;
-			int rx = x + tar.width;
+			if(x > width || y > height) return;
+			// 允许部分在屏幕外
+			int left = x < 0 ? 0 : x;
+			int top = y < 0 ? 0 : y;
+			int tarleft = x < 0 ? (tar.width - -x) : 0;
+			int tartop = y < 0 ? (tar.height - -y) : 0;
+			if(tarleft < 0 || tartop < 0) return;
+			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
-			int by = y + tar.height;
+			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
-			for(int i = y; i < by; ++i) {
-				for(int j = x; j < rx; ++j) {
+			for(int i = top; i < by; ++i) {
+				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - x + (i - y) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
 					byte r = (byte) (tar.pixels[_idx_that] * alpha);
 					byte g = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					byte b = (byte) (tar.pixels[_idx_that + 2] * alpha);
@@ -719,17 +737,23 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x < 0 || x > width || y < 0 || y < height) return;
-			int rx = x + tar.width;
+			if(x > width || y > height) return;
+			// 允许部分在屏幕外
+			int left = x < 0 ? 0 : x;
+			int top = y < 0 ? 0 : y;
+			int tarleft = x < 0 ? (tar.width - -x) : 0;
+			int tartop = y < 0 ? (tar.height - -y) : 0;
+			if(tarleft < 0 || tartop < 0) return;
+			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
-			int by = y + tar.height;
+			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
-			for(int i = y; i < by; ++i) {
-				for(int j = x; j < rx; ++j) {
+			for(int i = top; i < by; ++i) {
+				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
-					int _idx_that = (j - x + (i - y) * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * width) * 3;
 					byte _r = (byte) (tar.pixels[_idx_that] * alpha);
 					byte _g = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					byte _b = (byte) (tar.pixels[_idx_that + 2] * alpha);
