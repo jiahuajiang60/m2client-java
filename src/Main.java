@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.jootnet.m2client.map.Map;
 import org.jootnet.m2client.map.internal.Maps;
@@ -17,11 +18,15 @@ public class Main {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("测试地图渲染");
-		//frame.setLocationRelativeTo(null);
-		frame.setSize(1280, 720);
+		frame.setSize(1366, 768);
+		frame.setLocationRelativeTo(null);
 		Map map = Maps.get("0");
 		map.move(330, 330);
-		frame.setContentPane(new GamePanel(map));
+		JPanel gamePanel = new GamePanel(map);
+		gamePanel.setSize(1280, 720);
+		gamePanel.setLocation(0, 0);
+		frame.setLayout(null);
+		frame.add(gamePanel);
 		frame.setVisible(true);
 		//ImageIO.write(Textures.getTextureImmediately("npc", 1992).toBufferedImage(true), "jpg", new File("C:\\Users\\云\\Desktop\\1.jpg"));
 	}

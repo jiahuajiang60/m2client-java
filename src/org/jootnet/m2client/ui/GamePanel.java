@@ -1,9 +1,11 @@
 package org.jootnet.m2client.ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -75,28 +77,31 @@ public class GamePanel extends JPanel implements ActionListener {
 			frames++;
 		}
 	}
+
+	private JLabel lblFPS = new JLabel();
 	public GamePanel(Map map) {
 		this.map = map;
 		ctx = new GraphicsContextImpl();
+		lblFPS.setSize(60, 28);
+		lblFPS.setLocation(20, 20);
+		lblFPS.setForeground(Color.WHITE);
+		setLayout(null);
+		add(lblFPS);
 		new Timer(16, this).start();
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		ctx.updateTime();
+		lblFPS.setText("FPS: " + ctx.fps);
 		repaint();
 	}
 	
 	@Override
-	public void update(Graphics g) {
-		paint(g);
-	}
-	
-	@Override
-	public void paint(Graphics g) {
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		if(map.adjust(ctx)) {
 			g.drawImage(map.content().toBufferedImage(false), map.offsetX(), map.offsetY(), null);
 		}
-		g.dispose();
 	}
 }
