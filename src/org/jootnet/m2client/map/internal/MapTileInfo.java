@@ -1,182 +1,182 @@
 package org.jootnet.m2client.map.internal;
 
 /**
- * MapTile·½±ã³ÌĞòÂß¼­µÄÁíÀà½â¶Á·½Ê½
+ * MapTileæ–¹ä¾¿ç¨‹åºé€»è¾‘çš„å¦ç±»è§£è¯»æ–¹å¼
  * 
  * @author johness
  */
 public final class MapTileInfo {
 
-	/** ±³¾°Í¼Ë÷Òı */
+	/** èƒŒæ™¯å›¾ç´¢å¼• */
 	private short bngImgIdx;
-	/** ÊÇ·ñÓĞ±³¾°Í¼(ÔÚÈÈÑª´«Ææ2µØÍ¼ÖĞ£¬±³¾°Í¼´óĞ¡Îª4¸öµØÍ¼¿é£¬¾ßÌåµ½»æÖÆµØÍ¼Ê±Ôò±íÏÖÔÚÖ»ÓĞºá×İ×ø±ê¶¼ÎªË«ÊıÊ±²Å»æÖÆ) */
+	/** æ˜¯å¦æœ‰èƒŒæ™¯å›¾(åœ¨çƒ­è¡€ä¼ å¥‡2åœ°å›¾ä¸­ï¼ŒèƒŒæ™¯å›¾å¤§å°ä¸º4ä¸ªåœ°å›¾å—ï¼Œå…·ä½“åˆ°ç»˜åˆ¶åœ°å›¾æ—¶åˆ™è¡¨ç°åœ¨åªæœ‰æ¨ªçºµåæ ‡éƒ½ä¸ºåŒæ•°æ—¶æ‰ç»˜åˆ¶) */
 	private boolean hasBng;
-	/** ÊÇ·ñ¿ÉĞĞ×ß(Õ¾Á¢) */
+	/** æ˜¯å¦å¯è¡Œèµ°(ç«™ç«‹) */
 	private boolean canWalk;
-	/** ²¹³ä±³¾°Í¼Ë÷Òı */
+	/** è¡¥å……èƒŒæ™¯å›¾ç´¢å¼• */
 	private short midImgIdx;
-	/** ÊÇ·ñÓĞ²¹³äÍ¼ */
+	/** æ˜¯å¦æœ‰è¡¥å……å›¾ */
 	private boolean hasMid;
-	/** ¶ÔÏóÍ¼Ë÷Òı */
+	/** å¯¹è±¡å›¾ç´¢å¼• */
 	private short objImgIdx;
-	/** ÊÇ·ñÓĞ¶ÔÏóÍ¼ */
+	/** æ˜¯å¦æœ‰å¯¹è±¡å›¾ */
 	private boolean hasObj;
-	/** ÊÇ·ñ¿ÉÒÔ·ÉÔ½ */
+	/** æ˜¯å¦å¯ä»¥é£è¶Š */
 	private boolean canFly;
-	/** ÃÅË÷Òı */
+	/** é—¨ç´¢å¼• */
 	private byte doorIdx;
-	/** ÊÇ·ñÓĞÃÅ */
+	/** æ˜¯å¦æœ‰é—¨ */
 	private boolean hasDoor;
-	/** ÃÅÆ«ÒÆ */
+	/** é—¨åç§» */
 	private byte doorOffset;
-	/** ÃÅÊÇ·ñ¿ªÆô */
+	/** é—¨æ˜¯å¦å¼€å¯ */
 	private boolean doorOpen;
-	/** ¶¯»­Ö¡Êı */
+	/** åŠ¨ç”»å¸§æ•° */
 	private byte aniFrame;
-	/** ÊÇ·ñÓĞ¶¯»­ */
+	/** æ˜¯å¦æœ‰åŠ¨ç”» */
 	private boolean hasAni;
-	/** ¶¯»­ÌøÖ¡Êı */
+	/** åŠ¨ç”»è·³å¸§æ•° */
 	private byte aniTick;
-	/** ×ÊÔ´ÎÄ¼şË÷Òı */
+	/** èµ„æºæ–‡ä»¶ç´¢å¼• */
 	private byte objFileIdx;
-	/** ¹âÏß */
+	/** å…‰çº¿ */
 	private byte light;
 	
 	MapTileInfo() { }
 
-	/** »ñÈ¡±³¾°Í¼Ë÷Òı */
+	/** è·å–èƒŒæ™¯å›¾ç´¢å¼• */
 	public short getBngImgIdx() {
 		return bngImgIdx;
 	}
-	/** ÉèÖÃ±³¾°Í¼Ë÷Òı */
+	/** è®¾ç½®èƒŒæ™¯å›¾ç´¢å¼• */
 	void setBngImgIdx(short bngImgIdx) {
 		this.bngImgIdx = bngImgIdx;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÊÇ·ñÓĞ±³¾°Í¼ */
+	/** è·å–è¯¥åœ°å›¾å—æ˜¯å¦æœ‰èƒŒæ™¯å›¾ */
 	public boolean isHasBng() {
 		return hasBng;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÊÇ·ñÓĞ±³¾°Í¼ */
+	/** è®¾ç½®è¯¥åœ°å›¾å—æ˜¯å¦æœ‰èƒŒæ™¯å›¾ */
 	void setHasBng(boolean hasBng) {
 		this.hasBng = hasBng;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÊÇ·ñ¿ÉÒÔÕ¾Á¢»ò×ß¹ı */
+	/** è·å–è¯¥åœ°å›¾å—æ˜¯å¦å¯ä»¥ç«™ç«‹æˆ–èµ°è¿‡ */
 	public boolean isCanWalk() {
 		return canWalk;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÊÇ·ñ¿ÉÒÔÕ¾Á¢»ò×ß¹ı */
+	/** è®¾ç½®è¯¥åœ°å›¾å—æ˜¯å¦å¯ä»¥ç«™ç«‹æˆ–èµ°è¿‡ */
 	void setCanWalk(boolean canWalk) {
 		this.canWalk = canWalk;
 	}
-	/** »ñÈ¡²¹³äÍ¼Ë÷Òı */
+	/** è·å–è¡¥å……å›¾ç´¢å¼• */
 	public short getMidImgIdx() {
 		return midImgIdx;
 	}
-	/** ÉèÖÃ²¹³äÍ¼Ë÷Òı */
+	/** è®¾ç½®è¡¥å……å›¾ç´¢å¼• */
 	void setMidImgIdx(short midImgIdx) {
 		this.midImgIdx = midImgIdx;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÊÇ·ñÓĞ²¹³äÍ¼ */
+	/** è·å–è¯¥åœ°å›¾å—æ˜¯å¦æœ‰è¡¥å……å›¾ */
 	public boolean isHasMid() {
 		return hasMid;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÊÇ·ñÓĞ²¹³äÍ¼ */
+	/** è®¾ç½®è¯¥åœ°å›¾å—æ˜¯å¦æœ‰è¡¥å……å›¾ */
 	void setHasMid(boolean hasMid) {
 		this.hasMid = hasMid;
 	}
-	/** »ñÈ¡¶ÔÏóÍ¼Ë÷Òı */
+	/** è·å–å¯¹è±¡å›¾ç´¢å¼• */
 	public short getObjImgIdx() {
 		return objImgIdx;
 	}
-	/** ÉèÖÃ¶ÔÏóÍ¼Ë÷Òı */
+	/** è®¾ç½®å¯¹è±¡å›¾ç´¢å¼• */
 	void setObjImgIdx(short objImgIdx) {
 		this.objImgIdx = objImgIdx;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÊÇ·ñÓĞ¶ÔÏóÍ¼ */
+	/** è·å–è¯¥åœ°å›¾å—æ˜¯å¦æœ‰å¯¹è±¡å›¾ */
 	public boolean isHasObj() {
 		return hasObj;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÊÇ·ñÓĞ¶ÔÏóÍ¼ */
+	/** è®¾ç½®è¯¥åœ°å›¾å—æ˜¯å¦æœ‰å¯¹è±¡å›¾ */
 	void setHasObj(boolean hasObj) {
 		this.hasObj = hasObj;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÊÇ·ñ¿ÉÒÔ·ÉÔ½ */
+	/** è·å–è¯¥åœ°å›¾å—æ˜¯å¦å¯ä»¥é£è¶Š */
 	public boolean isCanFly() {
 		return canFly;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÊÇ·ñ¿ÉÒÔ·ÉÔ½ */
+	/** è®¾ç½®è¯¥åœ°å›¾å—æ˜¯å¦å¯ä»¥é£è¶Š */
 	void setCanFly(boolean canFly) {
 		this.canFly = canFly;
 	}
-	/** »ñÈ¡ÃÅË÷Òı */
+	/** è·å–é—¨ç´¢å¼• */
 	public byte getDoorIdx() {
 		return doorIdx;
 	}
-	/** ÉèÖÃÃÅË÷Òı */
+	/** è®¾ç½®é—¨ç´¢å¼• */
 	void setDoorIdx(byte doorIdx) {
 		this.doorIdx = doorIdx;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÊÇ·ñÓĞÃÅ */
+	/** è·å–è¯¥åœ°å›¾å—æ˜¯å¦æœ‰é—¨ */
 	public boolean isHasDoor() {
 		return hasDoor;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÊÇ·ñÓĞÃÅ */
+	/** è®¾ç½®è¯¥åœ°å›¾å—æ˜¯å¦æœ‰é—¨ */
 	void setHasDoor(boolean hasDoor) {
 		this.hasDoor = hasDoor;
 	}
-	/** »ñÈ¡ÃÅÆ«ÒÆ */
+	/** è·å–é—¨åç§» */
 	public byte getDoorOffset() {
 		return doorOffset;
 	}
-	/** ÉèÖÃÃÅÆ«ÒÆ */
+	/** è®¾ç½®é—¨åç§» */
 	void setDoorOffset(byte doorOffset) {
 		this.doorOffset = doorOffset;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÃÅÊÇ·ñ´ò¿ª */
+	/** è·å–è¯¥åœ°å›¾å—é—¨æ˜¯å¦æ‰“å¼€ */
 	public boolean isDoorOpen() {
 		return doorOpen;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÃÅÊÇ·ñ´ò¿ª */
+	/** è®¾ç½®è¯¥åœ°å›¾å—é—¨æ˜¯å¦æ‰“å¼€ */
 	void setDoorOpen(boolean doorOpen) {
 		this.doorOpen = doorOpen;
 	}
-	/** »ñÈ¡¶¯»­Ö¡Êı */
+	/** è·å–åŠ¨ç”»å¸§æ•° */
 	public byte getAniFrame() {
 		return aniFrame;
 	}
-	/** ÉèÖÃ¶¯»­Ö¡Êı */
+	/** è®¾ç½®åŠ¨ç”»å¸§æ•° */
 	void setAniFrame(byte aniFrame) {
 		this.aniFrame = aniFrame;
 	}
-	/** »ñÈ¡¸ÃµØÍ¼¿éÊÇ·ñÓĞ¶¯»­ */
+	/** è·å–è¯¥åœ°å›¾å—æ˜¯å¦æœ‰åŠ¨ç”» */
 	public boolean isHasAni() {
 		return hasAni;
 	}
-	/** ÉèÖÃ¸ÃµØÍ¼¿éÊÇ·ñÓĞ¶¯»­ */
+	/** è®¾ç½®è¯¥åœ°å›¾å—æ˜¯å¦æœ‰åŠ¨ç”» */
 	void setHasAni(boolean hasAni) {
 		this.hasAni = hasAni;
 	}
-	/** »ñÈ¡¶¯»­ÌøÖ¡Êı */
+	/** è·å–åŠ¨ç”»è·³å¸§æ•° */
 	public byte getAniTick() {
 		return aniTick;
 	}
-	/** ÉèÖÃ¶¯»­ÌøÖ¡Êı */
+	/** è®¾ç½®åŠ¨ç”»è·³å¸§æ•° */
 	void setAniTick(byte aniTick) {
 		this.aniTick = aniTick;
 	}
-	/** »ñÈ¡×ÊÔ´ÎÄ¼şË÷Òı */
+	/** è·å–èµ„æºæ–‡ä»¶ç´¢å¼• */
 	public byte getObjFileIdx() {
 		return objFileIdx;
 	}
-	/** ÉèÖÃ×ÊÔ´ÎÄ¼şË÷Òı */
+	/** è®¾ç½®èµ„æºæ–‡ä»¶ç´¢å¼• */
 	void setObjFileIdx(byte objFileIdx) {
 		this.objFileIdx = objFileIdx;
 	}
-	/** »ñÈ¡ÁÁ¶È */
+	/** è·å–äº®åº¦ */
 	public byte getLight() {
 		return light;
 	}
-	/** ÉèÖÃÁÁ¶È */
+	/** è®¾ç½®äº®åº¦ */
 	void setLight(byte light) {
 		this.light = light;
 	}

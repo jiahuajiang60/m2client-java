@@ -16,11 +16,11 @@ public final class Textures {
 	private static Map<String, ImageLibrary> libraries = new HashMap<String, ImageLibrary>();
 	
 	/**
-	 * ´ÓÖ¸¶¨Â·¾¶ÖĞ½âÎö³öÒ»¸öÍ¼Æ¬¿â²¢´æÈëÄÚ´æ»º´æ
+	 * ä»æŒ‡å®šè·¯å¾„ä¸­è§£æå‡ºä¸€ä¸ªå›¾ç‰‡åº“å¹¶å­˜å…¥å†…å­˜ç¼“å­˜
 	 * 
 	 * @param libName
-	 * 		Í¼Æ¬¿âÃû³Æ
-	 * @return Í¼Æ¬¿â¶ÔÏó
+	 * 		å›¾ç‰‡åº“åç§°
+	 * @return å›¾ç‰‡åº“å¯¹è±¡
 	 */
 	static final ImageLibrary get(String libName) {
 		if(libraries.containsKey(libName))
@@ -88,7 +88,7 @@ public final class Textures {
 	private static String buildKey(String dataFileName, int index) {
 		return ((char)(dataFileName.length() + '0')) + dataFileName + index;
 	}
-	// ¸ø°üÄÚ²¿¶ÔÏóÊ¹ÓÃµÄº¯Êı£¬Ö÷ÒªÊÇ¸øÒì²½¼ÓÔØ¶ÔÏóÊ¹ÓÃµÄ´æÈëÒì²½¼ÓÔØ³É¹¦µÄÎÆÀíÊı¾İ
+	// ç»™åŒ…å†…éƒ¨å¯¹è±¡ä½¿ç”¨çš„å‡½æ•°ï¼Œä¸»è¦æ˜¯ç»™å¼‚æ­¥åŠ è½½å¯¹è±¡ä½¿ç”¨çš„å­˜å…¥å¼‚æ­¥åŠ è½½æˆåŠŸçš„çº¹ç†æ•°æ®
 	static void putTexture(String libName, int index, Texture tex) {
 		synchronized (tex_locker) {
 			String key = buildKey(libName, index);
@@ -98,14 +98,14 @@ public final class Textures {
 	}
 	
 	/**
-	 * Òì²½¶ÁÈ¡Ò»ÕÅÎÆÀíµ½»º´æ
+	 * å¼‚æ­¥è¯»å–ä¸€å¼ çº¹ç†åˆ°ç¼“å­˜
 	 * <br>
-	 * ĞèÒª»ñÈ¡ÕâÕÅÎÆÀíµÄ»°ÇëÊ¹ÓÃ{@link #getTextureFromCache(String, int) getTextureFromCache}º¯Êı
+	 * éœ€è¦è·å–è¿™å¼ çº¹ç†çš„è¯è¯·ä½¿ç”¨{@link #getTextureFromCache(String, int) getTextureFromCache}å‡½æ•°
 	 * 
 	 * @param dataFileName
-	 * 		ÎÆÀíËùÔÚÍ¼Æ¬¿âÃû³Æ
+	 * 		çº¹ç†æ‰€åœ¨å›¾ç‰‡åº“åç§°
 	 * @param index
-	 * 		ÎÆÀíË÷Òı
+	 * 		çº¹ç†ç´¢å¼•
 	 * @see #isTextureInLoad(String, int)
 	 * @see #isTextureInCache(String, int)
 	 */
@@ -130,14 +130,14 @@ public final class Textures {
 		}
 	}
 	/**
-	 * Òì²½¶ÁÈ¡¶àÕÅÕÅÎÆÀíµ½»º´æ
+	 * å¼‚æ­¥è¯»å–å¤šå¼ å¼ çº¹ç†åˆ°ç¼“å­˜
 	 * <br>
-	 * ĞèÒª»ñÈ¡ÕâÕÅÎÆÀíµÄ»°ÇëÊ¹ÓÃ{@link #getTextureFromCache(String, int) getTextureFromCache}º¯Êı
+	 * éœ€è¦è·å–è¿™å¼ çº¹ç†çš„è¯è¯·ä½¿ç”¨{@link #getTextureFromCache(String, int) getTextureFromCache}å‡½æ•°
 	 * 
 	 * @param dataFileName
-	 * 		ÎÆÀíËùÔÚÍ¼Æ¬¿âÃû³Æ
-	 * @param indexÊı×é
-	 * 		ÎÆÀíË÷Òı
+	 * 		çº¹ç†æ‰€åœ¨å›¾ç‰‡åº“åç§°
+	 * @param indexæ•°ç»„
+	 * 		çº¹ç†ç´¢å¼•
 	 * @see #isTextureInLoad(String, int)
 	 * @see #isTextureInCache(String, int)
 	 */
@@ -165,14 +165,14 @@ public final class Textures {
 		}
 	}
 	/**
-	 * Òì²½¶ÁÈ¡¶àÕÅÕÅÎÆÀíµ½»º´æ
+	 * å¼‚æ­¥è¯»å–å¤šå¼ å¼ çº¹ç†åˆ°ç¼“å­˜
 	 * <br>
-	 * ĞèÒª»ñÈ¡ÕâÕÅÎÆÀíµÄ»°ÇëÊ¹ÓÃ{@link #getTextureFromCache(String, int) getTextureFromCache}º¯Êı
+	 * éœ€è¦è·å–è¿™å¼ çº¹ç†çš„è¯è¯·ä½¿ç”¨{@link #getTextureFromCache(String, int) getTextureFromCache}å‡½æ•°
 	 * 
 	 * @param dataFileName
-	 * 		ÎÆÀíËùÔÚÍ¼Æ¬¿âÃû³Æ
-	 * @param indexÊı×é
-	 * 		ÎÆÀíË÷Òı
+	 * 		çº¹ç†æ‰€åœ¨å›¾ç‰‡åº“åç§°
+	 * @param indexæ•°ç»„
+	 * 		çº¹ç†ç´¢å¼•
 	 * @see #isTextureInLoad(String, int)
 	 * @see #isTextureInCache(String, int)
 	 */
@@ -201,15 +201,15 @@ public final class Textures {
 	}
 	
 	/**
-	 * Á¢¼´»ñÈ¡Ä³ÕÅÎÆÀí
+	 * ç«‹å³è·å–æŸå¼ çº¹ç†
 	 * <br>
-	 * ²»¼ÓÈë»º´æ
+	 * ä¸åŠ å…¥ç¼“å­˜
 	 * 
 	 * @param dataFileName
-	 * 		ÎÆÀíËùÔÚÍ¼Æ¬¿âÃû³Æ
+	 * 		çº¹ç†æ‰€åœ¨å›¾ç‰‡åº“åç§°
 	 * @param index
-	 * 		ÎÆÀíË÷Òı
-	 * @return »ñÈ¡µ½µÄÎÆÀí£¬²»¿ÉÄÜÎªnull£¬µ«¿ÉÄÜÎª¿Õ£¬Ê¹ÓÃ{@link Texture#empty()}ÅĞ¶¨
+	 * 		çº¹ç†ç´¢å¼•
+	 * @return è·å–åˆ°çš„çº¹ç†ï¼Œä¸å¯èƒ½ä¸ºnullï¼Œä½†å¯èƒ½ä¸ºç©ºï¼Œä½¿ç”¨{@link Texture#empty()}åˆ¤å®š
 	 * @see #getTextureFromCache(String, int)
 	 */
 	public static Texture getTextureImmediately(String dataFileName, int index) {
@@ -217,15 +217,15 @@ public final class Textures {
 	}
 	
 	/**
-	 * ´Ó»º´æÖĞ»ñÈ¡ÒÑÒì²½¼ÓÔØµÄÎÆÀí
+	 * ä»ç¼“å­˜ä¸­è·å–å·²å¼‚æ­¥åŠ è½½çš„çº¹ç†
 	 * <br>
-	 * ĞèÒªÏÈÇëÇóÒì²½¼ÓÔØ{@link #loadTextureAsync(String, int) loadTextureAsync}
+	 * éœ€è¦å…ˆè¯·æ±‚å¼‚æ­¥åŠ è½½{@link #loadTextureAsync(String, int) loadTextureAsync}
 	 * 
 	 * @param dataFileName
-	 * 		ÎÆÀíËùÔÚÍ¼Æ¬¿âÃû³Æ
+	 * 		çº¹ç†æ‰€åœ¨å›¾ç‰‡åº“åç§°
 	 * @param index
-	 * 		ÎÆÀíË÷Òı
-	 * @return »ñÈ¡µ½µÄÎÆÀí£¬¿ÉÄÜÎªnull
+	 * 		çº¹ç†ç´¢å¼•
+	 * @return è·å–åˆ°çš„çº¹ç†ï¼Œå¯èƒ½ä¸ºnull
 	 * @see #getTextureImmediately(String, int)
 	 */
 	public static Texture getTextureFromCache(String dataFileName, int index) {
@@ -235,13 +235,13 @@ public final class Textures {
 	}
 	
 	/**
-	 * ÅĞ¶¨Ö¸¶¨ÎÆÀíÊÇ·ñÒÑ´æÔÚÓÚ»º´æÖĞ
+	 * åˆ¤å®šæŒ‡å®šçº¹ç†æ˜¯å¦å·²å­˜åœ¨äºç¼“å­˜ä¸­
 	 * 
 	 * @param dataFileName
-	 * 		ÎÆÀíËùÔÚÍ¼Æ¬¿âÃû³Æ
+	 * 		çº¹ç†æ‰€åœ¨å›¾ç‰‡åº“åç§°
 	 * @param index
-	 * 		ÎÆÀíË÷Òı
-	 * @return Ö¸¶¨ÎÆÀíÊÇ·ñÒÑ¼ÓÈë»º´æ
+	 * 		çº¹ç†ç´¢å¼•
+	 * @return æŒ‡å®šçº¹ç†æ˜¯å¦å·²åŠ å…¥ç¼“å­˜
 	 */
 	public static boolean isTextureInCache(String dataFileName, int index) {
 		synchronized (tex_locker) {
@@ -250,13 +250,13 @@ public final class Textures {
 	}
 	
 	/**
-	 * ÅĞ¶¨Ö¸¶¨ÎÆÀíÊÇ·ñÕıÔÚÒì²½¼ÓÔØ
+	 * åˆ¤å®šæŒ‡å®šçº¹ç†æ˜¯å¦æ­£åœ¨å¼‚æ­¥åŠ è½½
 	 * 
 	 * @param dataFileName
-	 * 		ÎÆÀíËùÔÚÍ¼Æ¬¿âÃû³Æ
+	 * 		çº¹ç†æ‰€åœ¨å›¾ç‰‡åº“åç§°
 	 * @param index
-	 * 		ÎÆÀíË÷Òı
-	 * @return Ö¸¶¨ÎÆÀíÊÇ·ñÒÑÇëÇóÒì²½¼ÓÔØ²¢»¹Î´³É¹¦
+	 * 		çº¹ç†ç´¢å¼•
+	 * @return æŒ‡å®šçº¹ç†æ˜¯å¦å·²è¯·æ±‚å¼‚æ­¥åŠ è½½å¹¶è¿˜æœªæˆåŠŸ
 	 */
 	public static boolean isTextureInLoad(String dataFileName, int index) {
 		synchronized (tex_locker) {
@@ -265,12 +265,12 @@ public final class Textures {
 	}
 	
 	/**
-	 * »ñÈ¡Ä³¸öÍ¼Æ¬¿âµÄÒì²½¼ÓÔØ½ø¶È
+	 * è·å–æŸä¸ªå›¾ç‰‡åº“çš„å¼‚æ­¥åŠ è½½è¿›åº¦
 	 * 
 	 * @param dataFileName
-	 * 		Í¼Æ¬¿âÃû³Æ
+	 * 		å›¾ç‰‡åº“åç§°
 	 * @return
-	 * 		0~1Ö®¼äµÄĞ¡Êı±íÊ¾°Ù·Ö±È£»Îª1±íÊ¾(¸Ã¿â)ËùÓĞ±»ÇëÇóµÄÒì²½¼ÓÔØ¾ù³É¹¦£»Ò»°ã²»Îª0£¬Îª0ÒªÃ´ÊÇÒ»¸ö¶¼»¹Î´³É¹¦(¿ÉÄÜĞÔ¼«µÍ)£¬ÒªÃ´ÊÇ¸Ã¿âÄÚÎÆÀí´ÓÎ´±»ÇëÇóÒì²½¼ÓÔØ
+	 * 		0~1ä¹‹é—´çš„å°æ•°è¡¨ç¤ºç™¾åˆ†æ¯”ï¼›ä¸º1è¡¨ç¤º(è¯¥åº“)æ‰€æœ‰è¢«è¯·æ±‚çš„å¼‚æ­¥åŠ è½½å‡æˆåŠŸï¼›ä¸€èˆ¬ä¸ä¸º0ï¼Œä¸º0è¦ä¹ˆæ˜¯ä¸€ä¸ªéƒ½è¿˜æœªæˆåŠŸ(å¯èƒ½æ€§æä½)ï¼Œè¦ä¹ˆæ˜¯è¯¥åº“å†…çº¹ç†ä»æœªè¢«è¯·æ±‚å¼‚æ­¥åŠ è½½
 	 */
 	public static float getLoadProgress(String dataFileName) {
 		synchronized (tex_locker) {
@@ -283,10 +283,10 @@ public final class Textures {
 	}
 	
 	/**
-	 * »ñÈ¡Òì²½¼ÓÔØ½ø¶È(ËùÓĞ¿â)
+	 * è·å–å¼‚æ­¥åŠ è½½è¿›åº¦(æ‰€æœ‰åº“)
 	 * 
 	 * @return
-	 * 		0~1Ö®¼äµÄĞ¡Êı±íÊ¾°Ù·Ö±È£»Îª1±íÊ¾ËùÓĞ±»ÇëÇóµÄÒì²½¼ÓÔØ¾ù³É¹¦£»Ò»°ã²»Îª0£¬Îª0ÒªÃ´ÊÇÒ»¸ö¶¼»¹Î´³É¹¦(¿ÉÄÜĞÔ¼«µÍ)£¬ÒªÃ´ÊÇ»¹Ã»ÓĞÎÆÀí±»ÇëÇóÒì²½¼ÓÔØ
+	 * 		0~1ä¹‹é—´çš„å°æ•°è¡¨ç¤ºç™¾åˆ†æ¯”ï¼›ä¸º1è¡¨ç¤ºæ‰€æœ‰è¢«è¯·æ±‚çš„å¼‚æ­¥åŠ è½½å‡æˆåŠŸï¼›ä¸€èˆ¬ä¸ä¸º0ï¼Œä¸º0è¦ä¹ˆæ˜¯ä¸€ä¸ªéƒ½è¿˜æœªæˆåŠŸ(å¯èƒ½æ€§æä½)ï¼Œè¦ä¹ˆæ˜¯è¿˜æ²¡æœ‰çº¹ç†è¢«è¯·æ±‚å¼‚æ­¥åŠ è½½
 	 */
 	public static float getLoadProgress() {
 		synchronized (tex_locker) {
@@ -295,7 +295,7 @@ public final class Textures {
 			for(TextureLoader l : texLoaders) {
 				ap += l.getProgress();
 			}
-			return ap / texLoaders.size(); // FIXME float³ıint»á²»»á²»Îª1¶øÎª0.999999???
+			return ap / texLoaders.size(); // FIXME floaté™¤intä¼šä¸ä¼šä¸ä¸º1è€Œä¸º0.999999???
 		}
 	}
 }

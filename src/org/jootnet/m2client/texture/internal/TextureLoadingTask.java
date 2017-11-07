@@ -7,18 +7,18 @@ import java.util.concurrent.Future;
 import org.jootnet.m2client.texture.Texture;
 
 /**
- * ÎÆÀí¼ÓÔØÈÎÎñ
+ * çº¹ç†åŠ è½½ä»»åŠ¡
  */
 final class TextureLoadingTask implements Callable<Texture> {
 
-	// ËùÊôÎÆÀí¼ÓÔØÆ÷
+	// æ‰€å±çº¹ç†åŠ è½½å™¨
 	private TextureLoader loader;
-	// Òª¼ÓÔØµÄÎÆÀíË÷Òı
+	// è¦åŠ è½½çš„çº¹ç†ç´¢å¼•
 	private int index;
 	public int getIndex() {
 		return index;
 	}
-	/** ¼ÓÔØÈÎÎñ */
+	/** åŠ è½½ä»»åŠ¡ */
 	private Future<Texture> loadFuture = null;
 	
 	TextureLoadingTask(TextureLoader loader, int index) {
@@ -39,7 +39,7 @@ final class TextureLoadingTask implements Callable<Texture> {
 			try {
 				Textures.putTexture(loader.getDataFileName(), index, loadFuture.get());
 			} catch (InterruptedException | ExecutionException e) {
-				// TODO ¿ÉÄÜµÄÒì³£´¦Àí£¿ÉÏÅ×£¿Í¨Öª£¿
+				// TODO å¯èƒ½çš„å¼‚å¸¸å¤„ç†ï¼Ÿä¸ŠæŠ›ï¼Ÿé€šçŸ¥ï¼Ÿ
 			}
 			return true;
 		}

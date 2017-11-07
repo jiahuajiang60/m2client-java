@@ -15,66 +15,66 @@ import org.jootnet.m2client.texture.internal.Textures;
 public abstract class Map implements Drawable {
 	
 	/**
-	 * µØÍ¼´Å¿é¿í
+	 * åœ°å›¾ç£å—å®½
 	 * <br>
-	 * Âß¼­×ø±êµãµÄÆÁÄ»ÏñËØ¿í¶È
+	 * é€»è¾‘åæ ‡ç‚¹çš„å±å¹•åƒç´ å®½åº¦
 	 */
 	private final static byte PIXEL_WIDTH_PER_TILE = 48;
 	/**
-	 * µØÍ¼´Å¿é¸ß
+	 * åœ°å›¾ç£å—é«˜
 	 * <br>
-	 * Âß¼­×ø±êµãµÄÆÁÄ»ÏñËØ¸ß¶È
+	 * é€»è¾‘åæ ‡ç‚¹çš„å±å¹•åƒç´ é«˜åº¦
 	 */
 	private final static byte PIXEL_HEIGHT_PER_TILE = 32;
-	/** »æÖÆµØÍ¼Ê±Ïò×óÑÓÉì¿é¶ùÊýÁ¿ */
+	/** ç»˜åˆ¶åœ°å›¾æ—¶å‘å·¦å»¶ä¼¸å—å„¿æ•°é‡ */
 	private final static byte EXTEND_LEFT = 5;
-	/** »æÖÆµØÍ¼Ê±ÏòÓÒÑÓÉì¿é¶ùÊýÁ¿ */
+	/** ç»˜åˆ¶åœ°å›¾æ—¶å‘å³å»¶ä¼¸å—å„¿æ•°é‡ */
 	private final static byte EXTEND_RIGHT = 5;
-	/** »æÖÆµØÍ¼Ê±ÏòÏÂÑÓÉì¿é¶ùÊýÁ¿ */
+	/** ç»˜åˆ¶åœ°å›¾æ—¶å‘ä¸‹å»¶ä¼¸å—å„¿æ•°é‡ */
 	private final static byte EXTEND_BOTTOM = 5;
 	
-	/** µØÍ¼¿í¶È */
+	/** åœ°å›¾å®½åº¦ */
 	private int mw;
-	/** µØÍ¼¸ß¶È */
+	/** åœ°å›¾é«˜åº¦ */
 	private int mh;
-	/** ½ÇÉ«Éí´¦ºá×ø±ê */
+	/** è§’è‰²èº«å¤„æ¨ªåæ ‡ */
 	private short x;
-	/** ½ÇÉ«Éí´¦×Ý×ø±ê */
+	/** è§’è‰²èº«å¤„çºµåæ ‡ */
 	private short y;
-	/** µØÍ¼»æÖÆÇøÓò×óÉÏ½Ç(Ïà¶ÔÓÚÓÎÏ·ÇøÓòÖ±½Ç×ø±êÏµ) */
+	/** åœ°å›¾ç»˜åˆ¶åŒºåŸŸå·¦ä¸Šè§’(ç›¸å¯¹äºŽæ¸¸æˆåŒºåŸŸç›´è§’åæ ‡ç³») */
 	private short px;
-	/** µØÍ¼»æÖÆÇøÓòÓÒÉÏ½Ç(Ïà¶ÔÓÚÓÎÏ·ÇøÓòÖ±½Ç×ø±êÏµ) */
+	/** åœ°å›¾ç»˜åˆ¶åŒºåŸŸå³ä¸Šè§’(ç›¸å¯¹äºŽæ¸¸æˆåŒºåŸŸç›´è§’åæ ‡ç³») */
 	private short py;
-	/** µØÍ¼»æÖÆÇøÓò¿í¶È */
+	/** åœ°å›¾ç»˜åˆ¶åŒºåŸŸå®½åº¦ */
 	private short gw;
-	/** µØÍ¼»æÖÆÇøÓò¸ß¶È */
+	/** åœ°å›¾ç»˜åˆ¶åŒºåŸŸé«˜åº¦ */
 	private short gh;
-	/** »æÍ¼ÇøÓò×óÉÏ½ÇÎªµØÍ¼¿éµÚ¼¸ÁÐ */
+	/** ç»˜å›¾åŒºåŸŸå·¦ä¸Šè§’ä¸ºåœ°å›¾å—ç¬¬å‡ åˆ— */
 	private short tws;
-	/** »æÍ¼ÇøÓò×óÉÏ½ÇÎªµØÍ¼¿éµÚ¼¸ÐÐ */
+	/** ç»˜å›¾åŒºåŸŸå·¦ä¸Šè§’ä¸ºåœ°å›¾å—ç¬¬å‡ è¡Œ */
 	private short ths;
-	/** »æÖÆÇøÓòÓÒÏÂ½ÇÎªµØÍ¼¿éµÚ¼¸ÁÐ */
+	/** ç»˜åˆ¶åŒºåŸŸå³ä¸‹è§’ä¸ºåœ°å›¾å—ç¬¬å‡ åˆ— */
 	private short twe;
-	/** »æÖÆÇøÓòÓÒÏÂ½ÇÎªµØÍ¼¿éµÚ¼¸ÐÐ */
+	/** ç»˜åˆ¶åŒºåŸŸå³ä¸‹è§’ä¸ºåœ°å›¾å—ç¬¬å‡ è¡Œ */
 	private short the;
 	/**
-	 * ÎÆÀíÍ¼Æ¬ÐèÒª×¼±¸µÄ×ø±ê×óÉÏ½ÇÁÐÊý
+	 * çº¹ç†å›¾ç‰‡éœ€è¦å‡†å¤‡çš„åæ ‡å·¦ä¸Šè§’åˆ—æ•°
 	 * <br>
-	 * ¶ÔÓÚµØÍ¼»æÖÆ¶øÒª£¬ÐèÒªÏÈÔ¤²â½ÇÉ«¿ÉÄÜ³öÏÖµÄ×ø±ê
+	 * å¯¹äºŽåœ°å›¾ç»˜åˆ¶è€Œè¦ï¼Œéœ€è¦å…ˆé¢„æµ‹è§’è‰²å¯èƒ½å‡ºçŽ°çš„åæ ‡
 	 * <br>
-	 * ÎÒÃÇ½«»æÖÆÇøÓò2±¶´óÐ¡×÷ÎªÔ¤²âµÄ½ÇÉ«¿ÉÄÜ³öÏÖµÄÎ»ÖÃ
+	 * æˆ‘ä»¬å°†ç»˜åˆ¶åŒºåŸŸ2å€å¤§å°ä½œä¸ºé¢„æµ‹çš„è§’è‰²å¯èƒ½å‡ºçŽ°çš„ä½ç½®
 	 */
 	private short pws;
 	/**
-	 * ÎÆÀíÍ¼Æ¬ÐèÒª×¼±¸µÄ×óÉÏ½ÇÐÐÊý
+	 * çº¹ç†å›¾ç‰‡éœ€è¦å‡†å¤‡çš„å·¦ä¸Šè§’è¡Œæ•°
 	 */
 	private short phs;
 	/**
-	 * ÎÆÀíÍ¼Æ¬ÐèÒª×¼±¸µÄÓÒÏÂ½ÇÁÐÊý
+	 * çº¹ç†å›¾ç‰‡éœ€è¦å‡†å¤‡çš„å³ä¸‹è§’åˆ—æ•°
 	 */
 	private short pwe;
 	/**
-	 * ÎÆÀíÍ¼Æ¬ÐèÒª×¼±¸µÄÓÒÏÂ½ÇÐÐÊý
+	 * çº¹ç†å›¾ç‰‡éœ€è¦å‡†å¤‡çš„å³ä¸‹è§’è¡Œæ•°
 	 */
 	private short phe;
 	
@@ -83,24 +83,24 @@ public abstract class Map implements Drawable {
 	protected Map(String name, MapInfo info) {
 		this.name = name;
 		this.info = info;
-		// µØÍ¼¿í¶È(ÏñËØ)
+		// åœ°å›¾å®½åº¦(åƒç´ )
 		mw = info.getWidth() * PIXEL_WIDTH_PER_TILE;
-		// µØÍ¼¸ß¶È(ÏñËØ)
+		// åœ°å›¾é«˜åº¦(åƒç´ )
 		mh = info.getHeight() * PIXEL_HEIGHT_PER_TILE;
 	}
 	
 	/**
-	 * »ñÈ¡½ÇÉ«Éí´¦ºá×ø±ê
+	 * èŽ·å–è§’è‰²èº«å¤„æ¨ªåæ ‡
 	 * 
-	 * @return ºá×ø±ê
+	 * @return æ¨ªåæ ‡
 	 */
 	public int roleX() {
 		return x;
 	}
 	/**
-	 * »ñÈ¡½ÇÉ«Éí´¦×Ý×ø±ê
+	 * èŽ·å–è§’è‰²èº«å¤„çºµåæ ‡
 	 * 
-	 * @return ×Ý×ø±ê
+	 * @return çºµåæ ‡
 	 */
 	public int roleY() {
 		return y;
@@ -108,12 +108,12 @@ public abstract class Map implements Drawable {
 	
 	private boolean moved;
 	/**
-	 * ÒÆ¶¯½ÇÉ«Éí´¦µÄ×ø±ê(Ïà¶ÔÓÚµØÍ¼)
+	 * ç§»åŠ¨è§’è‰²èº«å¤„çš„åæ ‡(ç›¸å¯¹äºŽåœ°å›¾)
 	 * 
 	 * @param x
-	 * 		ºá×ø±ê
+	 * 		æ¨ªåæ ‡
 	 * @param y
-	 * 		×Ý×ø±ê
+	 * 		çºµåæ ‡
 	 */
 	public void move(int x, int y) {
 		this.x = (short) x;
@@ -125,38 +125,38 @@ public abstract class Map implements Drawable {
 	@Override
 	public boolean adjust(GraphicsContext ctx) {
 		if(moved) {
-			// ¼ÆËã»æÖÆÇøÓò×óÉÏ½Ç×ø±ê
-			// »æÖÆÇøÓò×óÉÏ½Çx
+			// è®¡ç®—ç»˜åˆ¶åŒºåŸŸå·¦ä¸Šè§’åæ ‡
+			// ç»˜åˆ¶åŒºåŸŸå·¦ä¸Šè§’x
 			px = (short) (ctx.getWidth() > mw ? (ctx.getWidth() - mw) / 2 : 0);
-			// »æÖÆÇøÓò×óÉÏ½Çy
+			// ç»˜åˆ¶åŒºåŸŸå·¦ä¸Šè§’y
 			py = (short) (ctx.getHeight() > mh ? (ctx.getHeight() - mh) / 2 : 0);
-			// ¼ÆËã»æÖÆ¿í¶ÈºÍ¸ß¶È
-			// »æÖÆ¿í¶È
+			// è®¡ç®—ç»˜åˆ¶å®½åº¦å’Œé«˜åº¦
+			// ç»˜åˆ¶å®½åº¦
 			gw = (short) (ctx.getWidth() > mw ? mw : ctx.getWidth());
-			// »æÖÆ¸ß¶È
+			// ç»˜åˆ¶é«˜åº¦
 			gh = (short) (ctx.getHeight() > mh ? mh : ctx.getHeight());
 	
-			// »æÍ¼ÇøÓò×óÉÏ½ÇÎªµØÍ¼¿éµÚ¼¸ÁÐ
+			// ç»˜å›¾åŒºåŸŸå·¦ä¸Šè§’ä¸ºåœ°å›¾å—ç¬¬å‡ åˆ—
 			tws = (short) (x - (gw / PIXEL_WIDTH_PER_TILE - 1) / 2);
 			if (tws < 0)
 				tws = 0;
-			// »æÍ¼ÇøÓò×óÉÏ½ÇÎªµØÍ¼¿éµÚ¼¸ÐÐ
+			// ç»˜å›¾åŒºåŸŸå·¦ä¸Šè§’ä¸ºåœ°å›¾å—ç¬¬å‡ è¡Œ
 			ths = (short) (y - (gh / PIXEL_HEIGHT_PER_TILE - 1) / 2);
 			if (ths < 0)
 				ths = 0;
 			
-			// »æÖÆÇøÓòÓÒÏÂ½ÇÎªµØÍ¼¿éµÚ¼¸ÁÐ
-			// ½«»æÖÆÇøÓòÏòÓÒÒÆ¶¯£¬±£Ö¤¶ÔÏó²ã²»È±Ê§
+			// ç»˜åˆ¶åŒºåŸŸå³ä¸‹è§’ä¸ºåœ°å›¾å—ç¬¬å‡ åˆ—
+			// å°†ç»˜åˆ¶åŒºåŸŸå‘å³ç§»åŠ¨ï¼Œä¿è¯å¯¹è±¡å±‚ä¸ç¼ºå¤±
 			twe = (short) (tws + gw / PIXEL_WIDTH_PER_TILE + EXTEND_RIGHT);
 			if(the > info.getWidth())
 				the = info.getWidth();
-			// »æÖÆÇøÓòÓÒÏÂ½ÇÎªµØÍ¼¿éµÚ¼¸ÐÐ
-			// ½«»æÖÆÇøÓòÏòÏÂÑÓÉì£¬±£Ö¤¶ÔÏó²ã²»È±Ê§
+			// ç»˜åˆ¶åŒºåŸŸå³ä¸‹è§’ä¸ºåœ°å›¾å—ç¬¬å‡ è¡Œ
+			// å°†ç»˜åˆ¶åŒºåŸŸå‘ä¸‹å»¶ä¼¸ï¼Œä¿è¯å¯¹è±¡å±‚ä¸ç¼ºå¤±
 			the = (short) (ths + gh / PIXEL_HEIGHT_PER_TILE + EXTEND_BOTTOM);
 			if(the > info.getHeight())
 				the = info.getHeight();
 	
-			// ÎÆÀí×¼±¸²ÎÊý
+			// çº¹ç†å‡†å¤‡å‚æ•°
 			pws = (short) (x - (gw / PIXEL_WIDTH_PER_TILE - 1));
 			if (pws < 0)
 				pws = 0;
@@ -170,7 +170,7 @@ public abstract class Map implements Drawable {
 			if (phe > info.getHeight())
 				phe = info.getHeight();
 	
-			// ¶ÔÓÚÎÞ·¨ÖÃÓÚ»æÖÆÇøÓò¡°ÕýÖÐ¡±µÄÇé¿ö£¬ÔÚÉÏÃæµÄÆðÊ¼Î»ÖÃÖÐÏàÓ¦×ø±êÏòÉÏÒÆ¶¯ÁËÒ»¸ñ£¬»æÖÆÖÕÖ¹×ø±êÒ²ÒªÏàÓ¦µÄÉÏÒÆ
+			// å¯¹äºŽæ— æ³•ç½®äºŽç»˜åˆ¶åŒºåŸŸâ€œæ­£ä¸­â€çš„æƒ…å†µï¼Œåœ¨ä¸Šé¢çš„èµ·å§‹ä½ç½®ä¸­ç›¸åº”åæ ‡å‘ä¸Šç§»åŠ¨äº†ä¸€æ ¼ï¼Œç»˜åˆ¶ç»ˆæ­¢åæ ‡ä¹Ÿè¦ç›¸åº”çš„ä¸Šç§»
 			if ((gw / PIXEL_WIDTH_PER_TILE - 1) % 2 != 0)
 				twe -= 1;
 			if ((gh / PIXEL_HEIGHT_PER_TILE - 1) % 2 != 0)
@@ -180,7 +180,7 @@ public abstract class Map implements Drawable {
 		if(mapTex == null || mapTex.getWidth() != ctx.getWidth() || mapTex.getHeight() != ctx.getHeight())
 			mapTex = new Texture(new byte[ctx.getWidth() * ctx.getHeight() * 3], (short)ctx.getWidth(), (short)ctx.getHeight());
 		
-		// »æÖÆ£¬²¢¼ÓÈë»º´æ
+		// ç»˜åˆ¶ï¼Œå¹¶åŠ å…¥ç¼“å­˜
 		List<Integer> tileIdx = new ArrayList<Integer>();
 		List<Integer> smTileIdx = new ArrayList<Integer>();
 		List<Integer> obj0Idx = new ArrayList<Integer>();
@@ -198,16 +198,16 @@ public abstract class Map implements Drawable {
 		List<Integer> obj13Idx = new ArrayList<Integer>();
 		List<Integer> obj14Idx = new ArrayList<Integer>();
 		List<Integer> obj15Idx = new ArrayList<Integer>();
-		// ¶ÔÓÚµØÍ¼Êý¾Ý£¬Èç¹û»æÖÆµÄµÚÒ»ÁÐÎªÆæÊý£¬Ôò´óµØ×©²»»áÏÔÊ¾£¬´Ë´¦½«»æÖÆÇøÓòÏò×óÒÆ£¬±£Ö¤´óµØ×©ºÍ¶¯Ì¬µØÍ¼/¹âÏßµÈÕýÈ·»æÖÆ
+		// å¯¹äºŽåœ°å›¾æ•°æ®ï¼Œå¦‚æžœç»˜åˆ¶çš„ç¬¬ä¸€åˆ—ä¸ºå¥‡æ•°ï¼Œåˆ™å¤§åœ°ç –ä¸ä¼šæ˜¾ç¤ºï¼Œæ­¤å¤„å°†ç»˜åˆ¶åŒºåŸŸå‘å·¦ç§»ï¼Œä¿è¯å¤§åœ°ç –å’ŒåŠ¨æ€åœ°å›¾/å…‰çº¿ç­‰æ­£ç¡®ç»˜åˆ¶
 		int left = tws - EXTEND_LEFT;
 		if(left < 0)
 			left = 0;
 		for(int w = left; w < twe; ++w) {
 			for (int h = ths; h < the; ++h) {
 				MapTileInfo mti = info.getTiles()[w][h];
-				// »æÖÆ×óÉÏ½Çx
+				// ç»˜åˆ¶å·¦ä¸Šè§’x
 				int cpx = (int) (px + (w - tws) * PIXEL_WIDTH_PER_TILE);
-				// »æÖÆ×óÉÏ½Çy
+				// ç»˜åˆ¶å·¦ä¸Šè§’y
 				int cpy = (int) (py + (h - ths) * PIXEL_HEIGHT_PER_TILE);
 				if (mti.isHasBng()) {
 					Texture tex = Textures.getTextureFromCache("Tiles", mti.getBngImgIdx());
@@ -227,14 +227,14 @@ public abstract class Map implements Drawable {
 				}
 			}
 		}
-		// »æÖÆÍêµØ×©ºóÔÙ»æÖÆ¶ÔÏó²ã
-		// TODO ½«¶¯Ì¬µØÍ¼»æÖÆÌá³öµ½×îÉÏ²ã¾«Áé
+		// ç»˜åˆ¶å®Œåœ°ç –åŽå†ç»˜åˆ¶å¯¹è±¡å±‚
+		// TODO å°†åŠ¨æ€åœ°å›¾ç»˜åˆ¶æå‡ºåˆ°æœ€ä¸Šå±‚ç²¾çµ
 		for(int w = left; w < twe; ++w) {
 			for (int h = ths; h < the; ++h) {
 				MapTileInfo mti = info.getTiles()[w][h];
-				// »æÖÆ×óÉÏ½Çx
+				// ç»˜åˆ¶å·¦ä¸Šè§’x
 				int cpx = (int) (px + (w - tws) * PIXEL_WIDTH_PER_TILE);
-				// »æÖÆ×óÉÏ½Çy
+				// ç»˜åˆ¶å·¦ä¸Šè§’y
 				int cpy = (int) (py + (h - ths) * PIXEL_HEIGHT_PER_TILE);
 				if (mti.isHasAni()) {
 					int frame = mti.getAniFrame();
@@ -379,7 +379,7 @@ public abstract class Map implements Drawable {
 					obj0Idx.isEmpty() &&
 					obj2Idx.isEmpty() &&
 					obj3Idx.isEmpty())
-			javax.imageio.ImageIO.write(mapTex.toBufferedImage(false), "jpg", new java.io.File("C:\\Users\\ÔÆ\\Desktop\\1.jpg"));
+			javax.imageio.ImageIO.write(mapTex.toBufferedImage(false), "jpg", new java.io.File("C:\\Users\\äº‘\\Desktop\\1.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,25 +5,25 @@ import java.io.Closeable;
 import org.jootnet.m2client.texture.Texture;
 
 /**
- * Í¼Æ¬¿âÍ¨ÓÃ½Ó¿Ú
+ * å›¾ç‰‡åº“é€šç”¨æ¥å£
  * 
  * @author johness
  */
 interface ImageLibrary extends Closeable {
 
 	/**
-	 * »ñÈ¡Í¼Æ¬¿âÖĞÍ¼Æ¬ÊıÁ¿
+	 * è·å–å›¾ç‰‡åº“ä¸­å›¾ç‰‡æ•°é‡
 	 * 
-	 * @return Í¼Æ¬ÊıÁ¿
+	 * @return å›¾ç‰‡æ•°é‡
 	 */
 	int count();
 	
 	/**
-	 * »ñÈ¡Í¼Æ¬¿âÖĞÖ¸¶¨Ë÷ÒıµÄÍ¼Æ¬Êı¾İ
+	 * è·å–å›¾ç‰‡åº“ä¸­æŒ‡å®šç´¢å¼•çš„å›¾ç‰‡æ•°æ®
 	 * 
 	 * @param index
-	 * 		Í¼Æ¬Ë÷Òı
-	 * @return ¶ÔÓ¦Í¼Æ¬Êı¾İ
+	 * 		å›¾ç‰‡ç´¢å¼•
+	 * @return å¯¹åº”å›¾ç‰‡æ•°æ®
 	 */
 	Texture tex(int index);
 }

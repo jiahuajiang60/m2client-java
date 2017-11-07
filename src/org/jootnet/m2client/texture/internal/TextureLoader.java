@@ -7,12 +7,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * ÎÆÀí¶ÁÈ¡Àà
+ * çº¹ç†è¯»å–ç±»
  * <br>
- * ´ËÀà¿ÉÊµÀı»¯£¬ÀàÊµÀıÏß³Ì°²È«<b>Ê¹ÓÃ¶à¸öÀàÊµÀıÊµÏÖ¶àÏß³Ì¼ÓÔØÒÔÌáÉıËÙ¶È</b>
+ * æ­¤ç±»å¯å®ä¾‹åŒ–ï¼Œç±»å®ä¾‹çº¿ç¨‹å®‰å…¨<b>ä½¿ç”¨å¤šä¸ªç±»å®ä¾‹å®ç°å¤šçº¿ç¨‹åŠ è½½ä»¥æå‡é€Ÿåº¦</b>
  */
 final class TextureLoader {
-	// Í¼Æ¬¿â¿âÃû³Æ
+	// å›¾ç‰‡åº“åº“åç§°
 	private String dataFileName;
 	String getDataFileName() {
 		return dataFileName;
@@ -21,15 +21,15 @@ final class TextureLoader {
 		this.dataFileName = dataFileName;
 	}
 	
-	/** ÒÑ¾­¼ÓÔØµÄÎÆÀíÊıÁ¿ */
+	/** å·²ç»åŠ è½½çš„çº¹ç†æ•°é‡ */
 	private volatile int loaded = 0;
-	/** ĞèÒª¼ÓÔØµÄÎÆÀíÊıÁ¿ */
+	/** éœ€è¦åŠ è½½çš„çº¹ç†æ•°é‡ */
 	private volatile int toLoad = 0;
 	
-	/** ÈÎÎñ¶ÓÁĞ */
+	/** ä»»åŠ¡é˜Ÿåˆ— */
 	private Stack<TextureLoadingTask> tasks = new Stack<TextureLoadingTask>();
 
-	/** Ïß³Ì³Ø */
+	/** çº¿ç¨‹æ±  */
 	private final ExecutorService threadPool = Executors.newFixedThreadPool(1, new ThreadFactory() {
 		
 		@Override
@@ -44,10 +44,10 @@ final class TextureLoader {
 	}
 	
 	/**
-	 * °ÑÎÆÀí¼ÓÔØ·ÅÈëÈÎÎñ¶ÓÁĞ
+	 * æŠŠçº¹ç†åŠ è½½æ”¾å…¥ä»»åŠ¡é˜Ÿåˆ—
 	 * 
 	 * @param index
-	 * 		ÎÆÀíË÷Òı
+	 * 		çº¹ç†ç´¢å¼•
 	 */
 	synchronized void load(int index) {
 		if (tasks.size() == 0) {
@@ -58,17 +58,17 @@ final class TextureLoader {
 		toLoad++;
 	}
 	/**
-	 * ½øĞĞÎÆÀí¼ÓÔØµÄ²Ù×÷
+	 * è¿›è¡Œçº¹ç†åŠ è½½çš„æ“ä½œ
 	 * <br>
-	 * ÇëÖğÖ¡µ÷ÓÃ
+	 * è¯·é€å¸§è°ƒç”¨
 	 * 
-	 * @return Èç¹ûËùÓĞĞèÒª¼ÓÔØµÄÎÆÀí¶¼¼ÓÔØÁËÔò·µ»Øtrue£¬·´Ö®·µ»Øfalse
+	 * @return å¦‚æœæ‰€æœ‰éœ€è¦åŠ è½½çš„çº¹ç†éƒ½åŠ è½½äº†åˆ™è¿”å›trueï¼Œåä¹‹è¿”å›false
 	 */
 	synchronized boolean update() {
 		if(tasks.size() == 0) return true;
 		return updateTask() && tasks.size() == 0;
 	}
-	/** ¸üĞÂµ±Ç°Ö´ĞĞµÄÈÎÎñ×´Ì¬<br>XXX±éÀúÈÎÎñ¶ÓÁĞ£¬²»ÏŞÓÚÃ¿Ö¡Ö»¼ÓÔØÒ»¸öÎÆÀí */
+	/** æ›´æ–°å½“å‰æ‰§è¡Œçš„ä»»åŠ¡çŠ¶æ€<br>XXXéå†ä»»åŠ¡é˜Ÿåˆ—ï¼Œä¸é™äºæ¯å¸§åªåŠ è½½ä¸€ä¸ªçº¹ç† */
 	private boolean updateTask() {
 		boolean result = false;
 		Iterator<TextureLoadingTask> itTasks = tasks.iterator();
@@ -82,12 +82,12 @@ final class TextureLoader {
 		}
 		return result;
 	}
-	/** ×èÈûÏß³ÌµÈ´ıËùÓĞ¼ÓÔØÍê³É */
+	/** é˜»å¡çº¿ç¨‹ç­‰å¾…æ‰€æœ‰åŠ è½½å®Œæˆ */
 	void finishLoading() {
 		while (!update())
 			Thread.yield();
 	}
-	/** »ñÈ¡¼ÓÔØ°Ù·Ö±È */
+	/** è·å–åŠ è½½ç™¾åˆ†æ¯” */
 	float getProgress() {
 		if (toLoad == 0) return 1;
 		return Math.min(1, loaded / (float)toLoad);

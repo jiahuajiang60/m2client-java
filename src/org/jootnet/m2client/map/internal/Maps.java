@@ -7,20 +7,20 @@ import org.jootnet.m2client.map.Map;
 import org.jootnet.m2client.util.BinaryReader;
 
 /**
- * µØÍ¼¹ÜÀíÀà<br>
- * µØÍ¼ÎÄ¼şÍ·ÒÔDelphiÓïÑÔÃèÊöÈçÏÂ<br>
+ * åœ°å›¾ç®¡ç†ç±»<br>
+ * åœ°å›¾æ–‡ä»¶å¤´ä»¥Delphiè¯­è¨€æè¿°å¦‚ä¸‹<br>
  * <pre>
  * TMapHeader = packed record
-    wWidth      :Word;                 	//¿í¶È			2
-    wHeight     :Word;                 	//¸ß¶È			2
-    sTitle      :String[15]; 			//±êÌâ			16
-    UpdateDate  :TDateTime;          	//¸üĞÂÈÕÆÚ			8
-    VerFlag     :Byte;					//±êÊ¶(ĞÂµÄ¸ñÊ½Îª02)	1
-    Reserved    :array[0..22] of Char;  //±£Áô			23
+    wWidth      :Word;                 	//å®½åº¦			2
+    wHeight     :Word;                 	//é«˜åº¦			2
+    sTitle      :String[15]; 			//æ ‡é¢˜			16
+    UpdateDate  :TDateTime;          	//æ›´æ–°æ—¥æœŸ			8
+    VerFlag     :Byte;					//æ ‡è¯†(æ–°çš„æ ¼å¼ä¸º02)	1
+    Reserved    :array[0..22] of Char;  //ä¿ç•™			23
   end;
  * </pre>
- * Ê®ÖÜÄêÖ®ºóµÄ°æ±¾¿ÉÄÜ³öÏÖĞÂ°æ±¾µØÍ¼£¬3KM2ÖĞÊÇ20110428¼ÓÈëµÄ¶ÔĞÂ°æµØÍ¼µÄÖ§³Ö<br>
- * ²»¹ı³ıÁËÎÊ³ÂÌìÇÅÖ®ÍâÔİÊ±²»ÄÜÖªµÀĞÂ°æµØÍ¼ÖĞ×îºóÁ½¸ö×Ö½ÚÊÇ¸ÉÂïÓÃµÄ
+ * åå‘¨å¹´ä¹‹åçš„ç‰ˆæœ¬å¯èƒ½å‡ºç°æ–°ç‰ˆæœ¬åœ°å›¾ï¼Œ3KM2ä¸­æ˜¯20110428åŠ å…¥çš„å¯¹æ–°ç‰ˆåœ°å›¾çš„æ”¯æŒ<br>
+ * ä¸è¿‡é™¤äº†é—®é™ˆå¤©æ¡¥ä¹‹å¤–æš‚æ—¶ä¸èƒ½çŸ¥é“æ–°ç‰ˆåœ°å›¾ä¸­æœ€åä¸¤ä¸ªå­—èŠ‚æ˜¯å¹²å˜›ç”¨çš„
  * 
  * @author johness
  */
@@ -38,12 +38,12 @@ public final class Maps {
 	}
 	
 	/**
-	 * »ñÈ¡Ò»¸öµØÍ¼¶ÔÏó
+	 * è·å–ä¸€ä¸ªåœ°å›¾å¯¹è±¡
 	 * 
 	 * @param mapNo
-	 * 		µØÍ¼±àºÅ<br>
-	 * 		¼´µØÍ¼ÎÄ¼şÃû³Æ
-	 * @return ½âÎö³öÀ´µÄµØÍ¼¶ÔÏó
+	 * 		åœ°å›¾ç¼–å·<br>
+	 * 		å³åœ°å›¾æ–‡ä»¶åç§°
+	 * @return è§£æå‡ºæ¥çš„åœ°å›¾å¯¹è±¡
 	 */
 	public static final Map get(String mapNo) {
 		synchronized (map_locker) {
@@ -60,60 +60,60 @@ public final class Maps {
 				mapInfo.setWidth(br_map.readShortLE());
 				mapInfo.setHeight(br_map.readShortLE());
 				br_map.skipBytes(24);
-				boolean newMapFlag = br_map.readByte() == 2; // ĞÂ°æµØÍ¼Ã¿Ò»¸öTileÕ¼ÓÃ14¸ö×Ö½Ú£¬×îºóµÄÁ½¸ö×Ö½Ú×÷ÓÃÎ´Öª
+				boolean newMapFlag = br_map.readByte() == 2; // æ–°ç‰ˆåœ°å›¾æ¯ä¸€ä¸ªTileå ç”¨14ä¸ªå­—èŠ‚ï¼Œæœ€åçš„ä¸¤ä¸ªå­—èŠ‚ä½œç”¨æœªçŸ¥
 				br_map.skipBytes(23);
 				MapTileInfo[][] mapTileInfos = new MapTileInfo[mapInfo.getWidth()][mapInfo.getHeight()];
 				for (int width = 0; width < mapInfo.getWidth(); ++width)
 					for (int height = 0; height < mapInfo.getHeight(); ++height) {
 						MapTileInfo mi = new MapTileInfo();
-						// ¶ÁÈ¡±³¾°
+						// è¯»å–èƒŒæ™¯
 						short bng = br_map.readShortLE();
-						// ¶ÁÈ¡ÖĞ¼ä²ã
+						// è¯»å–ä¸­é—´å±‚
 						short mid = br_map.readShortLE();
-						// ¶ÁÈ¡¶ÔÏó²ã
+						// è¯»å–å¯¹è±¡å±‚
 						short obj = br_map.readShortLE();
-						// ÉèÖÃ±³¾°
+						// è®¾ç½®èƒŒæ™¯
 						if((bng & 0x7fff) > 0) {
 							mi.setBngImgIdx((short) ((bng & 0x7fff) - 1));
 							mi.setHasBng(true);
 						}
-						// ÉèÖÃÖĞ¼ä²ã
+						// è®¾ç½®ä¸­é—´å±‚
 						if((mid & 0x7fff) > 0) {
 							mi.setMidImgIdx((short) ((mid & 0x7fff) - 1));
 							mi.setHasMid(true);
 						}
-						// ÉèÖÃ¶ÔÏó²ã
+						// è®¾ç½®å¯¹è±¡å±‚
 						if((obj & 0x7fff) > 0) {
 							mi.setObjImgIdx((short) ((obj & 0x7fff) - 1));
 							mi.setHasObj(true);
 						}
-						// ÉèÖÃÊÇ·ñ¿ÉÕ¾Á¢
+						// è®¾ç½®æ˜¯å¦å¯ç«™ç«‹
 						mi.setCanWalk((bng & 0x8000) != 0x8000 && (obj & 0x8000) != 0x8000);
-						// ÉèÖÃÊÇ·ñ¿É·ÉĞĞ
+						// è®¾ç½®æ˜¯å¦å¯é£è¡Œ
 						mi.setCanFly((obj & 0x8000) != 0x8000);
 						
-						// ¶ÁÈ¡ÃÅË÷Òı(µÚ7¸öbyte)
+						// è¯»å–é—¨ç´¢å¼•(ç¬¬7ä¸ªbyte)
 						byte btTmp = br_map.readByte();
 						if((btTmp & 0x80) == 0x80) {
 							mi.setDoorIdx((byte) (btTmp & 0x7F));
 							mi.setHasDoor(true);
 						}
-						// ¶ÁÈ¡ÃÅÆ«ÒÆ(µÚ8¸öbyte)
+						// è¯»å–é—¨åç§»(ç¬¬8ä¸ªbyte)
 						btTmp = br_map.readByte();
 						mi.setDoorOffset(btTmp);
 						if((btTmp & 0x80) == 0x80) mi.setDoorOpen(true);
-						// ¶ÁÈ¡¶¯»­Ö¡Êı(µÚ9¸öbyte)
+						// è¯»å–åŠ¨ç”»å¸§æ•°(ç¬¬9ä¸ªbyte)
 						btTmp = br_map.readByte();
 						mi.setAniFrame(btTmp);
 						if((btTmp & 0x80) == 0x80) {
 							mi.setAniFrame((byte) (btTmp & 0x7F));
 							mi.setHasAni(true);
 						}
-						// ¶ÁÈ¡²¢ÉèÖÃ¶¯»­ÌøÖ¡Êı(µÚ10¸öbyte)
+						// è¯»å–å¹¶è®¾ç½®åŠ¨ç”»è·³å¸§æ•°(ç¬¬10ä¸ªbyte)
 						mi.setAniTick(br_map.readByte());
-						// ¶ÁÈ¡×ÊÔ´ÎÄ¼şË÷Òı(µÚ11¸öbyte)
+						// è¯»å–èµ„æºæ–‡ä»¶ç´¢å¼•(ç¬¬11ä¸ªbyte)
 						mi.setObjFileIdx(br_map.readByte());
-						// ¶ÁÈ¡¹âÕÕ(µÚ12¸öbyte)
+						// è¯»å–å…‰ç…§(ç¬¬12ä¸ªbyte)
 						mi.setLight(br_map.readByte());
 						if(newMapFlag)
 							br_map.skipBytes(2);
@@ -134,10 +134,10 @@ public final class Maps {
 	}
 	
 	/**
-	 * ´Ó»º´æÔÚÏµÍ³µÄµØÍ¼¼¯ºÏÖĞÒÆ³ıÌØ¶¨±àºÅµÄµØÍ¼
+	 * ä»ç¼“å­˜åœ¨ç³»ç»Ÿçš„åœ°å›¾é›†åˆä¸­ç§»é™¤ç‰¹å®šç¼–å·çš„åœ°å›¾
 	 * 
 	 * @param mapNo
-	 * 		µØÍ¼±àºÅ
+	 * 		åœ°å›¾ç¼–å·
 	 */
 	public static final void remove(String mapNo) {
 		synchronized (map_locker) {

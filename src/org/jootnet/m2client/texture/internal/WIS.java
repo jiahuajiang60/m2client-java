@@ -11,7 +11,7 @@ import org.jootnet.m2client.util.BinaryReader;
 import org.jootnet.m2client.util.SDK;
 
 /**
- * ÈÈÑª´«Ææ2WISÍ¼Æ¬¿â
+ * çƒ­è¡€ä¼ å¥‡2WISå›¾ç‰‡åº“
  * 
  * @author johness
  */
@@ -19,38 +19,38 @@ final class WIS implements ImageLibrary {
 
 	private int imageCount;
 	/**
-	 * »ñÈ¡¿âÖĞÍ¼Æ¬ÊıÁ¿
+	 * è·å–åº“ä¸­å›¾ç‰‡æ•°é‡
 	 * 
-	 * @return ´æÔÚÓÚµ±Ç°WIS¿âÖĞµÄÍ¼Æ¬ÊıÁ¿
+	 * @return å­˜åœ¨äºå½“å‰WISåº“ä¸­çš„å›¾ç‰‡æ•°é‡
 	 */
 	int getImageCount() {
 		return imageCount;
 	}
-    /* Í¼Æ¬Êı¾İÆğÊ¼Î»ÖÃ */
+    /* å›¾ç‰‡æ•°æ®èµ·å§‹ä½ç½® */
     private int[] offsetList;
-    /* Í¼Æ¬Êı¾İ³¤¶È */
+    /* å›¾ç‰‡æ•°æ®é•¿åº¦ */
     private int[] lengthList;
     private ImageInfo[] imageInfos;
     /**
-     * »ñÈ¡¿âÖĞÍ¼Æ¬ĞÅÏ¢Êı×é
+     * è·å–åº“ä¸­å›¾ç‰‡ä¿¡æ¯æ•°ç»„
      * 
-     * @return ËùÓĞ´æÔÚÓÚµ±Ç°WIS¿âÖĞµÄÍ¼Æ¬ĞÅÏ¢Êı×é
+     * @return æ‰€æœ‰å­˜åœ¨äºå½“å‰WISåº“ä¸­çš„å›¾ç‰‡ä¿¡æ¯æ•°ç»„
      */
 	ImageInfo[] getImageInfos() {
 		return imageInfos;
 	}
-	/* WISÎÄ¼şËæ»ú¶ÁÈ¡¶ÔÏó */
+	/* WISæ–‡ä»¶éšæœºè¯»å–å¯¹è±¡ */
 	private BinaryReader br_wis;
 	private boolean loaded;
 	/**
-	 * »ñÈ¡¿â¼ÓÔØ×´Ì¬
+	 * è·å–åº“åŠ è½½çŠ¶æ€
 	 * 
-	 * @return true±íÊ¾¿â¼ÓÔØ³É¹¦ false±íÊ¾¼ÓÔØÊ§°Ü
+	 * @return trueè¡¨ç¤ºåº“åŠ è½½æˆåŠŸ falseè¡¨ç¤ºåŠ è½½å¤±è´¥
 	 */
 	public boolean isLoaded() {
 		return loaded;
 	}
-	/* ÎÄ¼şÖ¸Õë¶ÁÈ¡Ëø */
+	/* æ–‡ä»¶æŒ‡é’ˆè¯»å–é” */
     private Object wis_locker = new Object();
 	
     WIS(String wisPath) {
@@ -60,9 +60,9 @@ final class WIS implements ImageLibrary {
 		if(!f_wis.canRead()) return;
     	try {
     		br_wis = new BinaryReader(f_wis, "r");
-    		// ´ÓÎÄ¼şÄ©Î²¿ªÊ¼¶ÁÈ¡Í¼Æ¬Êı¾İÃèÊöĞÅÏ¢
-    		// Ò»×éÃèÊöĞÅÏ¢°üÀ¨12¸ö×Ö½Ú(3¸öintÖµ)£¬ÒÀ´ÎÎªÍ¼Æ¬Êı¾İÆğÊ¼Î»ÖÃ(Ïà¶ÔÓÚÎÄ¼ş)¡¢Í¼Æ¬Êı¾İ´óĞ¡(°üÀ¨»ù±¾ĞÅÏ¢)¡¢±£Áô
-    		// Ê¹ÓÃÁ½¸öList±£´æoffsetListºÍlengthList
+    		// ä»æ–‡ä»¶æœ«å°¾å¼€å§‹è¯»å–å›¾ç‰‡æ•°æ®æè¿°ä¿¡æ¯
+    		// ä¸€ç»„æè¿°ä¿¡æ¯åŒ…æ‹¬12ä¸ªå­—èŠ‚(3ä¸ªintå€¼)ï¼Œä¾æ¬¡ä¸ºå›¾ç‰‡æ•°æ®èµ·å§‹ä½ç½®(ç›¸å¯¹äºæ–‡ä»¶)ã€å›¾ç‰‡æ•°æ®å¤§å°(åŒ…æ‹¬åŸºæœ¬ä¿¡æ¯)ã€ä¿ç•™
+    		// ä½¿ç”¨ä¸¤ä¸ªListä¿å­˜offsetListå’ŒlengthList
     		List<Integer> offsets = new ArrayList<Integer>();
     		List<Integer> lengths = new ArrayList<Integer>();
     		int readPosition = (int) (br_wis.length() - 12);
@@ -87,12 +87,12 @@ final class WIS implements ImageLibrary {
     		for(int i = 0; i < lengthList.length; ++i)
     			lengthList[i] = lengths.get(i);
     		imageCount = offsetList.length;
-    		// ¶ÁÈ¡Í¼Æ¬ĞÅÏ¢
+    		// è¯»å–å›¾ç‰‡ä¿¡æ¯
     		imageInfos = new ImageInfo[imageCount];
     		for(int i = 0; i < imageCount; ++i) {
 				int offset = offsetList[i];
 				if(offset + 12 > br_wis.length()) {
-					// Êı¾İ³ö´í£¬Ö±½Ó¸³ÖµÎª¿ÕÍ¼Æ¬
+					// æ•°æ®å‡ºé”™ï¼Œç›´æ¥èµ‹å€¼ä¸ºç©ºå›¾ç‰‡
 					imageInfos[i] = ImageInfo.EMPTY;
             		continue;
 				}
@@ -112,30 +112,30 @@ final class WIS implements ImageLibrary {
     }
         
     /**
-	 * ½âÑ¹Êı¾İ
-	 * @param packed Ñ¹ËõµÄÊı¾İ
-	 * @param unpackLength ½âÑ¹ºóÊı¾İ´óĞ¡
+	 * è§£å‹æ•°æ®
+	 * @param packed å‹ç¼©çš„æ•°æ®
+	 * @param unpackLength è§£å‹åæ•°æ®å¤§å°
 	 */
 	private static byte[] unpack(byte[] packed, int unpackLength) {
-		int srcLength = packed.length; // Ñ¹ËõºóÊı¾İ´óĞ¡
-		byte[] result = new byte[unpackLength]; // ½âÑ¹ºóÊı¾İ
-		int srcIndex = 0; // µ±Ç°½âÑ¹µÄ×Ö½ÚË÷Òı
-		int dstIndex = 0; // ½âÑ¹¹ı³Ì»¹Ô­³öµÄ×Ö½ÚË÷Òı
-		// ½âÑ¹¹ı³ÌÎªÖğ×Ö½Ú½øĞĞ(×Ö½ÚÓ¦×ªÎª1-256)
-		// Èç¹ûµ±Ç°×Ö½Ú·Ç0Ôò±íÊ¾½«ÒÔÏÂÒ»¸ö×Ö½ÚÊı¾İÌî³äµ±Ç°×Ö½Ú¸ö×Ö½ÚÎ»ÖÃ
-		// Èç¹ûµ±Ç°×Ö½ÚÎª0ÇÒÏÂÒ»¸ö×Ö½Ú²»Îª0Ôò±íÊ¾´ÓÏÂÏÂ¸ö×Ö½Ú¿ªÊ¼µ½ÏÂÒ»¸ö×Ö½Ú³¤¶È¶¼Ã»ÓĞÑ¹Ëõ£¬Ö±½Ó¸´ÖÆµ½Ä¿±êÊı×é
-		// Èç¹ûµ±Ç°×Ö½ÚÎª0ÇÒÏÂÒ»¸ö×Ö½ÚÒ²Îª0Ôò¿ÉÄÜÊÇÔàÊı¾İ£¬²»Óè´¦Àí
-		// XX YY ±íÊ¾ÒÔYYÌî³äXX¸ö×Ö½Ú
-		// 00 XX YY ZZ ... ±íÊ¾´ÓYY¿ªÊ¼XX¸ö×Ö½ÚÊÇÎ´±»Ñ¹ËõµÄ£¬Ö±½Ó¸´ÖÆ³öÀ´¼´¿É
+		int srcLength = packed.length; // å‹ç¼©åæ•°æ®å¤§å°
+		byte[] result = new byte[unpackLength]; // è§£å‹åæ•°æ®
+		int srcIndex = 0; // å½“å‰è§£å‹çš„å­—èŠ‚ç´¢å¼•
+		int dstIndex = 0; // è§£å‹è¿‡ç¨‹è¿˜åŸå‡ºçš„å­—èŠ‚ç´¢å¼•
+		// è§£å‹è¿‡ç¨‹ä¸ºé€å­—èŠ‚è¿›è¡Œ(å­—èŠ‚åº”è½¬ä¸º1-256)
+		// å¦‚æœå½“å‰å­—èŠ‚é0åˆ™è¡¨ç¤ºå°†ä»¥ä¸‹ä¸€ä¸ªå­—èŠ‚æ•°æ®å¡«å……å½“å‰å­—èŠ‚ä¸ªå­—èŠ‚ä½ç½®
+		// å¦‚æœå½“å‰å­—èŠ‚ä¸º0ä¸”ä¸‹ä¸€ä¸ªå­—èŠ‚ä¸ä¸º0åˆ™è¡¨ç¤ºä»ä¸‹ä¸‹ä¸ªå­—èŠ‚å¼€å§‹åˆ°ä¸‹ä¸€ä¸ªå­—èŠ‚é•¿åº¦éƒ½æ²¡æœ‰å‹ç¼©ï¼Œç›´æ¥å¤åˆ¶åˆ°ç›®æ ‡æ•°ç»„
+		// å¦‚æœå½“å‰å­—èŠ‚ä¸º0ä¸”ä¸‹ä¸€ä¸ªå­—èŠ‚ä¹Ÿä¸º0åˆ™å¯èƒ½æ˜¯è„æ•°æ®ï¼Œä¸äºˆå¤„ç†
+		// XX YY è¡¨ç¤ºä»¥YYå¡«å……XXä¸ªå­—èŠ‚
+		// 00 XX YY ZZ ... è¡¨ç¤ºä»YYå¼€å§‹XXä¸ªå­—èŠ‚æ˜¯æœªè¢«å‹ç¼©çš„ï¼Œç›´æ¥å¤åˆ¶å‡ºæ¥å³å¯
 		while(srcLength > 0 && unpackLength > 0) {
-			int length = packed[srcIndex++] & 0xff; // È¡³öµÚÒ»¸ö±êÖ¾Î»
-			int value = packed[srcIndex++] & 0xff; // È¡³öµÚ¶ş¸ö±êÖ¾Î»
+			int length = packed[srcIndex++] & 0xff; // å–å‡ºç¬¬ä¸€ä¸ªæ ‡å¿—ä½
+			int value = packed[srcIndex++] & 0xff; // å–å‡ºç¬¬äºŒä¸ªæ ‡å¿—ä½
 			srcLength -= 2;
 			/*if(value == 0 && length == 0) {
-				// ÔàÊı¾İ
+				// è„æ•°æ®
 				continue;
 			} else */if(length != 0) {
-				// ĞèÒª½âÑ¹Ëõ
+				// éœ€è¦è§£å‹ç¼©
 				unpackLength -= length;
 				for(int i = 0; i < length; ++i) {
 					result[dstIndex++] = (byte) value;
@@ -152,7 +152,7 @@ final class WIS implements ImageLibrary {
 	}
     
     /**
-     * ¹Ø±ÕWIS¶ÔÏó£¬ÊÍ·ÅÆäÒıÓÃµÄÎÄ¼şÁ÷ÒÔ¼°ÄÚ´æÕ¼ÓÃ
+     * å…³é—­WISå¯¹è±¡ï¼Œé‡Šæ”¾å…¶å¼•ç”¨çš„æ–‡ä»¶æµä»¥åŠå†…å­˜å ç”¨
      */
 	public final void close() throws IOException {
 		synchronized (wis_locker) {
@@ -177,23 +177,23 @@ final class WIS implements ImageLibrary {
     		int offset = offsetList[index];
     		int length = lengthList[index];
     		/*if(length < 14) {
-    			// Èç¹ûÊÇ¿Õ°×Í¼Æ¬
+    			// å¦‚æœæ˜¯ç©ºç™½å›¾ç‰‡
     			return Texture.EMPTY;
     		}*/
     		byte[] imageBytes = new byte[ii.getWidth() * ii.getHeight()];
     		byte[] packed = null;
     		byte encry = 0;
     		synchronized (wis_locker) {
-        		// ÊÇ·ñÑ¹Ëõ(RLE)
+        		// æ˜¯å¦å‹ç¼©(RLE)
         		br_wis.seek(offset);
         		encry = br_wis.readByte();
         		br_wis.skipBytes(11);
         		if(encry == 1) {
-        			// Ñ¹ËõÁË
+        			// å‹ç¼©äº†
         			packed = new byte[length - 12];
         			br_wis.read(packed);
         		} else {
-        			// Ã»Ñ¹Ëõ
+        			// æ²¡å‹ç¼©
         			br_wis.read(imageBytes);
         		}
 			}

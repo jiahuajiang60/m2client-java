@@ -1,7 +1,7 @@
 package org.jootnet.m2client.texture.internal;
 
 /**
- * ÈÈÑª´«Ææ2Í¼Æ¬ĞÅÏ¢
+ * çƒ­è¡€ä¼ å¥‡2å›¾ç‰‡ä¿¡æ¯
  * 
  * @author johness
  */
@@ -18,14 +18,14 @@ final class ImageInfo {
 	private byte colorBit = 8;
 	
 	/**
-	 * »ñÈ¡Í¼Æ¬É«Éî<br>
-	 * ¿ÉÈ¡ÖµÎª
+	 * è·å–å›¾ç‰‡è‰²æ·±<br>
+	 * å¯å–å€¼ä¸º
 	 * <ul>
-	 * <li>1:ºÚ°×Á½ÖÖÑÕÉ«</li>
-	 * <li>8:256ÖÖÑÕÉ«</li>
-	 * <li>16:65536ÖÖÑÕÉ«</li>
-	 * <li>24:16777215ÖÖÑÕÉ«</li>
-	 * <li>32:4294967295ÖÖÑÕÉ«</li>
+	 * <li>1:é»‘ç™½ä¸¤ç§é¢œè‰²</li>
+	 * <li>8:256ç§é¢œè‰²</li>
+	 * <li>16:65536ç§é¢œè‰²</li>
+	 * <li>24:16777215ç§é¢œè‰²</li>
+	 * <li>32:4294967295ç§é¢œè‰²</li>
 	 * </ul>
 	 * 
 	 * @return
@@ -38,9 +38,9 @@ final class ImageInfo {
 	}
 	
 	/**
-	 * »ñÈ¡Í¼Æ¬¿í¶È
+	 * è·å–å›¾ç‰‡å®½åº¦
 	 * 
-	 * @return Í¼Æ¬¿í¶È,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡å®½åº¦,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getWidth() {
 		return width;
@@ -50,9 +50,9 @@ final class ImageInfo {
 	}
 
 	/**
-	 * »ñÈ¡Í¼Æ¬¸ß¶È
+	 * è·å–å›¾ç‰‡é«˜åº¦
 	 * 
-	 * @return Í¼Æ¬¸ß¶È,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡é«˜åº¦,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getHeight() {
 		return height;
@@ -62,9 +62,9 @@ final class ImageInfo {
 	}
 
 	/**
-	 * »ñÈ¡Í¼Æ¬ºáÏòÆ«ÒÆÁ¿
+	 * è·å–å›¾ç‰‡æ¨ªå‘åç§»é‡
 	 * 
-	 * @return Í¼Æ¬ºáÏòÆ«ÒÆÁ¿,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡æ¨ªå‘åç§»é‡,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getOffsetX() {
 		return offsetX;
@@ -74,9 +74,9 @@ final class ImageInfo {
 	}
 
 	/**
-	 * »ñÈ¡Í¼Æ¬×İÏòÆ«ÒÆÁ¿
+	 * è·å–å›¾ç‰‡çºµå‘åç§»é‡
 	 * 
-	 * @return Í¼Æ¬×İÏòÆ«ÒÆÁ¿,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡çºµå‘åç§»é‡,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getOffsetY() {
 		return offsetY;

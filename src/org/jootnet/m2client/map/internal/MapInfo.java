@@ -1,50 +1,50 @@
 package org.jootnet.m2client.map.internal;
 
 /**
- * ÈÈÑª´«Ææ2µØÍ¼
+ * çƒ­è¡€ä¼ å¥‡2åœ°å›¾
  * <br>
- * ¼´µØÍ¼ÎÄ¼ş(*.map)µ½JavaÖĞÊı¾İ½á¹¹µÄÃèÊö
+ * å³åœ°å›¾æ–‡ä»¶(*.map)åˆ°Javaä¸­æ•°æ®ç»“æ„çš„æè¿°
  * <br>
- * ¼´Ò»¸öMapHeaderºÍÒ»¸öMapTile¶şÎ¬Êı×é
+ * å³ä¸€ä¸ªMapHeaderå’Œä¸€ä¸ªMapTileäºŒç»´æ•°ç»„
  * <br>
- * µ«Êµ¼ÊÉÏ²»Ê¹ÓÃMapHeaderºÍMapTile£¬ÒòÎªMapHeaderºÍMapTileÊı¾İÌ«É¢£¬²»±ãÓÚÊ¹ÓÃ
+ * ä½†å®é™…ä¸Šä¸ä½¿ç”¨MapHeaderå’ŒMapTileï¼Œå› ä¸ºMapHeaderå’ŒMapTileæ•°æ®å¤ªæ•£ï¼Œä¸ä¾¿äºä½¿ç”¨
  * <br>
- * ¶øÊÇ½«MapHeaderÖĞ¹Ø¼üµØÍ¼ĞÅÏ¢ÌáÈ¡³öÀ´·Åµ½MapÀï£¬½«MapTileÖØĞÂ½âÎöÎª{@link MapTileInfo}ÒÔ·½±ã³ÌĞòÂß¼­
+ * è€Œæ˜¯å°†MapHeaderä¸­å…³é”®åœ°å›¾ä¿¡æ¯æå–å‡ºæ¥æ”¾åˆ°Mapé‡Œï¼Œå°†MapTileé‡æ–°è§£æä¸º{@link MapTileInfo}ä»¥æ–¹ä¾¿ç¨‹åºé€»è¾‘
  * 
  * @author johness
  */
 public final class MapInfo {
 	
-	/** µØÍ¼¿í¶È */
+	/** åœ°å›¾å®½åº¦ */
 	private short width;
-	/** µØÍ¼¸ß¶È */
+	/** åœ°å›¾é«˜åº¦ */
 	private short height;
-	/** µØÍ¼¿éÊı¾İ */
+	/** åœ°å›¾å—æ•°æ® */
 	private MapTileInfo[][] tiles;
 	
 	MapInfo() { }
 	
-	/** »ñÈ¡µØÍ¼¿í¶È */
+	/** è·å–åœ°å›¾å®½åº¦ */
 	public short getWidth() {
 		return width;
 	}
-	/** ÉèÖÃµØÍ¼¿í¶È */
+	/** è®¾ç½®åœ°å›¾å®½åº¦ */
 	void setWidth(short width) {
 		this.width = width;
 	}
-	/** »ñÈ¡µØÍ¼¸ß¶È */
+	/** è·å–åœ°å›¾é«˜åº¦ */
 	public short getHeight() {
 		return height;
 	}
-	/** ÉèÖÃµØÍ¼¸ß¶È */
+	/** è®¾ç½®åœ°å›¾é«˜åº¦ */
 	void setHeight(short height) {
 		this.height = height;
 	}
-	/** »ñÈ¡µØÍ¼¿éĞÅÏ¢ */
+	/** è·å–åœ°å›¾å—ä¿¡æ¯ */
 	public MapTileInfo[][] getTiles() {
 		return tiles;
 	}
-	/** ÉèÖÃµØÍ¼¿éĞÅÏ¢ */
+	/** è®¾ç½®åœ°å›¾å—ä¿¡æ¯ */
 	void setMapTiles(MapTileInfo[][] mapTiles) {
 		this.tiles = mapTiles;
 	}

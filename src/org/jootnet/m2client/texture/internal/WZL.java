@@ -13,7 +13,7 @@ import org.jootnet.m2client.util.BinaryReader;
 import org.jootnet.m2client.util.SDK;
 
 /**
- * ÈÈÑª´«Ææ2WZLÍ¼Æ¬¿â
+ * çƒ­è¡€ä¼ å¥‡2WZLå›¾ç‰‡åº“
  * 
  * @author johness
  */
@@ -21,38 +21,38 @@ final class WZL implements ImageLibrary {
 
 	private int imageCount;
 	/**
-	 * »ñÈ¡¿âÖĞÍ¼Æ¬ÊıÁ¿
+	 * è·å–åº“ä¸­å›¾ç‰‡æ•°é‡
 	 * 
-	 * @return ´æÔÚÓÚµ±Ç°WZL¿âÖĞµÄÍ¼Æ¬ÊıÁ¿
+	 * @return å­˜åœ¨äºå½“å‰WZLåº“ä¸­çš„å›¾ç‰‡æ•°é‡
 	 */
 	int getImageCount() {
 		return imageCount;
 	}
-    /* Í¼Æ¬Êı¾İÆğÊ¼Î»ÖÃ */
+    /* å›¾ç‰‡æ•°æ®èµ·å§‹ä½ç½® */
     private int[] offsetList;
-    /* Í¼Æ¬Êı¾İ³¤¶È */
+    /* å›¾ç‰‡æ•°æ®é•¿åº¦ */
     private int[] lengthList;
     private ImageInfo[] imageInfos;
     /**
-     * »ñÈ¡¿âÖĞÍ¼Æ¬ĞÅÏ¢Êı×é
+     * è·å–åº“ä¸­å›¾ç‰‡ä¿¡æ¯æ•°ç»„
      * 
-     * @return ËùÓĞ´æÔÚÓÚµ±Ç°WZL¿âÖĞµÄÍ¼Æ¬ĞÅÏ¢Êı×é
+     * @return æ‰€æœ‰å­˜åœ¨äºå½“å‰WZLåº“ä¸­çš„å›¾ç‰‡ä¿¡æ¯æ•°ç»„
      */
 	ImageInfo[] getImageInfos() {
 		return imageInfos;
 	}
-	/* WZLÎÄ¼şËæ»ú¶ÁÈ¡¶ÔÏó */
+	/* WZLæ–‡ä»¶éšæœºè¯»å–å¯¹è±¡ */
 	private BinaryReader br_wzl;
 	private boolean loaded;
 	/**
-	 * »ñÈ¡¿â¼ÓÔØ×´Ì¬
+	 * è·å–åº“åŠ è½½çŠ¶æ€
 	 * 
-	 * @return true±íÊ¾¿â¼ÓÔØ³É¹¦ false±íÊ¾¼ÓÔØÊ§°Ü
+	 * @return trueè¡¨ç¤ºåº“åŠ è½½æˆåŠŸ falseè¡¨ç¤ºåŠ è½½å¤±è´¥
 	 */
 	public boolean isLoaded() {
 		return loaded;
 	}
-	/* ÎÄ¼şÖ¸Õë¶ÁÈ¡Ëø */
+	/* æ–‡ä»¶æŒ‡é’ˆè¯»å–é” */
     private Object wzl_locker = new Object();
     
     WZL(String wzlPath) {
@@ -67,12 +67,12 @@ final class WZL implements ImageLibrary {
 		if(!f_wzl.canRead()) return;
     	try {
     		BinaryReader br_wzx = new BinaryReader(f_wzx, "r");
-    		br_wzx.skipBytes(44); // Ìø¹ı±êÌâ
+    		br_wzx.skipBytes(44); // è·³è¿‡æ ‡é¢˜
     		imageCount = br_wzx.readIntLE();
 			offsetList = new int[imageCount];
 			for (int i = 0; i < imageCount; ++i)
 			{
-				// ¶ÁÈ¡Êı¾İÆ«ÒÆµØÖ·
+				// è¯»å–æ•°æ®åç§»åœ°å€
 				offsetList[i] = br_wzx.readIntLE();
 			}
 			br_wzx.close();
@@ -82,20 +82,20 @@ final class WZL implements ImageLibrary {
             for (int i = 0; i < imageCount; ++i) {
             	int offset = offsetList[i];
             	if(offset < 48) {
-            		// WZLÀïoffsetÎª0µÄÊÇ¿ÕÍ¼Æ¬
+            		// WZLé‡Œoffsetä¸º0çš„æ˜¯ç©ºå›¾ç‰‡
 					imageInfos[i] = ImageInfo.EMPTY;
             		continue;
             	}
             	if(offset + 16 > br_wzl.length()) {
-					// Êı¾İ³ö´í£¬Ö±½Ó¸³ÖµÎª¿ÕÍ¼Æ¬
+					// æ•°æ®å‡ºé”™ï¼Œç›´æ¥èµ‹å€¼ä¸ºç©ºå›¾ç‰‡
 					imageInfos[i] = ImageInfo.EMPTY;
             		continue;
 				}
-                // ¶ÁÈ¡Í¼Æ¬ĞÅÏ¢ºÍÊı¾İ³¤¶È
+                // è¯»å–å›¾ç‰‡ä¿¡æ¯å’Œæ•°æ®é•¿åº¦
                 ImageInfo ii = new ImageInfo();
                 br_wzl.seek(offset);
                 ii.setColorBit((byte) (br_wzl.readByte() == 5 ? 16 : 8));
-                br_wzl.skipBytes(3); // Ìø¹ı3×Ö½ÚÎ´ÖªÊı¾İ
+                br_wzl.skipBytes(3); // è·³è¿‡3å­—èŠ‚æœªçŸ¥æ•°æ®
                 ii.setWidth((short)br_wzl.readUnsignedShortLE());
 				ii.setHeight((short)br_wzl.readUnsignedShortLE());
 				ii.setOffsetX(br_wzl.readShortLE());
@@ -110,7 +110,7 @@ final class WZL implements ImageLibrary {
 		}
     }
 
-    /** ´Ózlib½âÑ¹ 
+    /** ä»zlibè§£å‹ 
      * @throws IOException */
 	private static byte[] unzip(byte[] ziped) throws IOException {
 		InflaterInputStream iis = new InflaterInputStream(new ByteArrayInputStream(ziped));
@@ -125,7 +125,7 @@ final class WZL implements ImageLibrary {
 	}
     
     /**
-     * ¹Ø±ÕWZL¶ÔÏó£¬ÊÍ·ÅÆäÒıÓÃµÄÎÄ¼şÁ÷ÒÔ¼°ÄÚ´æÕ¼ÓÃ
+     * å…³é—­WZLå¯¹è±¡ï¼Œé‡Šæ”¾å…¶å¼•ç”¨çš„æ–‡ä»¶æµä»¥åŠå†…å­˜å ç”¨
      */
 	public final void close() throws IOException {
 		synchronized (wzl_locker) {
@@ -163,7 +163,7 @@ final class WZL implements ImageLibrary {
                 for (int h = ii.getHeight() - 1; h >= 0; --h)
                     for (int w = 0; w < ii.getWidth(); ++w)
                     {
-                        // Ìø¹ıÌî³ä×Ö½Ú
+                        // è·³è¿‡å¡«å……å­—èŠ‚
                         if (w == 0)
                             p_index += SDK.skipBytes(8, ii.getWidth());
                         byte[] pallete = SDK.palletes[pixels[p_index++] & 0xff];
@@ -181,13 +181,13 @@ final class WZL implements ImageLibrary {
                 for (int h = ii.getHeight() - 1; h >= 0; --h)
                     for (int w = 0; w < ii.getWidth(); ++w, p_index += 2)
                     {
-                        // Ìø¹ıÌî³ä×Ö½Ú
+                        // è·³è¿‡å¡«å……å­—èŠ‚
                         if (w == 0)
                             p_index += SDK.skipBytes(16, ii.getWidth());
                         short pdata = bb.getShort(p_index);
-                        byte r = (byte) ((pdata & 0xf800) >> 8);// ÓÉÓÚÊÇÓë16Î»×öÓë²Ù×÷£¬ËùÒÔ¶à³öÁËºóÃæ8Î»
-                        byte g = (byte) ((pdata & 0x7e0) >> 3);// ¶à³öÁË3Î»£¬ÔÚÇ¿×ªÊ±Ç°8Î»»á×Ô¶¯¶ªÊ§
-                        byte b = (byte) ((pdata & 0x1f) << 3);// ÉÙÁË3Î»
+                        byte r = (byte) ((pdata & 0xf800) >> 8);// ç”±äºæ˜¯ä¸16ä½åšä¸æ“ä½œï¼Œæ‰€ä»¥å¤šå‡ºäº†åé¢8ä½
+                        byte g = (byte) ((pdata & 0x7e0) >> 3);// å¤šå‡ºäº†3ä½ï¼Œåœ¨å¼ºè½¬æ—¶å‰8ä½ä¼šè‡ªåŠ¨ä¸¢å¤±
+                        byte b = (byte) ((pdata & 0x1f) << 3);// å°‘äº†3ä½
     					int _idx = (w + h * ii.getWidth()) * 3;
     					sRGB[_idx] = r;
     					sRGB[_idx + 1] = g;

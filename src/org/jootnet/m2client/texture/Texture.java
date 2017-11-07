@@ -13,11 +13,11 @@ import java.awt.image.WritableRaster;
 import org.jootnet.m2client.util.SDK;
 
 /**
- * ÈÈÑª´«ÆæÍ¼Æ¬Êı¾İ<br>
- * Ê¹ÓÃÈı×Ö½ÚsRGB·½Ê½´æ·ÅÉ«²ÊÊı¾İ<br>
- * Í¼Æ¬²»Ö§³ÖÍ¸Ã÷É«£¬±³¾°ÎªºÚÉ«<br>
- * Ê¹ÓÃË«»º³å¼ÓËÙÍ¼Ïñ´¦Àí<br>
- * ´ËÍ¼Æ¬Óë{@link BufferedImage}Ïà»¥×ª»»
+ * çƒ­è¡€ä¼ å¥‡å›¾ç‰‡æ•°æ®<br>
+ * ä½¿ç”¨ä¸‰å­—èŠ‚sRGBæ–¹å¼å­˜æ”¾è‰²å½©æ•°æ®<br>
+ * å›¾ç‰‡ä¸æ”¯æŒé€æ˜è‰²ï¼ŒèƒŒæ™¯ä¸ºé»‘è‰²<br>
+ * ä½¿ç”¨åŒç¼“å†²åŠ é€Ÿå›¾åƒå¤„ç†<br>
+ * æ­¤å›¾ç‰‡ä¸{@link BufferedImage}ç›¸äº’è½¬æ¢
  * 
  * @author johness
  */
@@ -25,11 +25,11 @@ public final class Texture implements Cloneable {
 
 	private static int EMPTY_COLOR_INDEX = 0;
 	/**
-	 * ¿ÕÍ¼Æ¬
+	 * ç©ºå›¾ç‰‡
 	 */
 	public static final Texture EMPTY = new Texture(new byte[]{SDK.palletes[EMPTY_COLOR_INDEX][1],SDK.palletes[EMPTY_COLOR_INDEX][2],SDK.palletes[EMPTY_COLOR_INDEX][3]}, (short)1, (short)1);
 	/**
-	 * ¿ÕBufferedImageÍ¼Æ¬
+	 * ç©ºBufferedImageå›¾ç‰‡
 	 */
 	public static final BufferedImage EMPTY_BUFFEREDIMAGE;
 	
@@ -55,38 +55,38 @@ public final class Texture implements Cloneable {
 	private Object proc_locker = new Object();
 	
 	/**
-	 * ´ÓRGB×Ö½ÚÊı×é´´½¨Í¼Æ¬Êı¾İ
+	 * ä»RGBå­—èŠ‚æ•°ç»„åˆ›å»ºå›¾ç‰‡æ•°æ®
 	 * 
 	 * @param sRGB
-	 * 		Í¼Æ¬É«²ÊÊı¾İÊı¾İ<br>
-	 * 		Ã¿¸öÏñËØÕ¼ÓÃÈı¸ö×Ö½Ú½øĞĞ´æ´¢£¬´ÓÍ¼Æ¬×óÉÏ½Çµ½ÓÒÏÂ½Ç£¬±ØĞëÊÇRGBË³Ğò
+	 * 		å›¾ç‰‡è‰²å½©æ•°æ®æ•°æ®<br>
+	 * 		æ¯ä¸ªåƒç´ å ç”¨ä¸‰ä¸ªå­—èŠ‚è¿›è¡Œå­˜å‚¨ï¼Œä»å›¾ç‰‡å·¦ä¸Šè§’åˆ°å³ä¸‹è§’ï¼Œå¿…é¡»æ˜¯RGBé¡ºåº
 	 * @param width
-	 * 		Í¼Æ¬¿í¶È
+	 * 		å›¾ç‰‡å®½åº¦
 	 * @param height
-	 * 		Í¼Æ¬¸ß¶È
+	 * 		å›¾ç‰‡é«˜åº¦
 	 * 
-	 * @throws IllegalArgumentException ´«ÈëµÄÏñËØÊı¾İ³¤¶È²»·ûºÏÒªÇó
+	 * @throws IllegalArgumentException ä¼ å…¥çš„åƒç´ æ•°æ®é•¿åº¦ä¸ç¬¦åˆè¦æ±‚
 	 */
 	public Texture(byte[] sRGB, short width, short height) throws IllegalArgumentException {
 		this(sRGB, width, height, (short)0, (short)0);
 	}
 	
 	/**
-	 * ´ÓRGB×Ö½ÚÊı×é´´½¨Í¼Æ¬Êı¾İ
+	 * ä»RGBå­—èŠ‚æ•°ç»„åˆ›å»ºå›¾ç‰‡æ•°æ®
 	 * 
 	 * @param sRGB
-	 * 		Í¼Æ¬É«²ÊÊı¾İÊı¾İ<br>
-	 * 		Ã¿¸öÏñËØÕ¼ÓÃÈı¸ö×Ö½Ú½øĞĞ´æ´¢£¬´ÓÍ¼Æ¬×óÉÏ½Çµ½ÓÒÏÂ½Ç£¬±ØĞëÊÇRGBË³Ğò
+	 * 		å›¾ç‰‡è‰²å½©æ•°æ®æ•°æ®<br>
+	 * 		æ¯ä¸ªåƒç´ å ç”¨ä¸‰ä¸ªå­—èŠ‚è¿›è¡Œå­˜å‚¨ï¼Œä»å›¾ç‰‡å·¦ä¸Šè§’åˆ°å³ä¸‹è§’ï¼Œå¿…é¡»æ˜¯RGBé¡ºåº
 	 * @param width
-	 * 		Í¼Æ¬¿í¶È
+	 * 		å›¾ç‰‡å®½åº¦
 	 * @param height
-	 * 		Í¼Æ¬¸ß¶È
+	 * 		å›¾ç‰‡é«˜åº¦
 	 * @param offsetX
-	 * 		Í¼Æ¬ºáÏòÆ«ÒÆÁ¿
+	 * 		å›¾ç‰‡æ¨ªå‘åç§»é‡
 	 * @param offsetY
-	 * 		Í¼Æ¬×İÏòÆ«ÒÆÁ¿
+	 * 		å›¾ç‰‡çºµå‘åç§»é‡
 	 * 
-	 * @throws IllegalArgumentException ´«ÈëµÄÏñËØÊı¾İ³¤¶È²»·ûºÏÒªÇó
+	 * @throws IllegalArgumentException ä¼ å…¥çš„åƒç´ æ•°æ®é•¿åº¦ä¸ç¬¦åˆè¦æ±‚
 	 */
 	public Texture(byte[] sRGB, short width, short height, short offsetX, short offsetY) throws IllegalArgumentException {
 		if(sRGB != null && width > 0 && height > 0 && sRGB.length != (width * height * 3))
@@ -99,53 +99,53 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * »ñÈ¡Í¼Æ¬¿í¶È
+	 * è·å–å›¾ç‰‡å®½åº¦
 	 * 
-	 * @return Í¼Æ¬¿í¶È,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡å®½åº¦,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getWidth() {
 		return width;
 	}
 	/**
-	 * »ñÈ¡Í¼Æ¬¸ß¶È
+	 * è·å–å›¾ç‰‡é«˜åº¦
 	 * 
-	 * @return Í¼Æ¬¸ß¶È,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡é«˜åº¦,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getHeight() {
 		return height;
 	}
 	/**
-	 * »ñÈ¡Í¼Æ¬ºáÏòÆ«ÒÆÁ¿
+	 * è·å–å›¾ç‰‡æ¨ªå‘åç§»é‡
 	 * 
-	 * @return Í¼Æ¬ºáÏòÆ«ÒÆÁ¿,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡æ¨ªå‘åç§»é‡,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getOffsetX() {
 		return offsetX;
 	}
 	/**
-	 * »ñÈ¡Í¼Æ¬×İÏòÆ«ÒÆÁ¿
+	 * è·å–å›¾ç‰‡çºµå‘åç§»é‡
 	 * 
-	 * @return Í¼Æ¬×İÏòÆ«ÒÆÁ¿,µ¥Î»ÎªÏñËØ
+	 * @return å›¾ç‰‡çºµå‘åç§»é‡,å•ä½ä¸ºåƒç´ 
 	 */
 	public short getOffsetY() {
 		return offsetY;
 	}
 	
 	/**
-	 * ÅĞ¶Ïµ±Ç°Í¼Æ¬ÊÇ·ñÎª¿Õ
+	 * åˆ¤æ–­å½“å‰å›¾ç‰‡æ˜¯å¦ä¸ºç©º
 	 * 
-	 * @return true±íÊ¾µ±Ç°Í¼Æ¬Îª¿Õ£¬²»¿ÉÓÃÓÚÈÎºÎ´¦Àí/»æÖÆ/ĞòÁĞ»¯
+	 * @return trueè¡¨ç¤ºå½“å‰å›¾ç‰‡ä¸ºç©ºï¼Œä¸å¯ç”¨äºä»»ä½•å¤„ç†/ç»˜åˆ¶/åºåˆ—åŒ–
 	 */
 	public final boolean empty() {
 		return this == EMPTY || pixels == null || pixels.length == 0 || width < 1 || height < 1;
 	}
 	
 	/**
-	 * ÅĞ¶Ïµ±Ç°Í¼Æ¬ÊÇ·ñ±»ĞŞ¸Ä¹ı<br>
-	 * µ±Ç°º¯Êı·µ»ØÖ®ºó£¬Í¼Æ¬»á±»ÖÃÎªÎ´ĞŞ¸Ä£¬¼´ÏÂ´Îµ÷ÓÃ»á·µ»Øfalse<br>
-	 * Ò»°ãÓë{@link #toBufferedImage(boolean)}ÅäºÏÊ¹ÓÃ£¬ÅĞ¶¨Ê±»ú
+	 * åˆ¤æ–­å½“å‰å›¾ç‰‡æ˜¯å¦è¢«ä¿®æ”¹è¿‡<br>
+	 * å½“å‰å‡½æ•°è¿”å›ä¹‹åï¼Œå›¾ç‰‡ä¼šè¢«ç½®ä¸ºæœªä¿®æ”¹ï¼Œå³ä¸‹æ¬¡è°ƒç”¨ä¼šè¿”å›false<br>
+	 * ä¸€èˆ¬ä¸{@link #toBufferedImage(boolean)}é…åˆä½¿ç”¨ï¼Œåˆ¤å®šæ—¶æœº
 	 * 
-	 * @return ÉÏ´Îµ÷ÓÃ´Ëº¯ÊıÖ®ºóÍ¼Æ¬ÊÇ·ñ±»ĞŞ¸Ä¹ı
+	 * @return ä¸Šæ¬¡è°ƒç”¨æ­¤å‡½æ•°ä¹‹åå›¾ç‰‡æ˜¯å¦è¢«ä¿®æ”¹è¿‡
 	 * @see #toBufferedImage(boolean)
 	 */
 	public final boolean dirty() {
@@ -167,10 +167,10 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ´´½¨µ±Ç°Í¼Æ¬Êı¾İµÄ¿ËÂ¡£¬ÍêÕû¿ËÂ¡<br>
-	 * ÈçĞè´´½¨µ±Ç°Í¼Æ¬²¿·ÖÇøÓòµÄ¿ËÂ¡£¬ÔòÊ¹ÓÃ{@link #clip(int, int, int, int)}
+	 * åˆ›å»ºå½“å‰å›¾ç‰‡æ•°æ®çš„å…‹éš†ï¼Œå®Œæ•´å…‹éš†<br>
+	 * å¦‚éœ€åˆ›å»ºå½“å‰å›¾ç‰‡éƒ¨åˆ†åŒºåŸŸçš„å…‹éš†ï¼Œåˆ™ä½¿ç”¨{@link #clip(int, int, int, int)}
 	 * 
-	 * @return µ±Ç°Í¼Æ¬ÍêÕû¿ËÂ¡
+	 * @return å½“å‰å›¾ç‰‡å®Œæ•´å…‹éš†
 	 * 
 	 * @see #clip(int, int, int, int)
 	 */
@@ -186,20 +186,20 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ´´½¨µ±Ç°Í¼Æ¬Êı¾İµÄ¿ËÂ¡£¬²¿·Ö¿ËÂ¡<br>
-	 * Èç¹ûÇøÓòµÄÓÒ·½»òÏÂ·½³¬³öÍ¼Æ¬¿í¸ßÔòºöÂÔ³¬³ö²¿·Ö£¬µ«×óÉÏ·½²»¿É³¬³ö£¬Èç¹û³¬³öÔòÖ±½Ó²»½øĞĞ´¦Àí<br>
-	 * ÈçĞè´´½¨µ±Ç°Í¼ÍêÕû¿ËÂ¡£¬ÔòÊ¹ÓÃ{@link #clone()}
+	 * åˆ›å»ºå½“å‰å›¾ç‰‡æ•°æ®çš„å…‹éš†ï¼Œéƒ¨åˆ†å…‹éš†<br>
+	 * å¦‚æœåŒºåŸŸçš„å³æ–¹æˆ–ä¸‹æ–¹è¶…å‡ºå›¾ç‰‡å®½é«˜åˆ™å¿½ç•¥è¶…å‡ºéƒ¨åˆ†ï¼Œä½†å·¦ä¸Šæ–¹ä¸å¯è¶…å‡ºï¼Œå¦‚æœè¶…å‡ºåˆ™ç›´æ¥ä¸è¿›è¡Œå¤„ç†<br>
+	 * å¦‚éœ€åˆ›å»ºå½“å‰å›¾å®Œæ•´å…‹éš†ï¼Œåˆ™ä½¿ç”¨{@link #clone()}
 	 * 
 	 * @param x
-	 * 		¿ËÂ¡ÇøÓòÆğÊ¼x×ø±ê
+	 * 		å…‹éš†åŒºåŸŸèµ·å§‹xåæ ‡
 	 * @param y
-	 * 		¿ËÂ¡ÇøÓòÆğÊ¼y×ø±ê
+	 * 		å…‹éš†åŒºåŸŸèµ·å§‹yåæ ‡
 	 * @param w
-	 * 		¿ËÂ¡ÇøÓò¿í¶È
+	 * 		å…‹éš†åŒºåŸŸå®½åº¦
 	 * @param h
-	 * 		¿ËÂ¡ÇøÓò¸ß¶È
+	 * 		å…‹éš†åŒºåŸŸé«˜åº¦
 	 * 
-	 * @return µ±Ç°Í¼Æ¬²¿·ÖÇøÓò¿ËÂ¡
+	 * @return å½“å‰å›¾ç‰‡éƒ¨åˆ†åŒºåŸŸå…‹éš†
 	 * 
 	 * @see #clone()
 	 */
@@ -228,18 +228,18 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬Êı¾İ×ª»»Îª{@link BufferedImage}¶ÔÏó<br>
-	 * Ä¬ÈÏ²»Ö§³ÖAlphaÍ¨µÀ£¬ÒòÎª´ÓÍ¼ÏñËã·¨½Ç¶È½²ÊÇÃ»ÓĞ¡°Í¸Ã÷É«¡±¸ÅÄîµÄ£¬Ö»ÓĞÔÚÁ½ÕÅÍ¼Æ¬µş¼ÓÊ±²ÅÓĞÒâÒå<br>
-	 * Èç¹ûĞèÒªÔÚÍ¼Æ¬ÖĞ½«ÌØ¶¨ÑÕÉ«ÖÃÎªÍ¸Ã÷£¬ÔòÊ¹ÓÃ{@link #toBufferedImageTransparent(byte, byte, byte)}
+	 * å°†å›¾ç‰‡æ•°æ®è½¬æ¢ä¸º{@link BufferedImage}å¯¹è±¡<br>
+	 * é»˜è®¤ä¸æ”¯æŒAlphaé€šé“ï¼Œå› ä¸ºä»å›¾åƒç®—æ³•è§’åº¦è®²æ˜¯æ²¡æœ‰â€œé€æ˜è‰²â€æ¦‚å¿µçš„ï¼Œåªæœ‰åœ¨ä¸¤å¼ å›¾ç‰‡å åŠ æ—¶æ‰æœ‰æ„ä¹‰<br>
+	 * å¦‚æœéœ€è¦åœ¨å›¾ç‰‡ä¸­å°†ç‰¹å®šé¢œè‰²ç½®ä¸ºé€æ˜ï¼Œåˆ™ä½¿ç”¨{@link #toBufferedImageTransparent(byte, byte, byte)}
 	 * 
 	 * @param disaposable
-	 * 		½á¹ûÊÇ·ñÊÇÒ»´ÎĞÔµÄ<br>
-	 * 		µ±´ËÖµÖ»ÎªfalseÊ±·µ»Ø½á¹ûÖĞµÄBufferedImageÖĞÍ¼Æ¬Êı¾İÊÇÓëµ±Ç°¶ÔÏóÊ¹ÓÃÍ¬Ò»¸ö×Ö½ÚÊı×é<br>
-	 * 		¶Ôµ±Ç°¶ÔÏóµÄÈÎºÎ²Ù×÷¶¼»áÓ°Ïìµ½º¯Êı·µ»ØµÄÍ¼Æ¬Õ¹Ê¾£¬ÉõÖÁ¿ÉÄÜÔÚ¶àÏß³ÌÖĞ³öÏÖÍ¼Æ¬ËºÁÑ<br>
-	 * 		Òò´Ë£¬³ı·ÇÄãÈÏÎª×Ô¼ºÍ·ÄÔÊÇÇåÎúµÄ£¬·ñÔòÇë´«µİtrue<br>
-	 * 		ÀíÂÛÉÏ£¬´«µİfalseµÄº¯Êıµ÷ÓÃ£¬µ÷ÓÃÒ»´ÎºÍ¶à´ÎĞ§¹û¶¼ÊÇÒ»ÑùµÄ£¬´«µİtrueµÄµ÷ÓÃÔòĞèÒªÍ¨¹ı{@link #dirty()}½øĞĞÊ±»úÅĞ¶Ï
+	 * 		ç»“æœæ˜¯å¦æ˜¯ä¸€æ¬¡æ€§çš„<br>
+	 * 		å½“æ­¤å€¼åªä¸ºfalseæ—¶è¿”å›ç»“æœä¸­çš„BufferedImageä¸­å›¾ç‰‡æ•°æ®æ˜¯ä¸å½“å‰å¯¹è±¡ä½¿ç”¨åŒä¸€ä¸ªå­—èŠ‚æ•°ç»„<br>
+	 * 		å¯¹å½“å‰å¯¹è±¡çš„ä»»ä½•æ“ä½œéƒ½ä¼šå½±å“åˆ°å‡½æ•°è¿”å›çš„å›¾ç‰‡å±•ç¤ºï¼Œç”šè‡³å¯èƒ½åœ¨å¤šçº¿ç¨‹ä¸­å‡ºç°å›¾ç‰‡æ’•è£‚<br>
+	 * 		å› æ­¤ï¼Œé™¤éä½ è®¤ä¸ºè‡ªå·±å¤´è„‘æ˜¯æ¸…æ™°çš„ï¼Œå¦åˆ™è¯·ä¼ é€’true<br>
+	 * 		ç†è®ºä¸Šï¼Œä¼ é€’falseçš„å‡½æ•°è°ƒç”¨ï¼Œè°ƒç”¨ä¸€æ¬¡å’Œå¤šæ¬¡æ•ˆæœéƒ½æ˜¯ä¸€æ ·çš„ï¼Œä¼ é€’trueçš„è°ƒç”¨åˆ™éœ€è¦é€šè¿‡{@link #dirty()}è¿›è¡Œæ—¶æœºåˆ¤æ–­
 	 * 
-	 * @return Í¼Æ¬Êı¾İ¶ÔÓ¦µÄ{@link BufferedImage}¶ÔÏó
+	 * @return å›¾ç‰‡æ•°æ®å¯¹åº”çš„{@link BufferedImage}å¯¹è±¡
 	 * 
 	 * @see #toBufferedImageTransparent(byte, byte, byte)
 	 * @see #dirty()
@@ -256,9 +256,9 @@ public final class Texture implements Cloneable {
 				_pixels = new byte[pixels.length];
 				System.arraycopy(pixels, 0, _pixels, 0, pixels.length);
 			}
-			// ½«byte[]×ªÎªDataBufferByteÓÃÓÚºóĞø´´½¨BufferedImage¶ÔÏó
+			// å°†byte[]è½¬ä¸ºDataBufferByteç”¨äºåç»­åˆ›å»ºBufferedImageå¯¹è±¡
 	        DataBufferByte dataBuffer = new DataBufferByte(_pixels, pixels.length);
-	        // sRGBÉ«²Ê¿Õ¼ä¶ÔÏó
+	        // sRGBè‰²å½©ç©ºé—´å¯¹è±¡
 	        ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_sRGB);
 	        int[] nBits = {8, 8, 8};
 	        int[] bOffs = {0, 1, 2};
@@ -271,17 +271,17 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬Êı¾İ×ª»»Îª{@link BufferedImage}¶ÔÏó<br>
-	 * Èç¹û²»ĞèÒªÉèÖÃÍ¸Ã÷É«£¬ÔòÊ¹ÓÃ{@link #toBufferedImage(boolean)}<br>
-	 * ´Ëº¯Êı²»»á½«·µ»ØÖµ´æÈë»º´æ£¬ÊÇÒ»´ÎĞÔµÄ
+	 * å°†å›¾ç‰‡æ•°æ®è½¬æ¢ä¸º{@link BufferedImage}å¯¹è±¡<br>
+	 * å¦‚æœä¸éœ€è¦è®¾ç½®é€æ˜è‰²ï¼Œåˆ™ä½¿ç”¨{@link #toBufferedImage(boolean)}<br>
+	 * æ­¤å‡½æ•°ä¸ä¼šå°†è¿”å›å€¼å­˜å…¥ç¼“å­˜ï¼Œæ˜¯ä¸€æ¬¡æ€§çš„
 	 * 
 	 * @param r
-	 * 		Í¸Ã÷É«R·ÖÁ¿
+	 * 		é€æ˜è‰²Råˆ†é‡
 	 * @param g
-	 * 		Í¸Ã÷É«G·ÖÁ¿
+	 * 		é€æ˜è‰²Gåˆ†é‡
 	 * @param b
-	 * 		Í¸Ã÷É«B·ÖÁ¿
-	 * @return ½«Ö¸¶¨ÑÕÉ«ÖÃÎªÍ¸Ã÷É«µÄBufferedImage
+	 * 		é€æ˜è‰²Båˆ†é‡
+	 * @return å°†æŒ‡å®šé¢œè‰²ç½®ä¸ºé€æ˜è‰²çš„BufferedImage
 	 * 
 	 * @see #toBufferedImage(boolean)
 	 */
@@ -309,9 +309,9 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * Çå³ıÍ¼Æ¬É«²ÊÊı¾İ<br>
-	 * Çå³ıÍ¼Æ¬È«²¿É«²ÊÊı¾İ<br>
-	 * Èç¹ûĞèÒªÇå³ı²¿·ÖÇøÓòÉ«²ÊÊı¾İÔòÊ¹ÓÃ{@link #clear(int, int, int, int)}
+	 * æ¸…é™¤å›¾ç‰‡è‰²å½©æ•°æ®<br>
+	 * æ¸…é™¤å›¾ç‰‡å…¨éƒ¨è‰²å½©æ•°æ®<br>
+	 * å¦‚æœéœ€è¦æ¸…é™¤éƒ¨åˆ†åŒºåŸŸè‰²å½©æ•°æ®åˆ™ä½¿ç”¨{@link #clear(int, int, int, int)}
 	 * 
 	 * @see #clear(int, int, int, int)
 	 */
@@ -329,19 +329,19 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * Çå³ıÍ¼Æ¬É«²ÊÊı¾İ<br>
-	 * Çå³ıÍ¼Æ¬ÄÚ²¿·ÖÇøÓòÉ«²ÊÊı¾İ<br>
-	 * Èç¹ûÇøÓòµÄÓÒ·½»òÏÂ·½³¬³öÍ¼Æ¬¿í¸ßÔòºöÂÔ³¬³ö²¿·Ö£¬µ«×óÉÏ·½²»¿É³¬³ö£¬Èç¹û³¬³öÔòÖ±½Ó²»½øĞĞ´¦Àí<br>
-	 * Èç¹ûĞèÒªÇå³ıÈ«²¿É«²ÊÊı¾İÔòÊ¹ÓÃ{@link #clear()}
+	 * æ¸…é™¤å›¾ç‰‡è‰²å½©æ•°æ®<br>
+	 * æ¸…é™¤å›¾ç‰‡å†…éƒ¨åˆ†åŒºåŸŸè‰²å½©æ•°æ®<br>
+	 * å¦‚æœåŒºåŸŸçš„å³æ–¹æˆ–ä¸‹æ–¹è¶…å‡ºå›¾ç‰‡å®½é«˜åˆ™å¿½ç•¥è¶…å‡ºéƒ¨åˆ†ï¼Œä½†å·¦ä¸Šæ–¹ä¸å¯è¶…å‡ºï¼Œå¦‚æœè¶…å‡ºåˆ™ç›´æ¥ä¸è¿›è¡Œå¤„ç†<br>
+	 * å¦‚æœéœ€è¦æ¸…é™¤å…¨éƒ¨è‰²å½©æ•°æ®åˆ™ä½¿ç”¨{@link #clear()}
 	 * 
 	 * @param x
-	 * 		ÒªÇå³ıµÄÇøÓòÆğÊ¼x×ø±ê
+	 * 		è¦æ¸…é™¤çš„åŒºåŸŸèµ·å§‹xåæ ‡
 	 * @param y
-	 * 		ÒªÇå³ıµÄÇøÓòÆğÊ¼y×ø±ê
+	 * 		è¦æ¸…é™¤çš„åŒºåŸŸèµ·å§‹yåæ ‡
 	 * @param w
-	 * 		ÒªÇå³ıµÄÇøÓò¿í¶È
+	 * 		è¦æ¸…é™¤çš„åŒºåŸŸå®½åº¦
 	 * @param h
-	 * 		ÒªÇå³ıµÄÇøÓò¸ß¶È
+	 * 		è¦æ¸…é™¤çš„åŒºåŸŸé«˜åº¦
 	 * 
 	 * @see #clear()
 	 */
@@ -366,9 +366,9 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬×ª»»Îª»Ò°×<br>
-	 * ½«Í¼Æ¬È«²¿ÇøÓò×ª»»Îª»Ò°×<br>
-	 * Èç¹ûĞèÒª×ª»»²¿·ÖÇøÓòÎª»Ò°×ÔòÊ¹ÓÃ{@link #toGray(int, int, int, int)}
+	 * å°†å›¾ç‰‡è½¬æ¢ä¸ºç°ç™½<br>
+	 * å°†å›¾ç‰‡å…¨éƒ¨åŒºåŸŸè½¬æ¢ä¸ºç°ç™½<br>
+	 * å¦‚æœéœ€è¦è½¬æ¢éƒ¨åˆ†åŒºåŸŸä¸ºç°ç™½åˆ™ä½¿ç”¨{@link #toGray(int, int, int, int)}
 	 * 
 	 * @see #toGray(int, int, int, int)
 	 */
@@ -385,19 +385,19 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬×ª»»Îª»Ò°×<br>
-	 * ½«Í¼Æ¬²¿·ÖÇøÓò×ª»»Îª»Ò°×<br>
-	 * Èç¹ûÇøÓòµÄÓÒ·½»òÏÂ·½³¬³öÍ¼Æ¬¿í¸ßÔòºöÂÔ³¬³ö²¿·Ö£¬µ«×óÉÏ·½²»¿É³¬³ö£¬Èç¹û³¬³öÔòÖ±½Ó²»½øĞĞ´¦Àí<br>
-	 * Èç¹ûĞèÒª×ª»»È«²¿ÇøÓòÎª»Ò°×ÔòÊ¹ÓÃ{@link #toGray()}
+	 * å°†å›¾ç‰‡è½¬æ¢ä¸ºç°ç™½<br>
+	 * å°†å›¾ç‰‡éƒ¨åˆ†åŒºåŸŸè½¬æ¢ä¸ºç°ç™½<br>
+	 * å¦‚æœåŒºåŸŸçš„å³æ–¹æˆ–ä¸‹æ–¹è¶…å‡ºå›¾ç‰‡å®½é«˜åˆ™å¿½ç•¥è¶…å‡ºéƒ¨åˆ†ï¼Œä½†å·¦ä¸Šæ–¹ä¸å¯è¶…å‡ºï¼Œå¦‚æœè¶…å‡ºåˆ™ç›´æ¥ä¸è¿›è¡Œå¤„ç†<br>
+	 * å¦‚æœéœ€è¦è½¬æ¢å…¨éƒ¨åŒºåŸŸä¸ºç°ç™½åˆ™ä½¿ç”¨{@link #toGray()}
 	 * 
 	 * @param x
-	 * 		Òª×ª»»µÄÇøÓòÆğÊ¼x×ø±ê
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸèµ·å§‹xåæ ‡
 	 * @param y
-	 * 		Òª×ª»»µÄÇøÓòÆğÊ¼y×ø±ê
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸèµ·å§‹yåæ ‡
 	 * @param w
-	 * 		Òª×ª»»µÄÇøÓò¿í¶È
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸå®½åº¦
 	 * @param h
-	 * 		Òª×ª»»µÄÇøÓò¸ß¶È
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸé«˜åº¦
 	 * 
 	 * @see #toGray()
 	 */
@@ -424,9 +424,9 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬½øĞĞ·´É«´¦Àí<br>
-	 * ½«Í¼Æ¬È«²¿ÇøÓò½øĞĞ·´É«´¦Àí<br>
-	 * Èç¹ûĞèÒª¶Ô²¿·ÖÇøÓò½øĞĞ·´É«´¦ÀíÔòÊ¹ÓÃ{@link #inverse(int, int, int, int)}
+	 * å°†å›¾ç‰‡è¿›è¡Œåè‰²å¤„ç†<br>
+	 * å°†å›¾ç‰‡å…¨éƒ¨åŒºåŸŸè¿›è¡Œåè‰²å¤„ç†<br>
+	 * å¦‚æœéœ€è¦å¯¹éƒ¨åˆ†åŒºåŸŸè¿›è¡Œåè‰²å¤„ç†åˆ™ä½¿ç”¨{@link #inverse(int, int, int, int)}
 	 * 
 	 * @see #inverse(int, int, int, int)
 	 */
@@ -441,19 +441,19 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬½øĞĞ·´É«´¦Àí<br>
-	 * ½«Í¼Æ¬²¿·ÖÇøÓò½øĞĞ·´É«´¦Àí<br>
-	 * Èç¹ûÇøÓòµÄÓÒ·½»òÏÂ·½³¬³öÍ¼Æ¬¿í¸ßÔòºöÂÔ³¬³ö²¿·Ö£¬µ«×óÉÏ·½²»¿É³¬³ö£¬Èç¹û³¬³öÔòÖ±½Ó²»½øĞĞ´¦Àí<br>
-	 * Èç¹ûĞèÒª¶ÔÈ«²¿ÇøÓò½øĞĞ·´É«´¦ÀíÔòÊ¹ÓÃ{@link #inverse()}
+	 * å°†å›¾ç‰‡è¿›è¡Œåè‰²å¤„ç†<br>
+	 * å°†å›¾ç‰‡éƒ¨åˆ†åŒºåŸŸè¿›è¡Œåè‰²å¤„ç†<br>
+	 * å¦‚æœåŒºåŸŸçš„å³æ–¹æˆ–ä¸‹æ–¹è¶…å‡ºå›¾ç‰‡å®½é«˜åˆ™å¿½ç•¥è¶…å‡ºéƒ¨åˆ†ï¼Œä½†å·¦ä¸Šæ–¹ä¸å¯è¶…å‡ºï¼Œå¦‚æœè¶…å‡ºåˆ™ç›´æ¥ä¸è¿›è¡Œå¤„ç†<br>
+	 * å¦‚æœéœ€è¦å¯¹å…¨éƒ¨åŒºåŸŸè¿›è¡Œåè‰²å¤„ç†åˆ™ä½¿ç”¨{@link #inverse()}
 	 * 
 	 * @param x
-	 * 		Òª×ª»»µÄÇøÓòÆğÊ¼x×ø±ê
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸèµ·å§‹xåæ ‡
 	 * @param y
-	 * 		Òª×ª»»µÄÇøÓòÆğÊ¼y×ø±ê
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸèµ·å§‹yåæ ‡
 	 * @param w
-	 * 		Òª×ª»»µÄÇøÓò¿í¶È
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸå®½åº¦
 	 * @param h
-	 * 		Òª×ª»»µÄÇøÓò¸ß¶È
+	 * 		è¦è½¬æ¢çš„åŒºåŸŸé«˜åº¦
 	 * 
 	 * @see #inverse()
 	 */
@@ -480,11 +480,11 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬½øĞĞÍ¸Ã÷¶È´¦Àí<br>
-	 * ½«Í¼Æ¬È«²¿ÇøÓò½øĞĞÍ¸Ã÷¶È´¦Àí<br>
-	 * Èç¹ûĞèÒª¶Ô²¿·ÖÇøÓò½øĞĞÍ¸Ã÷¶È´¦ÀíÔòÊ¹ÓÃ{@link #alpha(float, int, int, int, int)}
+	 * å°†å›¾ç‰‡è¿›è¡Œé€æ˜åº¦å¤„ç†<br>
+	 * å°†å›¾ç‰‡å…¨éƒ¨åŒºåŸŸè¿›è¡Œé€æ˜åº¦å¤„ç†<br>
+	 * å¦‚æœéœ€è¦å¯¹éƒ¨åˆ†åŒºåŸŸè¿›è¡Œé€æ˜åº¦å¤„ç†åˆ™ä½¿ç”¨{@link #alpha(float, int, int, int, int)}
 	 * 
-	 * @param alpha Í¸Ã÷¶È
+	 * @param alpha é€æ˜åº¦
 	 * 
 	 * @see #alpha(float, int, int, int, int)
 	 */
@@ -499,21 +499,21 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Í¼Æ¬½øĞĞÍ¸Ã÷¶È´¦Àí<br>
-	 * ½«Í¼Æ¬²¿·ÖÇøÓò½øĞĞÍ¸Ã÷¶È´¦Àí<br>
-	 * Èç¹ûÇøÓòµÄÓÒ·½»òÏÂ·½³¬³öÍ¼Æ¬¿í¸ßÔòºöÂÔ³¬³ö²¿·Ö£¬µ«×óÉÏ·½²»¿É³¬³ö£¬Èç¹û³¬³öÔòÖ±½Ó²»½øĞĞ´¦Àí<br>
-	 * Èç¹ûĞèÒª¶ÔÈ«²¿ÇøÓò½øĞĞÍ¸Ã÷¶È´¦ÀíÔòÊ¹ÓÃ{@link #alpha(float)}
+	 * å°†å›¾ç‰‡è¿›è¡Œé€æ˜åº¦å¤„ç†<br>
+	 * å°†å›¾ç‰‡éƒ¨åˆ†åŒºåŸŸè¿›è¡Œé€æ˜åº¦å¤„ç†<br>
+	 * å¦‚æœåŒºåŸŸçš„å³æ–¹æˆ–ä¸‹æ–¹è¶…å‡ºå›¾ç‰‡å®½é«˜åˆ™å¿½ç•¥è¶…å‡ºéƒ¨åˆ†ï¼Œä½†å·¦ä¸Šæ–¹ä¸å¯è¶…å‡ºï¼Œå¦‚æœè¶…å‡ºåˆ™ç›´æ¥ä¸è¿›è¡Œå¤„ç†<br>
+	 * å¦‚æœéœ€è¦å¯¹å…¨éƒ¨åŒºåŸŸè¿›è¡Œé€æ˜åº¦å¤„ç†åˆ™ä½¿ç”¨{@link #alpha(float)}
 	 * 
-	 * @param alpha Í¸Ã÷¶È
+	 * @param alpha é€æ˜åº¦
 	 * 
 	 * @param x
-	 * 		Òª´¦ÀíµÄÇøÓòÆğÊ¼x×ø±ê
+	 * 		è¦å¤„ç†çš„åŒºåŸŸèµ·å§‹xåæ ‡
 	 * @param y
-	 * 		Òª´¦ÀíµÄÇøÓòÆğÊ¼y×ø±ê
+	 * 		è¦å¤„ç†çš„åŒºåŸŸèµ·å§‹yåæ ‡
 	 * @param w
-	 * 		Òª´¦ÀíµÄÇøÓò¿í¶È
+	 * 		è¦å¤„ç†çš„åŒºåŸŸå®½åº¦
 	 * @param h
-	 * 		Òª´¦ÀíµÄÇøÓò¸ß¶È
+	 * 		è¦å¤„ç†çš„åŒºåŸŸé«˜åº¦
 	 * 
 	 * @see #alpha(float)
 	 */
@@ -540,19 +540,19 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Ò»¸±Ä¿±êÍ¼Ïñ»ìºÏµ½µ±Ç°Í¼ÏñÉÏ<br>
-	 * Ê¹ÓÃÆÕÍ¨µÄÍ¼Ïñµş¼Ó·½Ê½<br>
-	 * ¼´Ö±½ÓÊ¹ÓÃÄ¿±êrgb×÷ÎªĞÂÍ¼Æ¬µÄrgb<br>
-	 * Èç¹ûĞèÒªÊ¹ÓÃOverlay·½Ê½£¬ÔòÊ¹ÓÃ{@link #blendAdd(Texture, Point, float)}·½Ê½<br>
-	 * Èç¹ûĞèÒªÖ§³ÖÍ¸Ã÷É«£¬ÔòÊ¹ÓÃ{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}
-	 * ´Ë²Ù×÷²»¸Ä±äÄ¿±êÍ¼ÏñÊı¾İ£¬¼´Ê¹´«µİÁËalpha²ÎÊı
+	 * å°†ä¸€å‰¯ç›®æ ‡å›¾åƒæ··åˆåˆ°å½“å‰å›¾åƒä¸Š<br>
+	 * ä½¿ç”¨æ™®é€šçš„å›¾åƒå åŠ æ–¹å¼<br>
+	 * å³ç›´æ¥ä½¿ç”¨ç›®æ ‡rgbä½œä¸ºæ–°å›¾ç‰‡çš„rgb<br>
+	 * å¦‚æœéœ€è¦ä½¿ç”¨Overlayæ–¹å¼ï¼Œåˆ™ä½¿ç”¨{@link #blendAdd(Texture, Point, float)}æ–¹å¼<br>
+	 * å¦‚æœéœ€è¦æ”¯æŒé€æ˜è‰²ï¼Œåˆ™ä½¿ç”¨{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}
+	 * æ­¤æ“ä½œä¸æ”¹å˜ç›®æ ‡å›¾åƒæ•°æ®ï¼Œå³ä½¿ä¼ é€’äº†alphaå‚æ•°
 	 * 
 	 * @param tar
-	 * 		Ä¿±êÍ¼Ïñ
+	 * 		ç›®æ ‡å›¾åƒ
 	 * @param loc
-	 * 		Í¼Ïñµş¼ÓÆğÊ¼×ø±ê
+	 * 		å›¾åƒå åŠ èµ·å§‹åæ ‡
 	 * @param alpha
-	 * 		Ä¿±êÍ¼ÏñÍ¸Ã÷¶È
+	 * 		ç›®æ ‡å›¾åƒé€æ˜åº¦
 	 * 
 	 * @see #blendAdd(Texture, Point, float)
 	 * @see #blendAddTransparent(Texture, Point, float, byte, byte, byte)
@@ -585,25 +585,25 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Ò»¸±Ä¿±êÍ¼Ïñ»ìºÏµ½µ±Ç°Í¼ÏñÉÏ<br>
-	 * Ê¹ÓÃÆÕÍ¨µÄÍ¼Ïñµş¼Ó·½Ê½<br>
-	 * ¼´Ö±½ÓÊ¹ÓÃÄ¿±êrgb×÷ÎªĞÂÍ¼Æ¬µÄrgb<br>
-	 * Èç¹ûĞèÒªÊ¹ÓÃOverlay·½Ê½£¬ÔòÊ¹ÓÃ{@link #blendAddTransparent(Texture, Point, float, byte, byte, byte)}·½Ê½<br>
-	 * ´Ë²Ù×÷²»¸Ä±äÄ¿±êÍ¼ÏñÊı¾İ£¬¼´Ê¹´«µİÁËalpha²ÎÊı<br>
-	 * Ö§³ÖÍ¸Ã÷É«£¬¼´Èç¹ûÄ¿±ê×ø±êÄ¿±êÍ¼Æ¬µÄÑÕÉ«ÊÇ¸ø¶¨ÖµÔòºöÂÔ
+	 * å°†ä¸€å‰¯ç›®æ ‡å›¾åƒæ··åˆåˆ°å½“å‰å›¾åƒä¸Š<br>
+	 * ä½¿ç”¨æ™®é€šçš„å›¾åƒå åŠ æ–¹å¼<br>
+	 * å³ç›´æ¥ä½¿ç”¨ç›®æ ‡rgbä½œä¸ºæ–°å›¾ç‰‡çš„rgb<br>
+	 * å¦‚æœéœ€è¦ä½¿ç”¨Overlayæ–¹å¼ï¼Œåˆ™ä½¿ç”¨{@link #blendAddTransparent(Texture, Point, float, byte, byte, byte)}æ–¹å¼<br>
+	 * æ­¤æ“ä½œä¸æ”¹å˜ç›®æ ‡å›¾åƒæ•°æ®ï¼Œå³ä½¿ä¼ é€’äº†alphaå‚æ•°<br>
+	 * æ”¯æŒé€æ˜è‰²ï¼Œå³å¦‚æœç›®æ ‡åæ ‡ç›®æ ‡å›¾ç‰‡çš„é¢œè‰²æ˜¯ç»™å®šå€¼åˆ™å¿½ç•¥
 	 * 
 	 * @param tar
-	 * 		Ä¿±êÍ¼Ïñ
+	 * 		ç›®æ ‡å›¾åƒ
 	 * @param loc
-	 * 		Í¼Ïñµş¼ÓÆğÊ¼×ø±ê
+	 * 		å›¾åƒå åŠ èµ·å§‹åæ ‡
 	 * @param alpha
-	 * 		Ä¿±êÍ¼ÏñÍ¸Ã÷¶È
+	 * 		ç›®æ ‡å›¾åƒé€æ˜åº¦
 	 * @param r
-	 * 		Í¸Ã÷É«R·ÖÁ¿
+	 * 		é€æ˜è‰²Råˆ†é‡
 	 * @param g
-	 * 		Í¸Ã÷É«·ÖÁ¿
+	 * 		é€æ˜è‰²åˆ†é‡
 	 * @param b
-	 * 		Í¸Ã÷É«·ÖÁ¿
+	 * 		é€æ˜è‰²åˆ†é‡
 	 * 
 	 * @see #blendAdd(Texture, Point, float)
 	 * @see #blendAddTransparent(Texture, Point, float, byte, byte, byte)
@@ -641,19 +641,19 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Ò»¸±Ä¿±êÍ¼Ïñ»ìºÏµ½µ±Ç°Í¼ÏñÉÏ<br>
-	 * Ê¹ÓÃOverlayµÄÍ¼Ïñµş¼Ó·½Ê½<br>
-	 * ¼´ÏÔ¿¨µÄAdd»ìºÏÄ£Ê½£¬ÔÚOpenGLÀïÊÇglBlendFunc(GL_SRC_COLOR, GL_ONE)<br>
-	 * Èç¹ûĞèÒªÊ¹ÓÃÆÕÍ¨·½Ê½£¬ÔòÊ¹ÓÃ{@link #blendNormal(Texture, Point, float)}·½Ê½<br>
-	 * ÈçĞèÖ§³ÖÍ¸Ã÷É«£¬ÔòÊ¹ÓÃ{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}
-	 * ´Ë²Ù×÷²»¸Ä±äÄ¿±êÍ¼ÏñÊı¾İ£¬¼´Ê¹´«µİÁËalpha²ÎÊı
+	 * å°†ä¸€å‰¯ç›®æ ‡å›¾åƒæ··åˆåˆ°å½“å‰å›¾åƒä¸Š<br>
+	 * ä½¿ç”¨Overlayçš„å›¾åƒå åŠ æ–¹å¼<br>
+	 * å³æ˜¾å¡çš„Addæ··åˆæ¨¡å¼ï¼Œåœ¨OpenGLé‡Œæ˜¯glBlendFunc(GL_SRC_COLOR, GL_ONE)<br>
+	 * å¦‚æœéœ€è¦ä½¿ç”¨æ™®é€šæ–¹å¼ï¼Œåˆ™ä½¿ç”¨{@link #blendNormal(Texture, Point, float)}æ–¹å¼<br>
+	 * å¦‚éœ€æ”¯æŒé€æ˜è‰²ï¼Œåˆ™ä½¿ç”¨{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}
+	 * æ­¤æ“ä½œä¸æ”¹å˜ç›®æ ‡å›¾åƒæ•°æ®ï¼Œå³ä½¿ä¼ é€’äº†alphaå‚æ•°
 	 * 
 	 * @param tar
-	 * 		Ä¿±êÍ¼Ïñ
+	 * 		ç›®æ ‡å›¾åƒ
 	 * @param loc
-	 * 		Í¼Ïñµş¼ÓÆğÊ¼×ø±ê
+	 * 		å›¾åƒå åŠ èµ·å§‹åæ ‡
 	 * @param alpha
-	 * 		Ä¿±êÍ¼ÏñÍ¸Ã÷¶È
+	 * 		ç›®æ ‡å›¾åƒé€æ˜åº¦
 	 * 
 	 * @see #blendNormal(Texture, Point, float)
 	 * @see #blendNormalTransparent(Texture, Point, float, byte, byte, byte)
@@ -689,25 +689,25 @@ public final class Texture implements Cloneable {
 	}
 	
 	/**
-	 * ½«Ò»¸±Ä¿±êÍ¼Ïñ»ìºÏµ½µ±Ç°Í¼ÏñÉÏ<br>
-	 * Ê¹ÓÃOverlayµÄÍ¼Ïñµş¼Ó·½Ê½<br>
-	 * ¼´ÏÔ¿¨µÄAdd»ìºÏÄ£Ê½£¬ÔÚOpenGLÀïÊÇglBlendFunc(GL_SRC_COLOR, GL_ONE)<br>
-	 * Èç¹ûĞèÒªÊ¹ÓÃÆÕÍ¨·½Ê½£¬ÔòÊ¹ÓÃ{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}·½Ê½<br>
-	 * ´Ë²Ù×÷²»¸Ä±äÄ¿±êÍ¼ÏñÊı¾İ£¬¼´Ê¹´«µİÁËalpha²ÎÊı<br>
-	 * Ö§³ÖÍ¸Ã÷É«£¬¼´Èç¹ûÄ¿±ê×ø±êÄ¿±êÍ¼Æ¬µÄÑÕÉ«ÊÇ¸ø¶¨ÖµÔòºöÂÔ
+	 * å°†ä¸€å‰¯ç›®æ ‡å›¾åƒæ··åˆåˆ°å½“å‰å›¾åƒä¸Š<br>
+	 * ä½¿ç”¨Overlayçš„å›¾åƒå åŠ æ–¹å¼<br>
+	 * å³æ˜¾å¡çš„Addæ··åˆæ¨¡å¼ï¼Œåœ¨OpenGLé‡Œæ˜¯glBlendFunc(GL_SRC_COLOR, GL_ONE)<br>
+	 * å¦‚æœéœ€è¦ä½¿ç”¨æ™®é€šæ–¹å¼ï¼Œåˆ™ä½¿ç”¨{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}æ–¹å¼<br>
+	 * æ­¤æ“ä½œä¸æ”¹å˜ç›®æ ‡å›¾åƒæ•°æ®ï¼Œå³ä½¿ä¼ é€’äº†alphaå‚æ•°<br>
+	 * æ”¯æŒé€æ˜è‰²ï¼Œå³å¦‚æœç›®æ ‡åæ ‡ç›®æ ‡å›¾ç‰‡çš„é¢œè‰²æ˜¯ç»™å®šå€¼åˆ™å¿½ç•¥
 	 * 
 	 * @param tar
-	 * 		Ä¿±êÍ¼Ïñ
+	 * 		ç›®æ ‡å›¾åƒ
 	 * @param loc
-	 * 		Í¼Ïñµş¼ÓÆğÊ¼×ø±ê
+	 * 		å›¾åƒå åŠ èµ·å§‹åæ ‡
 	 * @param alpha
-	 * 		Ä¿±êÍ¼ÏñÍ¸Ã÷¶È
+	 * 		ç›®æ ‡å›¾åƒé€æ˜åº¦
 	 * @param r
-	 * 		Í¸Ã÷É«R·ÖÁ¿
+	 * 		é€æ˜è‰²Råˆ†é‡
 	 * @param g
-	 * 		Í¸Ã÷É«·ÖÁ¿
+	 * 		é€æ˜è‰²åˆ†é‡
 	 * @param b
-	 * 		Í¸Ã÷É«·ÖÁ¿
+	 * 		é€æ˜è‰²åˆ†é‡
 	 * 
 	 * @see #blendNormal(Texture, Point, float)
 	 * @see #blendNormalTransparent(Texture, Point, float, byte, byte, byte)

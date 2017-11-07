@@ -12,18 +12,18 @@ import org.jootnet.m2client.ui.GamePanel;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		System.setProperty("org.jootnet.m2client.data.dir", "D:\\Program Files (x86)\\Ê¢´óÍøÂç\\ÈÈÑª´«Ææ\\Data");
-		System.setProperty("org.jootnet.m2client.map.dir", "D:\\Program Files (x86)\\Ê¢´óÍøÂç\\ÈÈÑª´«Ææ\\Map");
+		System.setProperty("org.jootnet.m2client.data.dir", "D:\\Program Files (x86)\\ç››å¤§ç½‘ç»œ\\çƒ­è¡€ä¼ å¥‡\\Data");
+		System.setProperty("org.jootnet.m2client.map.dir", "D:\\Program Files (x86)\\ç››å¤§ç½‘ç»œ\\çƒ­è¡€ä¼ å¥‡\\Map");
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("²âÊÔµØÍ¼äÖÈ¾");
+		frame.setTitle("æµ‹è¯•åœ°å›¾æ¸²æŸ“");
 		//frame.setLocationRelativeTo(null);
 		frame.setSize(1280, 720);
 		Map map = Maps.get("0");
 		map.move(330, 330);
 		frame.setContentPane(new GamePanel(map));
 		frame.setVisible(true);
-		//ImageIO.write(Textures.getTextureImmediately("npc", 1992).toBufferedImage(true), "jpg", new File("C:\\Users\\ÔÆ\\Desktop\\1.jpg"));
+		//ImageIO.write(Textures.getTextureImmediately("npc", 1992).toBufferedImage(true), "jpg", new File("C:\\Users\\äº‘\\Desktop\\1.jpg"));
 	}
 
 }

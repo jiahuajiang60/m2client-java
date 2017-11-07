@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
- * ÎÄ¼ş¶ş½øÖÆ¶ÁÈ¡Àà
+ * æ–‡ä»¶äºŒè¿›åˆ¶è¯»å–ç±»
  * <br>
- * ´ËÀà¼Ì³Ğ{@link RandomAccessFile}£¬Ìí¼ÓÒ»ÏµÁĞÒÔ<b>LE</b>½áÎ²µÄº¯Êı½«¶ÁÈ¡µÄ×Ö½ÚÒÔ<b>Little-Endian</b>¸ñÊ½·µ»Ø
+ * æ­¤ç±»ç»§æ‰¿{@link RandomAccessFile}ï¼Œæ·»åŠ ä¸€ç³»åˆ—ä»¥<b>LE</b>ç»“å°¾çš„å‡½æ•°å°†è¯»å–çš„å­—èŠ‚ä»¥<b>Little-Endian</b>æ ¼å¼è¿”å›
  * 
  * @author johness
  */
@@ -20,12 +20,12 @@ public final class BinaryReader extends RandomAccessFile {
 	}
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÈ¡Ò»¸ö¶ÌÕûĞÎÊı¾İ
+	 * ä»æµä¸­è¯»å–ä¸€ä¸ªçŸ­æ•´å½¢æ•°æ®
 	 * <br>
-	 * Á÷Î»ÖÃÏòÇ°ÍÆ½øÁ½¸ö×Ö½Ú
+	 * æµä½ç½®å‘å‰æ¨è¿›ä¸¤ä¸ªå­—èŠ‚
 	 * 
-	 * @return Ò»¸ö¶ÌÕûĞÎ£¬ÒÔLittle-Endian¸ñÊ½·µ»Ø
-	 * @throws IOException ÎÄ¼şÒÑ´ïµ½Ä©Î²
+	 * @return ä¸€ä¸ªçŸ­æ•´å½¢ï¼Œä»¥Little-Endianæ ¼å¼è¿”å›
+	 * @throws IOException æ–‡ä»¶å·²è¾¾åˆ°æœ«å°¾
 	 */
 	public final short readShortLE() throws IOException {
         int ch1 = this.read();
@@ -36,12 +36,12 @@ public final class BinaryReader extends RandomAccessFile {
     }
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÈ¡Ò»¸öÎŞ·ûºÅ¶ÌÕûĞÎÊı¾İ
+	 * ä»æµä¸­è¯»å–ä¸€ä¸ªæ— ç¬¦å·çŸ­æ•´å½¢æ•°æ®
 	 * <br>
-	 * Á÷Î»ÖÃÏòÇ°ÍÆ½øÁ½¸ö×Ö½Ú
+	 * æµä½ç½®å‘å‰æ¨è¿›ä¸¤ä¸ªå­—èŠ‚
 	 * 
-	 * @return Ò»¸öÎŞ·ûºÅ¶ÌÕûĞÎ£¬ÒÔLittle-Endian¸ñÊ½·µ»Ø
-	 * @throws IOException ÎÄ¼şÒÑ´ïµ½Ä©Î²
+	 * @return ä¸€ä¸ªæ— ç¬¦å·çŸ­æ•´å½¢ï¼Œä»¥Little-Endianæ ¼å¼è¿”å›
+	 * @throws IOException æ–‡ä»¶å·²è¾¾åˆ°æœ«å°¾
 	 */
 	public final int readUnsignedShortLE() throws IOException {
         int ch1 = this.read();
@@ -52,12 +52,12 @@ public final class BinaryReader extends RandomAccessFile {
     }
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÈ¡Ò»¸öË«×Ö½Ú×Ö·û
+	 * ä»æµä¸­è¯»å–ä¸€ä¸ªåŒå­—èŠ‚å­—ç¬¦
 	 * <br>
-	 * Á÷Î»ÖÃÏòÇ°ÍÆ½øÁ½¸ö×Ö½Ú
+	 * æµä½ç½®å‘å‰æ¨è¿›ä¸¤ä¸ªå­—èŠ‚
 	 * 
-	 * @return Ò»¸öË«×Ö½Ú×Ö·û£¬ÒÔLittle-Endian¸ñÊ½·µ»Ø
-	 * @throws IOException ÎÄ¼şÒÑ´ïµ½Ä©Î²
+	 * @return ä¸€ä¸ªåŒå­—èŠ‚å­—ç¬¦ï¼Œä»¥Little-Endianæ ¼å¼è¿”å›
+	 * @throws IOException æ–‡ä»¶å·²è¾¾åˆ°æœ«å°¾
 	 */
 	public final char readCharLE() throws IOException {
         int ch1 = this.read();
@@ -68,12 +68,12 @@ public final class BinaryReader extends RandomAccessFile {
     }
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÈ¡Ò»¸öËÄ×Ö½ÚÕûĞÎ
+	 * ä»æµä¸­è¯»å–ä¸€ä¸ªå››å­—èŠ‚æ•´å½¢
 	 * <br>
-	 * Á÷Î»ÖÃÏòÇ°ÍÆ½øËÄ¸ö×Ö½Ú
+	 * æµä½ç½®å‘å‰æ¨è¿›å››ä¸ªå­—èŠ‚
 	 * 
-	 * @return Ò»¸öÕûĞÎ£¬ÒÔLittle-Endian¸ñÊ½·µ»Ø
-	 * @throws IOException ÎÄ¼şÒÑ´ïµ½Ä©Î²
+	 * @return ä¸€ä¸ªæ•´å½¢ï¼Œä»¥Little-Endianæ ¼å¼è¿”å›
+	 * @throws IOException æ–‡ä»¶å·²è¾¾åˆ°æœ«å°¾
 	 */
 	public final int readIntLE() throws IOException {
         int ch1 = this.read();
@@ -86,36 +86,36 @@ public final class BinaryReader extends RandomAccessFile {
     }
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÈ¡Ò»¸ö°Ë×Ö½Ú³¤ÕûĞÎ
+	 * ä»æµä¸­è¯»å–ä¸€ä¸ªå…«å­—èŠ‚é•¿æ•´å½¢
 	 * <br>
-	 * Á÷Î»ÖÃÏòÇ°ÍÆ½ø°Ë¸ö×Ö½Ú
+	 * æµä½ç½®å‘å‰æ¨è¿›å…«ä¸ªå­—èŠ‚
 	 * 
-	 * @return Ò»¸ö³¤ÕûĞÎ£¬ÒÔLittle-Endian¸ñÊ½·µ»Ø
-	 * @throws IOException ÎÄ¼şÒÑ´ïµ½Ä©Î²
+	 * @return ä¸€ä¸ªé•¿æ•´å½¢ï¼Œä»¥Little-Endianæ ¼å¼è¿”å›
+	 * @throws IOException æ–‡ä»¶å·²è¾¾åˆ°æœ«å°¾
 	 */
 	public final long readLongLE() throws IOException {
         return ((long)(readIntLE()) & 0xFFFFFFFFL) + (readIntLE() << 32);
     }
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÈ¡Ò»¸öµ¥¾«¶È¸¡µãÊı
+	 * ä»æµä¸­è¯»å–ä¸€ä¸ªå•ç²¾åº¦æµ®ç‚¹æ•°
 	 * <br>
-	 * Á÷Î»ÖÃÏòÇ°ÍÆ½øËÄ¸ö×Ö½Ú
+	 * æµä½ç½®å‘å‰æ¨è¿›å››ä¸ªå­—èŠ‚
 	 * 
-	 * @return Ò»¸öµ¥¾«¶È¸¡µãÊı£¬ÒÔLittle-Endian¸ñÊ½·µ»Ø
-	 * @throws IOException ÎÄ¼şÒÑ´ïµ½Ä©Î²
+	 * @return ä¸€ä¸ªå•ç²¾åº¦æµ®ç‚¹æ•°ï¼Œä»¥Little-Endianæ ¼å¼è¿”å›
+	 * @throws IOException æ–‡ä»¶å·²è¾¾åˆ°æœ«å°¾
 	 */
 	public final float readFloatLE() throws IOException {
         return Float.intBitsToFloat(readIntLE());
     }
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÈ¡Ò»¸öË«¾«¶È¸¡µãÊı
+	 * ä»æµä¸­è¯»å–ä¸€ä¸ªåŒç²¾åº¦æµ®ç‚¹æ•°
 	 * <br>
-	 * Á÷Î»ÖÃÏòÇ°ÍÆ½ø°Ë¸ö×Ö½Ú
+	 * æµä½ç½®å‘å‰æ¨è¿›å…«ä¸ªå­—èŠ‚
 	 * 
-	 * @return Ò»¸öË«¾«¶È¸¡µãÊı£¬ÒÔLittle-Endian¸ñÊ½·µ»Ø
-	 * @throws IOException ÎÄ¼şÒÑ´ïµ½Ä©Î²
+	 * @return ä¸€ä¸ªåŒç²¾åº¦æµ®ç‚¹æ•°ï¼Œä»¥Little-Endianæ ¼å¼è¿”å›
+	 * @throws IOException æ–‡ä»¶å·²è¾¾åˆ°æœ«å°¾
 	 */
 	public final double readDoubleLE() throws IOException {
         return Double.longBitsToDouble(readLongLE());

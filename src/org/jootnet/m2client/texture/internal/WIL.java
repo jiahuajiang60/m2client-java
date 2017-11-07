@@ -10,51 +10,51 @@ import org.jootnet.m2client.util.BinaryReader;
 import org.jootnet.m2client.util.SDK;
 
 /**
- * ÈÈÑª´«Ææ2WILÍ¼Æ¬¿â
+ * çƒ­è¡€ä¼ å¥‡2WILå›¾ç‰‡åº“
  * 
  * @author johness
  */
 final class WIL implements ImageLibrary {
 
 	/**
-	 * ÊÇ·ñÖ»ÓÃWILÖĞµÄÊı¾İ½âÎöÍ¼Æ¬£¬¶ø²»¿´WIXµÄÄÚÈİ
+	 * æ˜¯å¦åªç”¨WILä¸­çš„æ•°æ®è§£æå›¾ç‰‡ï¼Œè€Œä¸çœ‹WIXçš„å†…å®¹
 	 */
 	public static boolean GLOBAL_ONLYWIL_MODE = false;
 	
 	private int imageCount;
 	/**
-	 * »ñÈ¡¿âÖĞÍ¼Æ¬ÊıÁ¿
+	 * è·å–åº“ä¸­å›¾ç‰‡æ•°é‡
 	 * 
-	 * @return ´æÔÚÓÚµ±Ç°WIL¿âÖĞµÄÍ¼Æ¬ÊıÁ¿
+	 * @return å­˜åœ¨äºå½“å‰WILåº“ä¸­çš„å›¾ç‰‡æ•°é‡
 	 */
 	int getImageCount() {
 		return imageCount;
 	}
-	/* °æ±¾±êÊ¶ */
+	/* ç‰ˆæœ¬æ ‡è¯† */
     private int verFlag;
-    /* Í¼Æ¬Êı¾İÆğÊ¼Î»ÖÃ */
+    /* å›¾ç‰‡æ•°æ®èµ·å§‹ä½ç½® */
     private int[] offsetList;
     private ImageInfo[] imageInfos;
     /**
-     * »ñÈ¡¿âÖĞÍ¼Æ¬ĞÅÏ¢Êı×é
+     * è·å–åº“ä¸­å›¾ç‰‡ä¿¡æ¯æ•°ç»„
      * 
-     * @return ËùÓĞ´æÔÚÓÚµ±Ç°WIL¿âÖĞµÄÍ¼Æ¬ĞÅÏ¢Êı×é
+     * @return æ‰€æœ‰å­˜åœ¨äºå½“å‰WILåº“ä¸­çš„å›¾ç‰‡ä¿¡æ¯æ•°ç»„
      */
 	ImageInfo[] getImageInfos() {
 		return imageInfos;
 	}
-	/* WILÎÄ¼şËæ»ú¶ÁÈ¡¶ÔÏó */
+	/* WILæ–‡ä»¶éšæœºè¯»å–å¯¹è±¡ */
 	private BinaryReader br_wil;
 	private volatile boolean loaded;
 	/**
-	 * »ñÈ¡¿â¼ÓÔØ×´Ì¬
+	 * è·å–åº“åŠ è½½çŠ¶æ€
 	 * 
-	 * @return true±íÊ¾¿â¼ÓÔØ³É¹¦ false±íÊ¾¼ÓÔØÊ§°Ü
+	 * @return trueè¡¨ç¤ºåº“åŠ è½½æˆåŠŸ falseè¡¨ç¤ºåŠ è½½å¤±è´¥
 	 */
 	public boolean isLoaded() {
 		return loaded;
 	}
-	/* ÎÄ¼şÖ¸Õë¶ÁÈ¡Ëø */
+	/* æ–‡ä»¶æŒ‡é’ˆè¯»å–é” */
     private Object wil_locker = new Object();
     
     WIL(String wilPath) {
@@ -72,25 +72,25 @@ final class WIL implements ImageLibrary {
     		if(!wilOnlyMode && !f_wix.isFile()) return;
     		if(!wilOnlyMode && !f_wix.canRead()) return;
 			br_wil = new BinaryReader(f_wil, "r");
-			br_wil.skipBytes(44); // Ìø¹ı±êÌâ
-			imageCount = br_wil.readIntLE(); // Í¼Æ¬ÊıÁ¿
+			br_wil.skipBytes(44); // è·³è¿‡æ ‡é¢˜
+			imageCount = br_wil.readIntLE(); // å›¾ç‰‡æ•°é‡
 			offsetList = new int[imageCount + 1];
 			offsetList[imageCount] = (int)br_wil.length();
-			int colorCount = SDK.colorCountToBitCount(br_wil.readIntLE()); // É«Éî¶È
+			int colorCount = SDK.colorCountToBitCount(br_wil.readIntLE()); // è‰²æ·±åº¦
 			if(colorCount == 8) {
-				// 8Î»»Ò¶ÈÍ¼¿ÉÄÜ°æ±¾±êÊ¶²»Îª0£¬´ËÊ±²Ù×÷²»Ò»Ñù
-				br_wil.skipBytes(4); // ºöÂÔµ÷É«°å
+				// 8ä½ç°åº¦å›¾å¯èƒ½ç‰ˆæœ¬æ ‡è¯†ä¸ä¸º0ï¼Œæ­¤æ—¶æ“ä½œä¸ä¸€æ ·
+				br_wil.skipBytes(4); // å¿½ç•¥è°ƒè‰²æ¿
 				verFlag = br_wil.readIntLE();
 			}
     		if(!wilOnlyMode) {
 	    		BinaryReader br_wix = new BinaryReader(f_wix, "r");
-				br_wix.skipBytes(44); // Ìø¹ı±êÌâ
-				int indexCount = br_wix.readIntLE(); // Ë÷ÒıÊıÁ¿(Ò²ÊÇÍ¼Æ¬ÊıÁ¿)
+				br_wix.skipBytes(44); // è·³è¿‡æ ‡é¢˜
+				int indexCount = br_wix.readIntLE(); // ç´¢å¼•æ•°é‡(ä¹Ÿæ˜¯å›¾ç‰‡æ•°é‡)
 				if(verFlag != 0)
-					br_wix.skipBytes(4); // °æ±¾±êÊ¶²»Îª0ĞèÒªÌø¹ı4×Ö½Ú
+					br_wix.skipBytes(4); // ç‰ˆæœ¬æ ‡è¯†ä¸ä¸º0éœ€è¦è·³è¿‡4å­—èŠ‚
 				for (int i = 0; i < indexCount; ++i)
 	            {
-	                // ¶ÁÈ¡Êı¾İÆ«ÒÆÁ¿
+	                // è¯»å–æ•°æ®åç§»é‡
 					offsetList[i] = br_wix.readIntLE();
 	            }
 				br_wix.close();
@@ -101,13 +101,13 @@ final class WIL implements ImageLibrary {
 					offsetList[i] = lastOffset;
 	    			if(colorCount == 8) {
     					if(lastOffset + 9 > br_wil.length()) {
-    						// Êı¾İ³ö´í£¬Ö±½Ó¸³ÖµÎª¿ÕÍ¼Æ¬
+    						// æ•°æ®å‡ºé”™ï¼Œç›´æ¥èµ‹å€¼ä¸ºç©ºå›¾ç‰‡
     						imageInfos[i] = ImageInfo.EMPTY;
     	            		continue;
     					}
 	    			} else {
     					if(lastOffset + 12 > br_wil.length()) {
-    						// Êı¾İ³ö´í£¬Ö±½Ó¸³ÖµÎª¿ÕÍ¼Æ¬
+    						// æ•°æ®å‡ºé”™ï¼Œç›´æ¥èµ‹å€¼ä¸ºç©ºå›¾ç‰‡
     						imageInfos[i] = ImageInfo.EMPTY;
     	            		continue;
     					}
@@ -117,7 +117,7 @@ final class WIL implements ImageLibrary {
 					short h = (short)br_wil.readUnsignedShortLE();
 	                lastOffset += 8;
 					if(w == 1 && h == 1) {
-						// WIL¿ÉÄÜÓĞ¿ÕÍ¼Æ¬£¬´ËÊ±Í¼Æ¬´óĞ¡Îª1x1
+						// WILå¯èƒ½æœ‰ç©ºå›¾ç‰‡ï¼Œæ­¤æ—¶å›¾ç‰‡å¤§å°ä¸º1x1
 						lastOffset += 4;
 						imageInfos[i] = ImageInfo.EMPTY;
 	            		continue;
@@ -138,17 +138,17 @@ final class WIL implements ImageLibrary {
 			for (int i = 0; i < imageCount; ++i) {
 				int offset = offsetList[i];
 				if(offset + 9 > br_wil.length()) {
-					// Êı¾İ³ö´í£¬Ö±½Ó¸³ÖµÎª¿ÕÍ¼Æ¬
+					// æ•°æ®å‡ºé”™ï¼Œç›´æ¥èµ‹å€¼ä¸ºç©ºå›¾ç‰‡
 					imageInfos[i] = ImageInfo.EMPTY;
             		continue;
 				}
 				int length = offsetList[i + 1] - offset - 8;
 				if(length < 2) {
-					// WILÖĞÉ«²ÊÊı¾İÎª1¸ö×Ö½ÚµÄÊÇ¿ÕÍ¼Æ¬£¬´ËÊ±Í¼Æ¬´óĞ¡Îª1x1
+					// WILä¸­è‰²å½©æ•°æ®ä¸º1ä¸ªå­—èŠ‚çš„æ˜¯ç©ºå›¾ç‰‡ï¼Œæ­¤æ—¶å›¾ç‰‡å¤§å°ä¸º1x1
 					imageInfos[i] = ImageInfo.EMPTY;
             		continue;
 				}
-                // ¶ÁÈ¡Í¼Æ¬ĞÅÏ¢
+                // è¯»å–å›¾ç‰‡ä¿¡æ¯
                 ImageInfo ii = new ImageInfo();
                 ii.setColorBit((byte) colorCount);
                 br_wil.seek(offset);
@@ -166,7 +166,7 @@ final class WIL implements ImageLibrary {
     }
 
     /**
-     * ¹Ø±ÕWIL¶ÔÏó£¬ÊÍ·ÅÆäÒıÓÃµÄÎÄ¼şÁ÷ÒÔ¼°ÄÚ´æÕ¼ÓÃ
+     * å…³é—­WILå¯¹è±¡ï¼Œé‡Šæ”¾å…¶å¼•ç”¨çš„æ–‡ä»¶æµä»¥åŠå†…å­˜å ç”¨
      */
 	public final void close() throws IOException {
 		synchronized (wil_locker) {
@@ -194,7 +194,7 @@ final class WIL implements ImageLibrary {
                 pixels = new byte[pixelLength - 8];
 				br_wil.readFully(pixels);
 				if(pixels.length == 1) {
-					// ¿Õ°×Í¼Æ¬
+					// ç©ºç™½å›¾ç‰‡
 					byte[] sRGB = new byte[3];
 					byte[] pallete = SDK.palletes[pixels[0] & 0xff];
 					sRGB[0] = pallete[1];
@@ -210,7 +210,7 @@ final class WIL implements ImageLibrary {
                 for (int h = ii.getHeight() - 1; h >= 0; --h)
                     for (int w = 0; w < ii.getWidth(); ++w)
                     {
-                        // Ìø¹ıÌî³ä×Ö½Ú
+                        // è·³è¿‡å¡«å……å­—èŠ‚
                         if (w == 0)
                             p_index += SDK.skipBytes(8, ii.getWidth());
                         byte[] pallete = SDK.palletes[pixels[p_index++] & 0xff];
@@ -228,13 +228,13 @@ final class WIL implements ImageLibrary {
                 for (int h = ii.getHeight() - 1; h >= 0; --h)
                     for (int w = 0; w < ii.getWidth(); ++w, p_index += 2)
                     {
-                        // Ìø¹ıÌî³ä×Ö½Ú
+                        // è·³è¿‡å¡«å……å­—èŠ‚
                         if (w == 0)
                             p_index += SDK.skipBytes(16, ii.getWidth());
                         short pdata = bb.getShort(p_index);
-                        byte r = (byte) ((pdata & 0xf800) >> 8);// ÓÉÓÚÊÇÓë16Î»×öÓë²Ù×÷£¬ËùÒÔ¶à³öÁËºóÃæ8Î»
-                        byte g = (byte) ((pdata & 0x7e0) >> 3);// ¶à³öÁË3Î»£¬ÔÚÇ¿×ªÊ±Ç°8Î»»á×Ô¶¯¶ªÊ§
-                        byte b = (byte) ((pdata & 0x1f) << 3);// ÉÙÁË3Î»
+                        byte r = (byte) ((pdata & 0xf800) >> 8);// ç”±äºæ˜¯ä¸16ä½åšä¸æ“ä½œï¼Œæ‰€ä»¥å¤šå‡ºäº†åé¢8ä½
+                        byte g = (byte) ((pdata & 0x7e0) >> 3);// å¤šå‡ºäº†3ä½ï¼Œåœ¨å¼ºè½¬æ—¶å‰8ä½ä¼šè‡ªåŠ¨ä¸¢å¤±
+                        byte b = (byte) ((pdata & 0x1f) << 3);// å°‘äº†3ä½
     					int _idx = (w + h * ii.getWidth()) * 3;
     					sRGB[_idx] = r;
     					sRGB[_idx + 1] = g;
