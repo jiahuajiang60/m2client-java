@@ -690,16 +690,20 @@ public final class Texture implements Cloneable {
 			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
+			float Rs,Sr,Rd,Dr=1,Gs,Sg,Gd,Dg=1,Bs,Sb,Bd,Db=1;
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
 					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
-					byte r = (byte) (tar.pixels[_idx_that] * alpha);
-					byte g = (byte) (tar.pixels[_idx_that + 1] * alpha);
-					byte b = (byte) (tar.pixels[_idx_that + 2] * alpha);
-					pixels[_idx_this] = (byte) ((r < 128) ? (2 * pixels[_idx_this] * r / 255) : (255 - 2 * (255 - pixels[_idx_this]) * (255 - r) / 255));
-					pixels[_idx_this + 1] = (byte) ((g < 128) ? (2 * pixels[_idx_this + 1] * g / 255) : (255 - 2 * (255 - pixels[_idx_this + 1]) * (255 - g) / 255));
-					pixels[_idx_this + 2] = (byte) ((b < 128) ? (2 * pixels[_idx_this + 2] * b / 255) : (255 - 2 * (255 - pixels[_idx_this + 2]) * (255 - b) / 255));
+					Rd = tar.pixels[_idx_that] * alpha / 255;
+					Gd = tar.pixels[_idx_that + 1] * alpha / 255;
+					Bd = tar.pixels[_idx_that + 2] * alpha / 255;
+					Sr = Rs = pixels[_idx_this] / 255f;
+					Sg = Gs = pixels[_idx_this + 1] / 255f;
+					Sb = Bs = pixels[_idx_this + 2] / 255f;
+					pixels[_idx_this] = (byte) ((Rs*Sr+Rd*Dr)*255);
+					pixels[_idx_this + 1] = (byte) ((Gs*Sg+Gd*Dg)*255);
+					pixels[_idx_this + 2] = (byte) ((Bs*Sb+Bd*Db)*255);
 				}
 			}
 		}
@@ -750,6 +754,7 @@ public final class Texture implements Cloneable {
 			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
+			float Rs,Sr,Rd,Dr=1,Gs,Sg,Gd,Dg=1,Bs,Sb,Bd,Db=1;
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
@@ -758,9 +763,15 @@ public final class Texture implements Cloneable {
 					byte _g = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					byte _b = (byte) (tar.pixels[_idx_that + 2] * alpha);
 					if(r != _r || _g != g || _b != b) {
-						pixels[_idx_this] = (byte) ((_r < 128) ? (2 * pixels[_idx_this] * _r / 255) : (255 - 2 * (255 - pixels[_idx_this]) * (255 - _r) / 255));
-						pixels[_idx_this + 1] = (byte) ((_g < 128) ? (2 * pixels[_idx_this + 1] * _g / 255) : (255 - 2 * (255 - pixels[_idx_this + 1]) * (255 - _g) / 255));
-						pixels[_idx_this + 2] = (byte) ((_b < 128) ? (2 * pixels[_idx_this + 2] * _b / 255) : (255 - 2 * (255 - pixels[_idx_this + 2]) * (255 - _b) / 255));
+						Rd = _r * alpha / 255;
+						Gd = _g * alpha / 255;
+						Bd = _b * alpha / 255;
+						Sr = Rs = pixels[_idx_this] / 255f;
+						Sg = Gs = pixels[_idx_this + 1] / 255f;
+						Sb = Bs = pixels[_idx_this + 2] / 255f;
+						pixels[_idx_this] = (byte) ((Rs*Sr+Rd*Dr)*255);
+						pixels[_idx_this + 1] = (byte) ((Gs*Sg+Gd*Dg)*255);
+						pixels[_idx_this + 2] = (byte) ((Bs*Sb+Bd*Db)*255);
 					}
 				}
 			}
