@@ -175,7 +175,7 @@ public final class Texture implements Cloneable {
 	 * @see #clip(int, int, int, int)
 	 */
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	public Object clone() {
 		if(empty())
 			return EMPTY;
 		synchronized (proc_locker) {
@@ -183,6 +183,19 @@ public final class Texture implements Cloneable {
 			System.arraycopy(pixels, 0, sRGB, 0, pixels.length);
 			return new Texture(sRGB, width, height);
 		}
+	}
+	
+	/**
+	 * 将当前纹理数据覆盖到目标纹理
+	 * <br>
+	 * 需要两者数据长度一致
+	 * 
+	 * @param that
+	 * 		要被覆盖的纹理
+	 */
+	public void copyTo(Texture that) {
+		if(this.pixels.length != that.pixels.length) return;
+		System.arraycopy(pixels, 0, that.pixels, 0, pixels.length);
 	}
 	
 	/**
@@ -695,15 +708,18 @@ public final class Texture implements Cloneable {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
 					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
-					Rd = tar.pixels[_idx_that] * alpha / 255;
-					Gd = tar.pixels[_idx_that + 1] * alpha / 255;
-					Bd = tar.pixels[_idx_that + 2] * alpha / 255;
-					Sr = Rs = pixels[_idx_this] / 255f;
-					Sg = Gs = pixels[_idx_this + 1] / 255f;
-					Sb = Bs = pixels[_idx_this + 2] / 255f;
-					pixels[_idx_this] = (byte) ((Rs*Sr+Rd*Dr)*255);
-					pixels[_idx_this + 1] = (byte) ((Gs*Sg+Gd*Dg)*255);
-					pixels[_idx_this + 2] = (byte) ((Bs*Sb+Bd*Db)*255);
+					Rd = tar.pixels[_idx_that] * alpha;
+					Gd = tar.pixels[_idx_that + 1] * alpha;
+					Bd = tar.pixels[_idx_that + 2] * alpha;
+					Rs = pixels[_idx_this];
+					Sr = Rs / 255;
+					Gs = pixels[_idx_this + 1];
+					Sg = Gs / 255;
+					Bs = pixels[_idx_this + 2];
+					Sb = Bs / 255;
+					pixels[_idx_this] = (byte) Math.min(255, Rs*Sr+Rd*Dr);
+					pixels[_idx_this + 1] = (byte) Math.min(255, Gs*Sg+Gd*Dg);
+					pixels[_idx_this + 2] = (byte) Math.min(255, Bs*Sb+Bd*Db);
 				}
 			}
 		}
@@ -763,15 +779,18 @@ public final class Texture implements Cloneable {
 					byte _g = (byte) (tar.pixels[_idx_that + 1] * alpha);
 					byte _b = (byte) (tar.pixels[_idx_that + 2] * alpha);
 					if(r != _r || _g != g || _b != b) {
-						Rd = _r * alpha / 255;
-						Gd = _g * alpha / 255;
-						Bd = _b * alpha / 255;
-						Sr = Rs = pixels[_idx_this] / 255f;
-						Sg = Gs = pixels[_idx_this + 1] / 255f;
-						Sb = Bs = pixels[_idx_this + 2] / 255f;
-						pixels[_idx_this] = (byte) ((Rs*Sr+Rd*Dr)*255);
-						pixels[_idx_this + 1] = (byte) ((Gs*Sg+Gd*Dg)*255);
-						pixels[_idx_this + 2] = (byte) ((Bs*Sb+Bd*Db)*255);
+						Rd = _r * alpha;
+						Gd = _g * alpha;
+						Bd = _b * alpha;
+						Rs = pixels[_idx_this];
+						Sr = Rs / 255;
+						Gs = pixels[_idx_this + 1];
+						Sg = Gs / 255;
+						Bs = pixels[_idx_this + 2];
+						Sb = Bs / 255;
+						pixels[_idx_this] = (byte) Math.min(255, Rs*Sr+Rd*Dr);
+						pixels[_idx_this + 1] = (byte) Math.min(255, Gs*Sg+Gd*Dg);
+						pixels[_idx_this + 2] = (byte) Math.min(255, Bs*Sb+Bd*Db);
 					}
 				}
 			}

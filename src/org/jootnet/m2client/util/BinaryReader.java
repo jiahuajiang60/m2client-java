@@ -17,6 +17,10 @@ public final class BinaryReader extends RandomAccessFile {
 
 	public BinaryReader(File file, String mode) throws FileNotFoundException {
 		super(file, mode);
+		try {
+			preRead();
+		} catch (IOException e) {
+		}
 	}
 	
 	/**
@@ -120,4 +124,35 @@ public final class BinaryReader extends RandomAccessFile {
 	public final double readDoubleLE() throws IOException {
         return Double.longBitsToDouble(readLongLE());
     }
+	
+	
+	private byte[] preReadBuffer = new byte[1024 * 4]; // 预读4k
+	private int posInBuffer = 0; // 当前读取的指针数据在预读缓冲区的索引
+	private int bufferContentLen = 0; // 缓冲区有效数据长度
+	private long realFp = 0; // 真实的文件指针
+	@Override
+	public int read() throws IOException {
+		if(posInBuffer >= bufferContentLen) { // 预读的读完了，再次预读
+			preRead();
+		}
+		realFp++;
+		return preReadBuffer[posInBuffer++] & 0xff;
+	}
+	
+	@Override
+	public int skipBytes(int n) throws IOException {
+		int len = super.skipBytes(n);
+		posInBuffer += len;
+		realFp += len;
+		return len;
+	}
+	
+	private void preRead() throws IOException {
+		realFp = getFilePointer();
+		bufferContentLen = read(preReadBuffer);
+		seek(realFp);
+		if(bufferContentLen == -1)
+			throw new IOException("end of file");
+		posInBuffer = 0;
+	}
 }

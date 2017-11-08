@@ -121,6 +121,7 @@ public abstract class Map implements Drawable {
 	}
 	
 	private Texture mapTex = null;
+	private Texture mapBaseTex = null;
 	private List<Integer> tileIdx = new ArrayList<Integer>();
 	private List<Integer> smTileIdx = new ArrayList<Integer>();
 	private List<Integer> obj0Idx = new ArrayList<Integer>();
@@ -140,6 +141,10 @@ public abstract class Map implements Drawable {
 	private List<Integer> obj15Idx = new ArrayList<Integer>();
 	@Override
 	public boolean adjust(GraphicsContext ctx) {
+		if(mapBaseTex == null || mapBaseTex.getWidth() != ctx.getWidth() || mapBaseTex.getHeight() != ctx.getHeight()) {
+			mapBaseTex = new Texture(new byte[ctx.getWidth() * ctx.getHeight() * 3], (short)ctx.getWidth(), (short)ctx.getHeight());
+		}
+		boolean baseCompleted = tileIdx.isEmpty() && smTileIdx.isEmpty(); // 地图前两层不需每次重绘，使用缓冲
 		if(moved) {
 			// 计算绘制区域左上角坐标
 			// 绘制区域左上角x
@@ -192,9 +197,8 @@ public abstract class Map implements Drawable {
 			if ((gh / PIXEL_HEIGHT_PER_TILE - 1) % 2 != 0)
 				the -= 1;
 			moved = false;
+			baseCompleted = false;
 		}
-		if(mapTex == null || mapTex.getWidth() != ctx.getWidth() || mapTex.getHeight() != ctx.getHeight())
-			mapTex = new Texture(new byte[ctx.getWidth() * ctx.getHeight() * 3], (short)ctx.getWidth(), (short)ctx.getHeight());
 		
 		// 绘制，并加入缓存
 		tileIdx.clear();
@@ -218,31 +222,38 @@ public abstract class Map implements Drawable {
 		int left = tws - EXTEND_LEFT;
 		if(left < 0)
 			left = 0;
-		for(int w = left; w < twe; ++w) {
-			for (int h = ths; h < the; ++h) {
-				MapTileInfo mti = info.getTiles()[w][h];
-				// 绘制左上角x
-				int cpx = (int) (px + (w - tws) * PIXEL_WIDTH_PER_TILE);
-				// 绘制左上角y
-				int cpy = (int) (py + (h - ths) * PIXEL_HEIGHT_PER_TILE);
-				if (mti.isHasBng()) {
-					Texture tex = Textures.getTextureFromCache("Tiles", mti.getBngImgIdx());
-					if(tex == null) {
-						tileIdx.add((int) mti.getBngImgIdx());
-					} else {
-						mapTex.blendNormal(tex, new Point(cpx, cpy), 1);
+		if(!baseCompleted) {
+			for(int w = left; w < twe; ++w) {
+				for (int h = ths; h < the; ++h) {
+					MapTileInfo mti = info.getTiles()[w][h];
+					// 绘制左上角x
+					int cpx = (int) (px + (w - tws) * PIXEL_WIDTH_PER_TILE);
+					// 绘制左上角y
+					int cpy = (int) (py + (h - ths) * PIXEL_HEIGHT_PER_TILE);
+					if (mti.isHasBng()) {
+						Texture tex = Textures.getTextureFromCache("Tiles", mti.getBngImgIdx());
+						if(tex == null) {
+							tileIdx.add((int) mti.getBngImgIdx());
+						} else {
+							mapBaseTex.blendNormal(tex, new Point(cpx, cpy), 1);
+						}
 					}
-				}
-				if (mti.isHasMid()) {
-					Texture tex = Textures.getTextureFromCache("SmTiles", mti.getBngImgIdx());
-					if(tex == null) {
-						smTileIdx.add((int) mti.getBngImgIdx());
-					} else {
-						mapTex.blendNormal(tex, new Point(cpx, cpy), 1);
+					if (mti.isHasMid()) {
+						Texture tex = Textures.getTextureFromCache("SmTiles", mti.getBngImgIdx());
+						if(tex == null) {
+							smTileIdx.add((int) mti.getBngImgIdx());
+						} else {
+							mapBaseTex.blendNormal(tex, new Point(cpx, cpy), 1);
+						}
 					}
 				}
 			}
 		}
+		
+		if(mapTex == null)
+			mapTex = (Texture) mapBaseTex.clone();
+		else
+			mapBaseTex.copyTo(mapTex);
 		// 绘制完地砖后再绘制对象层
 		// TODO 将动态地图绘制提出到最上层精灵
 		for(int w = left; w < twe; ++w) {
@@ -367,8 +378,7 @@ public abstract class Map implements Drawable {
 							break;
 						}
 					} else {
-						//mapTex.blendAdd(t, new Point(cpx, cpy - t.getHeight()), 1);
-						mapTex.blendAddTransparent(t, new Point(cpx, cpy - t.getHeight()), 1, (byte)0, (byte)0, (byte)0);
+						mapTex.blendNormalTransparent(t, new Point(cpx, cpy - t.getHeight()), 1, (byte)0, (byte)0, (byte)0);
 					}
 				}
 			}
@@ -392,23 +402,6 @@ public abstract class Map implements Drawable {
 		Textures.loadTextureAsync("Objects15", obj15Idx);
 		
 		return true;
-		/*return tileIdx.isEmpty() &&
-				smTileIdx.isEmpty() &&
-				obj0Idx.isEmpty() &&
-				obj2Idx.isEmpty() &&
-				obj3Idx.isEmpty() &&
-				obj4Idx.isEmpty() &&
-				obj5Idx.isEmpty() &&
-				obj6Idx.isEmpty() &&
-				obj7Idx.isEmpty() &&
-				obj8Idx.isEmpty() &&
-				obj9Idx.isEmpty() &&
-				obj10Idx.isEmpty() &&
-				obj11Idx.isEmpty() &&
-				obj12Idx.isEmpty() &&
-				obj13Idx.isEmpty() &&
-				obj14Idx.isEmpty() &&
-				obj15Idx.isEmpty();*/
 	}
 
 	@Override

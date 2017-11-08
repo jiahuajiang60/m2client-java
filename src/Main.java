@@ -20,8 +20,11 @@ public class Main {
 		frame.setTitle("测试地图渲染");
 		frame.setSize(1366, 768);
 		frame.setLocationRelativeTo(null);
+		long startT = System.currentTimeMillis();
 		Map map = Maps.get("0");
-		map.move(330, 330);
+		long endT = System.currentTimeMillis();
+		System.out.println("map load use " + (endT - startT) + " ms");
+		map.move(333, 330);
 		JPanel gamePanel = new GamePanel(map);
 		gamePanel.setSize(1280, 720);
 		gamePanel.setLocation(0, 0);
