@@ -15,8 +15,8 @@ import java.io.RandomAccessFile;
  */
 public final class BinaryReader extends RandomAccessFile {
 
-	public BinaryReader(File file, String mode) throws FileNotFoundException {
-		super(file, mode);
+	public BinaryReader(File file) throws FileNotFoundException {
+		super(file, "r");
 		try {
 			preRead();
 		} catch (IOException e) {
@@ -129,28 +129,44 @@ public final class BinaryReader extends RandomAccessFile {
 	private byte[] preReadBuffer = new byte[1024 * 4]; // 预读4k
 	private int posInBuffer = 0; // 当前读取的指针数据在预读缓冲区的索引
 	private int bufferContentLen = 0; // 缓冲区有效数据长度
-	private long realFp = 0; // 真实的文件指针
 	@Override
 	public int read() throws IOException {
 		if(posInBuffer >= bufferContentLen) { // 预读的读完了，再次预读
 			preRead();
 		}
-		realFp++;
 		return preReadBuffer[posInBuffer++] & 0xff;
 	}
 	
 	@Override
 	public int skipBytes(int n) throws IOException {
-		int len = super.skipBytes(n);
-		posInBuffer += len;
-		realFp += len;
-		return len;
+		long pos;
+        long len;
+        long newpos;
+
+        if (n <= 0) {
+            return 0;
+        }
+        pos = getFilePointer() + posInBuffer;
+        len = length();
+        newpos = pos + n;
+        if (newpos > len) {
+            newpos = len;
+        }
+
+		posInBuffer += (int) (newpos - pos);
+		return (int) (newpos - pos);
+	}
+	
+	@Override
+	public void seek(long pos) throws IOException {
+		super.seek(pos);
+		posInBuffer = preReadBuffer.length; // seek后需重新预读
 	}
 	
 	private void preRead() throws IOException {
-		realFp = getFilePointer();
+		super.seek(getFilePointer() + posInBuffer);
 		bufferContentLen = read(preReadBuffer);
-		seek(realFp);
+		super.seek(getFilePointer() - bufferContentLen);
 		if(bufferContentLen == -1)
 			throw new IOException("end of file");
 		posInBuffer = 0;

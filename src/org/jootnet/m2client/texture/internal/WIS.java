@@ -59,7 +59,7 @@ final class WIS implements ImageLibrary {
 		if(!f_wis.isFile()) return;
 		if(!f_wis.canRead()) return;
     	try {
-    		br_wis = new BinaryReader(f_wis, "r");
+    		br_wis = new BinaryReader(f_wis);
     		// 从文件末尾开始读取图片数据描述信息
     		// 一组描述信息包括12个字节(3个int值)，依次为图片数据起始位置(相对于文件)、图片数据大小(包括基本信息)、保留
     		// 使用两个List保存offsetList和lengthList

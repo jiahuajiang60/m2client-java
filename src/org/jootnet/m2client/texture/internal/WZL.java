@@ -66,7 +66,7 @@ final class WZL implements ImageLibrary {
 		if(!f_wzl.isFile()) return;
 		if(!f_wzl.canRead()) return;
     	try {
-    		BinaryReader br_wzx = new BinaryReader(f_wzx, "r");
+    		BinaryReader br_wzx = new BinaryReader(f_wzx);
     		br_wzx.skipBytes(44); // 跳过标题
     		imageCount = br_wzx.readIntLE();
 			offsetList = new int[imageCount];
@@ -76,7 +76,7 @@ final class WZL implements ImageLibrary {
 				offsetList[i] = br_wzx.readIntLE();
 			}
 			br_wzx.close();
-			br_wzl = new BinaryReader(f_wzl, "r");
+			br_wzl = new BinaryReader(f_wzl);
 			imageInfos = new ImageInfo[imageCount];
             lengthList = new int[imageCount];
             for (int i = 0; i < imageCount; ++i) {

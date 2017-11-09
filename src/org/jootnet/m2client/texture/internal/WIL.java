@@ -71,7 +71,7 @@ final class WIL implements ImageLibrary {
     		}
     		if(!wilOnlyMode && !f_wix.isFile()) return;
     		if(!wilOnlyMode && !f_wix.canRead()) return;
-			br_wil = new BinaryReader(f_wil, "r");
+			br_wil = new BinaryReader(f_wil);
 			br_wil.skipBytes(44); // 跳过标题
 			imageCount = br_wil.readIntLE(); // 图片数量
 			offsetList = new int[imageCount + 1];
@@ -83,7 +83,7 @@ final class WIL implements ImageLibrary {
 				verFlag = br_wil.readIntLE();
 			}
     		if(!wilOnlyMode) {
-	    		BinaryReader br_wix = new BinaryReader(f_wix, "r");
+	    		BinaryReader br_wix = new BinaryReader(f_wix);
 				br_wix.skipBytes(44); // 跳过标题
 				int indexCount = br_wix.readIntLE(); // 索引数量(也是图片数量)
 				if(verFlag != 0)

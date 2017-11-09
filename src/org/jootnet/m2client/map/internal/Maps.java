@@ -55,7 +55,7 @@ public final class Maps {
 				if(!mapPath.endsWith(File.separator))
 					mapPath += File.separator;
 				mapPath += mapNo + ".map";
-				BinaryReader br_map = new BinaryReader(new File(mapPath), "r");
+				BinaryReader br_map = new BinaryReader(new File(mapPath));
 				MapInfo mapInfo = new MapInfo();
 				mapInfo.setWidth(br_map.readShortLE());
 				mapInfo.setHeight(br_map.readShortLE());
@@ -75,6 +75,7 @@ public final class Maps {
 						// 设置背景
 						if((bng & 0x7fff) > 0) {
 							mi.setBngImgIdx((short) ((bng & 0x7fff) - 1));
+							System.out.println(mi.getBngImgIdx());
 							mi.setHasBng(true);
 						}
 						// 设置中间层
