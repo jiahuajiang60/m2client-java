@@ -75,7 +75,6 @@ public final class Maps {
 						// 设置背景
 						if((bng & 0x7fff) > 0) {
 							mi.setBngImgIdx((short) ((bng & 0x7fff) - 1));
-							System.out.println(mi.getBngImgIdx());
 							mi.setHasBng(true);
 						}
 						// 设置中间层

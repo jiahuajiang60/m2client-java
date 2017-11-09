@@ -160,15 +160,17 @@ public final class BinaryReader extends RandomAccessFile {
 	@Override
 	public void seek(long pos) throws IOException {
 		super.seek(pos);
-		posInBuffer = preReadBuffer.length; // seek后需重新预读
+		// seek后需重新预读
+		bufferContentLen = 0;
+		posInBuffer = 0;
 	}
 	
 	private void preRead() throws IOException {
 		super.seek(getFilePointer() + posInBuffer);
 		bufferContentLen = read(preReadBuffer);
-		super.seek(getFilePointer() - bufferContentLen);
 		if(bufferContentLen == -1)
 			throw new IOException("end of file");
+		super.seek(getFilePointer() - bufferContentLen);
 		posInBuffer = 0;
 	}
 }
