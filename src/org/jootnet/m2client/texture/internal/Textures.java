@@ -1,6 +1,7 @@
 package org.jootnet.m2client.texture.internal;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -141,43 +142,9 @@ public final class Textures {
 	 * @see #isTextureInLoad(String, int)
 	 * @see #isTextureInCache(String, int)
 	 */
-	public static void loadTextureAsync(String dataFileName, int[] index) {
-		if(index == null || index.length < 1) return;
-		synchronized (tex_locker) {
-			TextureLoader loader = null;
-			boolean containFlag = false;
-			for(TextureLoader l : texLoaders) {
-				if(l.getDataFileName().equals(dataFileName)) {
-					containFlag = true;
-					loader = l;
-					break;
-				}
-			}
-			if(!containFlag) {
-				loader = new TextureLoader(dataFileName);
-				texLoaders.add(loader);
-			}
-			for(int idx : index) {
-				loader.load(idx);
-			}
-			if(updateThread == null)
-				(updateThread = new UpdateThread()).start();
-		}
-	}
-	/**
-	 * 异步读取多张张纹理到缓存
-	 * <br>
-	 * 需要获取这张纹理的话请使用{@link #getTextureFromCache(String, int) getTextureFromCache}函数
-	 * 
-	 * @param dataFileName
-	 * 		纹理所在图片库名称
-	 * @param index数组
-	 * 		纹理索引
-	 * @see #isTextureInLoad(String, int)
-	 * @see #isTextureInCache(String, int)
-	 */
 	public static void loadTextureAsync(String dataFileName, List<Integer> index) {
 		if(index == null || index.isEmpty()) return;
+		Collections.sort(index); // 加大预读命中率，顺序读
 		synchronized (tex_locker) {
 			TextureLoader loader = null;
 			boolean containFlag = false;

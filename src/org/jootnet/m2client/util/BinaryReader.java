@@ -139,28 +139,57 @@ public final class BinaryReader extends RandomAccessFile {
 	
 	@Override
 	public int skipBytes(int n) throws IOException {
-		long pos;
-        long len;
+		long currentPos;
+        long filelen;
         long newpos;
 
         if (n <= 0) {
             return 0;
         }
-        pos = getFilePointer() + posInBuffer;
-        len = length();
-        newpos = pos + n;
-        if (newpos > len) {
-            newpos = len;
+        currentPos = getFilePointer();
+        filelen = length();
+        newpos = currentPos + n;
+        if (newpos > filelen) {
+            newpos = filelen;
         }
 
-		posInBuffer += (int) (newpos - pos);
-		return (int) (newpos - pos);
+        int len = (int) (newpos - currentPos);
+        int bufferReserv = bufferContentLen - posInBuffer; // 这里也有1~2个字节的误差，不过也懒得深究了
+		if(bufferReserv > len) {
+			// 目标地址命中预读！
+			posInBuffer += len;
+			return len;
+		}
+		// 目标地址未命中，需重新预读
+		super.seek(newpos);
+		bufferContentLen = 0;
+		posInBuffer = 0;
+		return len;
 	}
 	
 	@Override
 	public void seek(long pos) throws IOException {
+		long currentPos = getFilePointer();
+		int len = (int) (pos - currentPos);
+		if(len == 0) return;
+		// 厉害了我的哥！！！
+		if(len < 0) {
+			// 往前跳
+			len = -len;
+			if(len < posInBuffer) {
+				// 目标地址命中预读！
+				// 这里可能会有1~2个字节的误差，不过一般还好，也懒得去深究了
+				posInBuffer -= len;
+				return;
+			}
+		}
+		if(bufferContentLen > len) {
+			// 目标地址命中预读！
+			posInBuffer = len;
+			return;
+		}
+		// 目标地址未命中，需重新预读
 		super.seek(pos);
-		// seek后需重新预读
 		bufferContentLen = 0;
 		posInBuffer = 0;
 	}

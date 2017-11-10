@@ -192,7 +192,7 @@ final class WIL implements ImageLibrary {
 	    		br_wil.seek(offsetList[index] + 8);
 	    		int pixelLength = offsetList[index + 1] - offsetList[index];
                 pixels = new byte[pixelLength - 8];
-				br_wil.readFully(pixels);
+				br_wil.read(pixels);
 				if(pixels.length == 1) {
 					// 空白图片
 					byte[] sRGB = new byte[3];
