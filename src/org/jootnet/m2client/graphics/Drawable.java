@@ -36,7 +36,7 @@ public interface Drawable {
 	/**
 	 * 返回绘制内容
 	 * 
-	 * @return 要会知道父元素中的内容
+	 * @return 要绘制到父元素中的内容
 	 */
 	Texture content();
 }
