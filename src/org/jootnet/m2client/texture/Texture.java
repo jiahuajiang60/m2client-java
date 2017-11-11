@@ -577,13 +577,12 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x > width || y > height) return;
+			if(x > width || y > height || (x < 0 && -x >= tar.width) || (y < 0 && -y >= tar.height)) return;
 			// 允许部分在屏幕外
 			int left = x < 0 ? 0 : x;
 			int top = y < 0 ? 0 : y;
-			int tarleft = x < 0 ? (tar.width - -x) : 0;
-			int tartop = y < 0 ? (tar.height - -y) : 0;
-			if(tarleft < 0 || tartop < 0) return;
+			int tarleft = x < 0 ? -x : 0;
+			int tartop = y < 0 ? -y : 0;
 			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
@@ -634,13 +633,12 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x > width || y > height) return;
+			if(x > width || y > height || (x < 0 && -x >= tar.width) || (y < 0 && -y >= tar.height)) return;
 			// 允许部分在屏幕外
 			int left = x < 0 ? 0 : x;
 			int top = y < 0 ? 0 : y;
-			int tarleft = x < 0 ? (tar.width - -x) : 0;
-			int tartop = y < 0 ? (tar.height - -y) : 0;
-			if(tarleft < 0 || tartop < 0) return;
+			int tarleft = x < 0 ? -x : 0;
+			int tartop = y < 0 ? -y : 0;
 			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
@@ -690,13 +688,12 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x > width || y > height) return;
+			if(x > width || y > height || (x < 0 && -x >= tar.width) || (y < 0 && -y >= tar.height)) return;
 			// 允许部分在屏幕外
 			int left = x < 0 ? 0 : x;
 			int top = y < 0 ? 0 : y;
-			int tarleft = x < 0 ? (tar.width - -x) : 0;
-			int tartop = y < 0 ? (tar.height - -y) : 0;
-			if(tarleft < 0 || tartop < 0) return;
+			int tarleft = x < 0 ? -x : 0;
+			int tartop = y < 0 ? -y : 0;
 			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
@@ -757,13 +754,12 @@ public final class Texture implements Cloneable {
 		synchronized (proc_locker) {
 			int x = loc.x;
 			int y = loc.y;
-			if(x > width || y > height) return;
+			if(x > width || y > height || (x < 0 && -x >= tar.width) || (y < 0 && -y >= tar.height)) return;
 			// 允许部分在屏幕外
 			int left = x < 0 ? 0 : x;
 			int top = y < 0 ? 0 : y;
-			int tarleft = x < 0 ? (tar.width - -x) : 0;
-			int tartop = y < 0 ? (tar.height - -y) : 0;
-			if(tarleft < 0 || tartop < 0) return;
+			int tarleft = x < 0 ? -x : 0;
+			int tartop = y < 0 ? -y : 0;
 			int rx = left + tar.width - tarleft;
 			if(rx >= width)
 				rx = width - 1;
