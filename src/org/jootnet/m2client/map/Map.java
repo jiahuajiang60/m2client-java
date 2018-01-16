@@ -321,8 +321,7 @@ public abstract class Map implements Drawable {
 							break;
 						}
 					} else {
-						//mapTex.blendAdd(t, new Point(cpx + t.getOffsetX(), cpy - t.getHeight() + t.getOffsetY()), 1);
-						mapTex.blendAddTransparent(t, new Point(cpx + t.getOffsetX(), cpy - t.getHeight() + t.getOffsetY()), 1, (byte)0, (byte)0, (byte)0);
+						mapTex.blendAdd(t, new Point(cpx + t.getOffsetX(), cpy - t.getHeight() + t.getOffsetY()));
 					}
 				} else if (mti.isHasObj()) {
 					String objFileName = "Objects";

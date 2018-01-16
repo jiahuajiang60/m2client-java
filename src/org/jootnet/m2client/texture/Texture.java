@@ -700,23 +700,73 @@ public final class Texture implements Cloneable {
 			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
-			float Rs,Sr,Rd,Dr=1,Gs,Sg,Gd,Dg=1,Bs,Sb,Bd,Db=1;
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
 					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
-					Rd = tar.pixels[_idx_that] * alpha;
-					Gd = tar.pixels[_idx_that + 1] * alpha;
-					Bd = tar.pixels[_idx_that + 2] * alpha;
-					Rs = pixels[_idx_this];
-					Sr = Rs / 255;
-					Gs = pixels[_idx_this + 1];
-					Sg = Gs / 255;
-					Bs = pixels[_idx_this + 2];
-					Sb = Bs / 255;
-					pixels[_idx_this] = (byte) Math.min(255, Rs*Sr+Rd*Dr);
-					pixels[_idx_this + 1] = (byte) Math.min(255, Gs*Sg+Gd*Dg);
-					pixels[_idx_this + 2] = (byte) Math.min(255, Bs*Sb+Bd*Db);
+					float Rd = (tar.pixels[_idx_that] & 0xff) * alpha;
+					float Gd = (tar.pixels[_idx_that + 1] & 0xff) * alpha;
+					float Bd = (tar.pixels[_idx_that + 2] & 0xff) * alpha;
+					int Rs = pixels[_idx_this] & 0xff;
+					int Gs = pixels[_idx_this + 1] & 0xff;
+					int Bs = pixels[_idx_this + 2] & 0xff;
+					pixels[_idx_this] = (byte) Math.min(255, Rd*Rd/255+Rs);
+					pixels[_idx_this + 1] = (byte) Math.min(255, Gd*Gd/255+Gs);
+					pixels[_idx_this + 2] = (byte) Math.min(255, Bd*Bd/255+Bs);
+				}
+			}
+		}
+		dirty = true;
+	}
+	
+	/**
+	 * 将一副目标图像混合到当前图像上<br>
+	 * 使用Overlay的图像叠加方式<br>
+	 * 即显卡的Add混合模式，在OpenGL里是glBlendFunc(GL_SRC_COLOR, GL_ONE)<br>
+	 * 如果需要使用普通方式，则使用{@link #blendNormal(Texture, Point, float)}方式<br>
+	 * 如需支持透明色，则使用{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}
+	 * 此操作不改变目标图像数据，即使传递了alpha参数
+	 * 
+	 * @param tar
+	 * 		目标图像
+	 * @param loc
+	 * 		图像叠加起始坐标
+	 * 
+	 * @see #blendNormal(Texture, Point, float)
+	 * @see #blendNormalTransparent(Texture, Point, float, byte, byte, byte)
+	 * @see #blendAddTransparent(Texture, Point, byte, byte, byte)
+	 */
+	public final void blendAdd(Texture tar, Point loc) {
+		if(empty()) return;
+		if(tar.empty()) return;
+		synchronized (proc_locker) {
+			int x = loc.x;
+			int y = loc.y;
+			if(x > width || y > height || (x < 0 && -x >= tar.width) || (y < 0 && -y >= tar.height)) return;
+			// 允许部分在屏幕外
+			int left = x < 0 ? 0 : x;
+			int top = y < 0 ? 0 : y;
+			int tarleft = x < 0 ? -x : 0;
+			int tartop = y < 0 ? -y : 0;
+			int rx = left + tar.width - tarleft;
+			if(rx >= width)
+				rx = width - 1;
+			int by = top + tar.height - tartop;
+			if(by >= height)
+				by = height - 1;
+			for(int i = top; i < by; ++i) {
+				for(int j = left; j < rx; ++j) {
+					int _idx_this = (j + i * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
+					int Rd = tar.pixels[_idx_that] & 0xff;
+					int Gd = tar.pixels[_idx_that + 1] & 0xff;
+					int Bd = tar.pixels[_idx_that + 2] & 0xff;
+					int Rs = pixels[_idx_this] & 0xff;
+					int Gs = pixels[_idx_this + 1] & 0xff;
+					int Bs = pixels[_idx_this + 2] & 0xff;
+					pixels[_idx_this] = (byte) Math.min(255, Rd*Rd/255+Rs);
+					pixels[_idx_this + 1] = (byte) Math.min(255, Gd*Gd/255+Gs);
+					pixels[_idx_this + 2] = (byte) Math.min(255, Bd*Bd/255+Bs);
 				}
 			}
 		}
@@ -740,9 +790,9 @@ public final class Texture implements Cloneable {
 	 * @param r
 	 * 		透明色R分量
 	 * @param g
-	 * 		透明色分量
+	 * 		透明色G分量
 	 * @param b
-	 * 		透明色分量
+	 * 		透明色B分量
 	 * 
 	 * @see #blendNormal(Texture, Point, float)
 	 * @see #blendNormalTransparent(Texture, Point, float, byte, byte, byte)
@@ -766,31 +816,87 @@ public final class Texture implements Cloneable {
 			int by = top + tar.height - tartop;
 			if(by >= height)
 				by = height - 1;
-			float Rs,Sr,Rd,Dr=1,Gs,Sg,Gd,Dg=1,Bs,Sb,Bd,Db=1;
 			for(int i = top; i < by; ++i) {
 				for(int j = left; j < rx; ++j) {
 					int _idx_this = (j + i * width) * 3;
 					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
-					byte _r = (byte) (tar.pixels[_idx_that] * alpha);
-					byte _g = (byte) (tar.pixels[_idx_that + 1] * alpha);
-					byte _b = (byte) (tar.pixels[_idx_that + 2] * alpha);
-					if(r != _r || _g != g || _b != b) {
-						Rd = _r * alpha;
-						Gd = _g * alpha;
-						Bd = _b * alpha;
-						Rs = pixels[_idx_this];
-						Sr = Rs / 255;
-						Gs = pixels[_idx_this + 1];
-						Sg = Gs / 255;
-						Bs = pixels[_idx_this + 2];
-						Sb = Bs / 255;
-						pixels[_idx_this] = (byte) Math.min(255, Rs*Sr+Rd*Dr);
-						pixels[_idx_this + 1] = (byte) Math.min(255, Gs*Sg+Gd*Dg);
-						pixels[_idx_this + 2] = (byte) Math.min(255, Bs*Sb+Bd*Db);
-					}
+					if(tar.pixels[_idx_that] == r && tar.pixels[_idx_that + 1] == g && tar.pixels[_idx_that + 2] == b) continue;
+					float Rd = (tar.pixels[_idx_that] & 0xff) * alpha;
+					float Gd = (tar.pixels[_idx_that + 1] & 0xff) * alpha;
+					float Bd = (tar.pixels[_idx_that + 2] & 0xff) * alpha;
+					int Rs = pixels[_idx_this] & 0xff;
+					int Gs = pixels[_idx_this + 1] & 0xff;
+					int Bs = pixels[_idx_this + 2] & 0xff;
+					pixels[_idx_this] = (byte) Math.min(255, Rd*Rd/255+Rs);
+					pixels[_idx_this + 1] = (byte) Math.min(255, Gd*Gd/255+Gs);
+					pixels[_idx_this + 2] = (byte) Math.min(255, Bd*Bd/255+Bs);
 				}
 			}
 		}
 		dirty = true;
+	}
+	
+	/**
+	 * 将一副目标图像混合到当前图像上<br>
+	 * 使用Overlay的图像叠加方式<br>
+	 * 即显卡的Add混合模式，在OpenGL里是glBlendFunc(GL_SRC_COLOR, GL_ONE)<br>
+	 * 如果需要使用普通方式，则使用{@link #blendNormalTransparent(Texture, Point, float, byte, byte, byte)}方式<br>
+	 * 支持透明色，即如果目标坐标目标图片的颜色是给定值则忽略
+	 * 
+	 * @param tar
+	 * 		目标图像
+	 * @param loc
+	 * 		图像叠加起始坐标
+	 * @param r
+	 * 		透明色R分量
+	 * @param g
+	 * 		透明色G分量
+	 * @param b
+	 * 		透明色B分量
+	 * 
+	 * @see #blendNormal(Texture, Point, float)
+	 * @see #blendNormalTransparent(Texture, Point, float, byte, byte, byte)
+	 * @see #blendAdd(Texture, Point)
+	 */
+	public final void blendAddTransparent(Texture tar, Point loc, byte r, byte g, byte b) {
+		if(empty()) return;
+		if(tar.empty()) return;
+		synchronized (proc_locker) {
+			int x = loc.x;
+			int y = loc.y;
+			if(x > width || y > height || (x < 0 && -x >= tar.width) || (y < 0 && -y >= tar.height)) return;
+			// 允许部分在屏幕外
+			int left = x < 0 ? 0 : x;
+			int top = y < 0 ? 0 : y;
+			int tarleft = x < 0 ? -x : 0;
+			int tartop = y < 0 ? -y : 0;
+			int rx = left + tar.width - tarleft;
+			if(rx >= width)
+				rx = width - 1;
+			int by = top + tar.height - tartop;
+			if(by >= height)
+				by = height - 1;
+			for(int i = top; i < by; ++i) {
+				for(int j = left; j < rx; ++j) {
+					int _idx_this = (j + i * width) * 3;
+					int _idx_that = (j - left + tarleft + (i - top + tartop) * tar.width) * 3;
+					if(tar.pixels[_idx_that] == r && tar.pixels[_idx_that + 1] == g && tar.pixels[_idx_that + 2] == b) continue;
+					int Rd = tar.pixels[_idx_that] & 0xff;
+					int Gd = tar.pixels[_idx_that + 1] & 0xff;
+					int Bd = tar.pixels[_idx_that + 2] & 0xff;
+					int Rs = pixels[_idx_this] & 0xff;
+					int Gs = pixels[_idx_this + 1] & 0xff;
+					int Bs = pixels[_idx_this + 2] & 0xff;
+					pixels[_idx_this] = (byte) Math.min(255, Rd*Rd/255+Rs);
+					pixels[_idx_this + 1] = (byte) Math.min(255, Gd*Gd/255+Gs);
+					pixels[_idx_this + 2] = (byte) Math.min(255, Bd*Bd/255+Bs);
+				}
+			}
+		}
+		dirty = true;
+	}
+	
+	public byte[] getRawData() {
+		return pixels;
 	}
 }
